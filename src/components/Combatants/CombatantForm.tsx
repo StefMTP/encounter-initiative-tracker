@@ -10,11 +10,13 @@ import {
   Button,
 } from "@mui/material";
 import {
+  colorTable,
   combatant,
   combatantAlignment,
   combatants,
   combatantType,
 } from "../../dummy/data";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 const CombatantForm = ({
   submitNewCombatant,
@@ -28,6 +30,7 @@ const CombatantForm = ({
   const [inputType, setInputType] = useState<combatantType>("PC");
   const [inputClass, setInputClass] = useState<string>("");
   const [inputHp, setInputHp] = useState<number>();
+  const [inputColor, setInputColor] = useState<string>("Magenta");
   return (
     <form
       onSubmit={(e) => {
@@ -39,6 +42,7 @@ const CombatantForm = ({
           alignment: inputAlignment,
           type: inputType,
           class: inputClass,
+          color: colorTable[inputColor],
           currentHp: inputHp,
           maxHp: inputHp,
         };
@@ -93,15 +97,15 @@ const CombatantForm = ({
             >
               <MenuItem value="PC">PC</MenuItem>
               <MenuItem value="NPC">NPC</MenuItem>
-              <MenuItem value="NPC">Enemy</MenuItem>
+              <MenuItem value="Enemy">Enemy</MenuItem>
             </Select>
           </FormControl>
         </Grid>
       </Grid>
-      <Grid container spacing={2} m={2}>
-        <Grid item xs={6}>
+      <Grid container spacing={1} m={1}>
+        <Grid item xs={4}>
           <TextField
-            type="number"
+            type="text"
             variant="standard"
             label="Class"
             color="secondary"
@@ -109,7 +113,7 @@ const CombatantForm = ({
             onChange={(e) => setInputClass(e.target.value)}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <TextField
             type="number"
             variant="standard"
@@ -118,6 +122,27 @@ const CombatantForm = ({
             value={inputHp}
             onChange={(e) => setInputHp(+e.target.value)}
           />
+        </Grid>
+        <Grid item xs={4}>
+          <FormControl sx={{ minWidth: "80px" }}>
+            <InputLabel>Color</InputLabel>
+            <Select
+              value={inputColor}
+              onChange={(e) => setInputColor(e.target.value)}
+            >
+              {Object.keys(colorTable).map((color) => (
+                <MenuItem value={color}>
+                  <Grid container alignContent="center">
+                  <span>{color}{" "}</span>
+                  <FiberManualRecordIcon
+                    sx={{ color: colorTable[color]["primary"] }}
+                    fontSize="small"
+                  />
+                  </Grid>
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
       </Grid>
       <Grid m={2} display="grid">

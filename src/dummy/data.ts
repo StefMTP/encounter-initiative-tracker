@@ -28,6 +28,10 @@ export type colors = {
 };
 
 export const colorTable: colors = {
+  Default: {
+    primary: "",
+    secondary: ""
+  },
   Magenta: {
     primary: "#C20BC2",
     secondary: "#da6cda",

@@ -8,7 +8,7 @@ import {
   TimelineContent,
 } from "@mui/lab";
 import { TextField, Typography } from "@mui/material";
-import { combatant, turn } from "../../dummy/data";
+import { colorTable, combatant, turn } from "../../dummy/data";
 import CombatantIcon from "../Combatants/CombatantIcon";
 
 const RoundTimelineItem = ({
@@ -32,7 +32,7 @@ const RoundTimelineItem = ({
     isText?: boolean
   ) => {
     return index === turnNumber
-      ? combatActor.color
+      ? combatActor.color && colorTable["Default"] !== combatActor.color
         ? !!isText
           ? combatActor.color.secondary
           : combatActor.color.primary
