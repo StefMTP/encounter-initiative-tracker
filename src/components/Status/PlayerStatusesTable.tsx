@@ -37,7 +37,7 @@ const PlayerStatusesTable = ({
   ) => void;
   playerStatusDurationEditHandler: (
     playerStatusId: string,
-    playerStatusDurationSubmit: number
+    playerStatusDurationSubmit: string
   ) => void;
 }) => {
   return (

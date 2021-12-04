@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import {
   TableRow,
   TableCell,
-  IconButton,
-  TextField,
   Button,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { combatant, playerStatus } from "../../types";
 import DeleteIcon from "@mui/icons-material/Delete";
+import PlayerStatusCell from "./PlayerStatusCell";
 
 const PlayerStatusRow = ({
   playerStatus,
@@ -31,7 +30,7 @@ const PlayerStatusRow = ({
   ) => void;
   playerStatusDurationEditHandler: (
     playerStatusId: string,
-    playerStatusDurationSubmit: number
+    playerStatusDurationSubmit: string
   ) => void;
 }) => {
   const [nameFill, setNameFill] = useState<boolean>(false);
@@ -39,97 +38,43 @@ const PlayerStatusRow = ({
   const [durationFill, setDurationFill] = useState<boolean>(false);
   const [nameInput, setNameInput] = useState<string>("");
   const [statusInput, setStatusInput] = useState<string>("");
-  const [durationInput, setDurationInput] = useState<number>(0);
+  const [durationInput, setDurationInput] = useState<string>("");
   return (
     <TableRow
       sx={{
         bgcolor: combatActor?.color?.primary,
       }}
     >
-      <TableCell>
-        {nameFill ? (
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              playerStatusNameEditHandler(playerStatus.id, nameInput);
-              setNameFill(false);
-            }}
-          >
-            <TextField
-              type="text"
-              variant="standard"
-              size="small"
-              onChange={(e) => {
-                setNameInput(e.target.value);
-              }}
-            />
-          </form>
-        ) : (
-          <>
-            {playerStatus.name}
-            <IconButton size="small" onClick={() => setNameFill(!nameFill)}>
-              <EditIcon />
-            </IconButton>
-          </>
-        )}
-      </TableCell>
-      <TableCell>
-        {statusFill ? (
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              playerStatusStatusEditHandler(playerStatus.id, statusInput);
-              setStatusFill(false);
-            }}
-          >
-            <TextField
-              type="text"
-              variant="standard"
-              size="small"
-              onChange={(e) => {
-                setStatusInput(e.target.value);
-              }}
-            />
-          </form>
-        ) : (
-          <>
-            {playerStatus.status}
-            <IconButton size="small" onClick={() => setStatusFill(!statusFill)}>
-              <EditIcon />
-            </IconButton>
-          </>
-        )}
-      </TableCell>
-      <TableCell align="right">
-        {durationFill ? (
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              playerStatusDurationEditHandler(playerStatus.id, durationInput);
-              setDurationFill(false);
-            }}
-          >
-            <TextField
-              type="number"
-              variant="standard"
-              size="small"
-              onChange={(e) => {
-                setDurationInput(+e.target.value);
-              }}
-            />
-          </form>
-        ) : (
-          <>
-            {playerStatus.duration}
-            <IconButton
-              size="small"
-              onClick={() => setDurationFill(!durationFill)}
-            >
-              <EditIcon />
-            </IconButton>
-          </>
-        )}
-      </TableCell>
+      <PlayerStatusCell
+        fieldFill={nameFill}
+        fieldInput={nameInput}
+        playerStatusId={playerStatus.id}
+        playerStatusField={playerStatus.name}
+        playerStatusFieldEditHandler={playerStatusNameEditHandler}
+        setFieldFillHandler={setNameFill}
+        setFieldInputHandler={setNameInput}
+        icon={<EditIcon />}
+      />
+      <PlayerStatusCell
+        fieldFill={statusFill}
+        fieldInput={statusInput}
+        playerStatusId={playerStatus.id}
+        playerStatusField={playerStatus.status}
+        playerStatusFieldEditHandler={playerStatusStatusEditHandler}
+        setFieldFillHandler={setStatusFill}
+        setFieldInputHandler={setStatusInput}
+        icon={<EditIcon />}
+      />
+      <PlayerStatusCell
+        fieldFill={durationFill}
+        fieldInput={durationInput}
+        playerStatusId={playerStatus.id}
+        playerStatusField={`${playerStatus.duration}`}
+        playerStatusFieldEditHandler={playerStatusDurationEditHandler}
+        setFieldFillHandler={setDurationFill}
+        setFieldInputHandler={setDurationInput}
+        icon={<EditIcon />}
+      />
       <TableCell align="center">
         <Button
           size="small"

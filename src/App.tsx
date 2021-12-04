@@ -85,13 +85,13 @@ const App = () => {
 
   const handlePlayerStatusDurationEdit = (
     playerStatusId: string,
-    playerStatusDurationSubmit: number
+    playerStatusDurationSubmit: string
   ) => {
     const playerStatusToEdit = playerStatuses.find(
       (playerStatus) => playerStatus.id === playerStatusId
     );
     if (playerStatusToEdit) {
-      playerStatusToEdit.duration = playerStatusDurationSubmit;
+      playerStatusToEdit.duration = +playerStatusDurationSubmit;
       const tmpPlayerStatuses = playerStatuses.filter(
         (playerStatus) => playerStatus.id !== playerStatusId
       );
@@ -236,7 +236,7 @@ const App = () => {
                 turn={turn}
               />
             </Grid>
-            <Grid item xs={6} display="grid" justifyContent="center">
+            <Grid item xs={6} display="grid" justifyContent="center" padding={4}>
               <Grid item>
               <Typography variant="h4" color="secondary" textAlign="center">
                 Insert characters into the battle:
