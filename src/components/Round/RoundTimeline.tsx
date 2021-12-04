@@ -8,7 +8,7 @@ const RoundTimeline = ({
   turn,
 }: {
   combatActors: combatant[];
-  combatActorsHpEditHandler: (combatActorId: number, hpInput: number) => void;
+  combatActorsHpEditHandler: (combatActorId: string, hpInput: number) => void;
   turn: turn;
 }) => {
   return (

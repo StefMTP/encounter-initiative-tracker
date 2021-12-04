@@ -16,6 +16,7 @@ import {
   combatantType,
 } from "../../dummy/data";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import {v4 as uuid} from 'uuid';
 
 const CombatantForm = ({
   combatActorSubmitHandler,
@@ -37,7 +38,7 @@ const CombatantForm = ({
       onSubmit={(e) => {
         e.preventDefault();
         const combatActorSubmit: combatant = {
-          id: combatantsNumber + 1,
+          id: uuid(),
           name: inputName,
           initiative: inputInitiative || 0,
           alignment: inputAlignment,

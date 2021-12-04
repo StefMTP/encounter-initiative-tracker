@@ -20,7 +20,7 @@ const RoundTimelineItem = ({
 }: {
   turn: turn;
   combatActor: combatant;
-  combatActorHpEditHandler: (combatActorId: number, hpInput: number) => void;
+  combatActorHpEditHandler: (combatActorId: string, hpInput: number) => void;
   index: number;
   array: combatant[];
 }) => {

@@ -11,6 +11,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import { combatant, playerStatus } from "../../dummy/data";
 import PlayerStatusRow from "./PlayerStatusRow";
+import {v4 as uuid} from "uuid";
 
 const PlayerStatusesTable = ({
   playerStatuses,
@@ -24,17 +25,17 @@ const PlayerStatusesTable = ({
   playerStatuses: playerStatus[];
   combatActors: combatant[];
   playerStatusSubmitHandler: (playerStatusSubmit: playerStatus) => void;
-  playerStatusRemoveHandler: (playerStatusRemoveId: number) => void;
+  playerStatusRemoveHandler: (playerStatusRemoveId: string) => void;
   playerStatusNameEditHandler: (
-    playerStatusId: number,
+    playerStatusId: string,
     playerStatusNameSubmit: string
   ) => void;
   playerStatusStatusEditHandler: (
-    playerStatusId: number,
+    playerStatusId: string,
     playerStatusStatusSubmit: string
   ) => void;
   playerStatusDurationEditHandler: (
-    playerStatusId: number,
+    playerStatusId: string,
     playerStatusDurationSubmit: number
   ) => void;
 }) => {
@@ -52,7 +53,7 @@ const PlayerStatusesTable = ({
                 endIcon={<AddIcon />}
                 onClick={() =>
                   playerStatusSubmitHandler({
-                    id: playerStatuses.length + 1,
+                    id: uuid(),
                     name: "",
                     status: "",
                     duration: 0,

@@ -2,7 +2,7 @@ export type combatantAlignment = "PARTY" | "FOE";
 export type combatantType = "PC" | "NPC" | "ENEMY";
 
 export type combatant = {
-  id: number;
+  id: string;
   name: string;
   currentHp?: number;
   maxHp?: number;
@@ -28,7 +28,7 @@ export type colors = {
 };
 
 export type playerStatus = {
-  id: number;
+  id: string;
   name: string;
   status: string;
   duration: number;
@@ -67,7 +67,7 @@ export const colorTable: colors = {
 
 export const dummyCombatants: combatant[] = [
   {
-    id: 1,
+    id: 'abc',
     name: "Talion",
     currentHp: 40,
     maxHp: 40,
@@ -78,7 +78,7 @@ export const dummyCombatants: combatant[] = [
     initiative: 15,
   },
   {
-    id: 2,
+    id: 'def',
     name: "Violetta",
     currentHp: 22,
     maxHp: 34,
@@ -89,7 +89,7 @@ export const dummyCombatants: combatant[] = [
     initiative: 12,
   },
   {
-    id: 3,
+    id: 'ghi',
     name: "Ludwic",
     class: "Barbarian",
     color: colorTable["Crimson"],
@@ -98,7 +98,7 @@ export const dummyCombatants: combatant[] = [
     initiative: 22,
   },
   {
-    id: 4,
+    id: 'jkl',
     name: "Zoren",
     class: "Cleric",
     color: colorTable["Maple"],
@@ -107,7 +107,7 @@ export const dummyCombatants: combatant[] = [
     initiative: 2,
   },
   {
-    id: 5,
+    id: 'mno',
     name: "Black Wolf",
     class: "Creature: Animal",
     alignment: "FOE",
@@ -115,7 +115,7 @@ export const dummyCombatants: combatant[] = [
     initiative: 10,
   },
   {
-    id: 6,
+    id: 'pqr',
     name: "Black Direwolf",
     class: "Creature: Animal",
     alignment: "FOE",
@@ -123,7 +123,7 @@ export const dummyCombatants: combatant[] = [
     initiative: 29,
   },
   {
-    id: 7,
+    id: 'stu',
     name: "Black Wolf",
     class: "Creature: Animal",
     alignment: "FOE",
@@ -131,7 +131,7 @@ export const dummyCombatants: combatant[] = [
     initiative: 15,
   },
   {
-    id: 8,
+    id: 'vwx',
     name: "Goblin Warchief",
     class: "Creature: Goblinoid",
     alignment: "FOE",
@@ -142,19 +142,19 @@ export const dummyCombatants: combatant[] = [
 
 export const dummyPlayerStatuses: playerStatus[] = [
   {
-    id: 1,
+    id: 'agl',
     name: "Talion",
     status: "Haste",
     duration: 10,
   },
   {
-    id: 2,
+    id: 'qtp',
     name: "Ludwic",
     status: "Rage",
     duration: 6,
   },
   {
-    id: 3,
+    id:'zcm',
     name: "Zoren",
     status: "Bless",
     duration: 8,

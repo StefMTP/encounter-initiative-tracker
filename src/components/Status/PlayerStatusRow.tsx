@@ -22,17 +22,17 @@ const PlayerStatusRow = ({
   playerStatus: playerStatus;
   combatActor?: combatant;
   combatActors: combatant[];
-  playerStatusRemoveHandler: (playerStatusRemoveId: number) => void;
+  playerStatusRemoveHandler: (playerStatusRemoveId: string) => void;
   playerStatusNameEditHandler: (
-    playerStatusId: number,
+    playerStatusId: string,
     playerStatusNameSubmit: string
   ) => void;
   playerStatusStatusEditHandler: (
-    playerStatusId: number,
+    playerStatusId: string,
     playerStatusStatusSubmit: string
   ) => void;
   playerStatusDurationEditHandler: (
-    playerStatusId: number,
+    playerStatusId: string,
     playerStatusDurationSubmit: number
   ) => void;
 }) => {

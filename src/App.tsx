@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { v4 as uuid } from "uuid";
 
-import { turn, combatant, combatants, sortCombatants } from "./dummy/data";
+import {
+  turn,
+  combatant,
+  dummyCombatants,
+  dummyPlayerStatuses,
+  sortCombatants,
+  playerStatus,
+} from "./dummy/data";
 import {
   Typography,
   createTheme,
@@ -11,6 +19,7 @@ import {
 import TurnButton from "./components/TurnButton";
 import RoundTimeline from "./components/Round/RoundTimeline";
 import CombatantForm from "./components/Combatants/CombatantForm";
+import PlayerStatusesTable from "./components/Status/PlayerStatusesTable";
 
 const darkTheme = createTheme({ palette: { mode: "dark" } });
 const lightTheme = createTheme({ palette: { mode: "light" } });
@@ -20,7 +29,7 @@ const App = () => {
   const [turn, setTurn] = useState<turn>({
     number: 0,
     actorPlaying: {
-      id: 0,
+      id: "",
       name: "",
       type: "PC",
       alignment: "PARTY",
@@ -28,18 +37,90 @@ const App = () => {
     },
   });
   const [combatActors, setCombatActors] = useState<combatant[]>([]);
+  const [playerStatuses, setPlayerStatuses] = useState<playerStatus[]>([]);
 
   useEffect(() => {
-    setCombatActors(sortCombatants(combatants));
+    // dummy data for the round timeline
+    // setCombatActors(sortCombatants(dummyCombatants));
+    setPlayerStatuses(dummyPlayerStatuses);
     setRound(1);
     setTurn({ number: round - 1, actorPlaying: combatActors[0] });
   }, []);
 
-  const combatActorSubmitHandler = (combatActorSubmit: combatant) => {
-    setCombatActors(sortCombatants([...combatants, combatActorSubmit]));
+  const handleCombatActorSubmit = (combatActorSubmit: combatant) => {
+    setCombatActors(sortCombatants([...combatActors, combatActorSubmit]));
   };
 
-  const handleCombatActors = (combatActorId: number, hpInput: number) => {
+  const handleCombatActorRemove = (combatActorId: string) => {
+    setCombatActors(
+      combatActors.filter((combatActor) => combatActorId !== combatActor.id)
+    );
+  };
+
+  const handlePlayerStatusSubmit = (playerStatusSubmit: playerStatus) => {
+    setPlayerStatuses([...playerStatuses, playerStatusSubmit]);
+  };
+
+  const handlePlayerStatusRemove = (playerStatusId: string) => {
+    setPlayerStatuses(
+      playerStatuses.filter(
+        (playerStatus) => playerStatusId !== playerStatus.id
+      )
+    );
+  };
+
+  const handlePlayerStatusNameEdit = (
+    playerStatusId: string,
+    playerStatusNameSubmit: string
+  ) => {
+    const playerStatusToEdit = playerStatuses.find(
+      (playerStatus) => playerStatus.id === playerStatusId
+    );
+    if (playerStatusToEdit) {
+      playerStatusToEdit.name = playerStatusNameSubmit;
+      const tmpPlayerStatuses = playerStatuses.filter(
+        (playerStatus) => playerStatus.id !== playerStatusId
+      );
+      tmpPlayerStatuses.push(playerStatusToEdit);
+      setPlayerStatuses(tmpPlayerStatuses.sort((a, b) => b.id > a.id ? -1 : 1));
+    }
+  };
+
+  const handlePlayerStatusDurationEdit = (
+    playerStatusId: string,
+    playerStatusDurationSubmit: number
+  ) => {
+    const playerStatusToEdit = playerStatuses.find(
+      (playerStatus) => playerStatus.id === playerStatusId
+    );
+    if (playerStatusToEdit) {
+      playerStatusToEdit.duration = playerStatusDurationSubmit;
+      const tmpPlayerStatuses = playerStatuses.filter(
+        (playerStatus) => playerStatus.id !== playerStatusId
+      );
+      tmpPlayerStatuses.push(playerStatusToEdit);
+      setPlayerStatuses(tmpPlayerStatuses.sort((a, b) => b.id > a.id ? -1 : 1));
+    }
+  };
+
+  const handlePlayerStatusStatusEdit = (
+    playerStatusId: string,
+    playerStatusStatusSubmit: string
+  ) => {
+    const playerStatusToEdit = playerStatuses.find(
+      (playerStatus) => playerStatus.id === playerStatusId
+    );
+    if (playerStatusToEdit) {
+      playerStatusToEdit.status = playerStatusStatusSubmit;
+      const tmpPlayerStatuses = playerStatuses.filter(
+        (playerStatus) => playerStatus.id !== playerStatusId
+      );
+      tmpPlayerStatuses.push(playerStatusToEdit);
+      setPlayerStatuses(tmpPlayerStatuses.sort((a, b) => b.id > a.id ? -1 : 1));
+    }
+  };
+
+  const handleCombatActorsHpEdit = (combatActorId: string, hpInput: number) => {
     const combatActorToEdit = combatActors.find(
       (combatActor) => combatActorId === combatActor.id
     );
@@ -60,31 +141,39 @@ const App = () => {
 
   const handleTurnChange = (turnButtonType: "next" | "previous") => {
     if (turnButtonType === "next") {
-      if (turn.number === combatants.length - 1) {
+      if (
+        turn.number === combatActors.length - 1 ||
+        combatActors.length === 0
+      ) {
         setRound((prevRound) => prevRound + 1);
       }
       setTurn((prevTurn) => ({
         number:
-          prevTurn.number + 1 < combatants.length ? prevTurn.number + 1 : 0,
+          prevTurn.number + 1 < combatActors.length ? prevTurn.number + 1 : 0,
         actorPlaying:
-          combatants[
-            combatants.indexOf(prevTurn.actorPlaying) + 1 < combatants.length
-              ? combatants.indexOf(prevTurn.actorPlaying) + 1
+          combatActors[
+            combatActors.indexOf(prevTurn.actorPlaying) + 1 <
+            combatActors.length
+              ? combatActors.indexOf(prevTurn.actorPlaying) + 1
               : 0
           ],
       }));
     } else if (turnButtonType === "previous") {
-      if (turn.number === 0 && round !== 1) {
-        setRound((prevRound) => prevRound - 1);
+      if (round !== 1) {
+        if (turn.number === 0 || combatActors.length === 0) {
+          setRound((prevRound) => prevRound - 1);
+        }
       }
       setTurn((prevTurn) => ({
         number:
-          prevTurn.number - 1 < 0 ? combatants.length - 1 : prevTurn.number - 1,
+          prevTurn.number - 1 < 0
+            ? combatActors.length - 1
+            : prevTurn.number - 1,
         actorPlaying:
-          combatants[
-            combatants.indexOf(prevTurn.actorPlaying) > 0
-              ? combatants.indexOf(prevTurn.actorPlaying) - 1
-              : combatants.length - 1
+          combatActors[
+            combatActors.indexOf(prevTurn.actorPlaying) > 0
+              ? combatActors.indexOf(prevTurn.actorPlaying) - 1
+              : combatActors.length - 1
           ],
       }));
     }
@@ -119,20 +208,34 @@ const App = () => {
             <Grid item>
               <RoundTimeline
                 combatActors={combatActors}
-                combatActorsHandler={handleCombatActors}
+                combatActorsHpEditHandler={handleCombatActorsHpEdit}
                 turn={turn}
               />
             </Grid>
             <Grid container justifyContent="center" display="grid">
               <Grid item>
                 <Typography variant="h4" color="secondary">
-                  Insert characters into the fray:
+                  Insert characters into the battle:
                 </Typography>
               </Grid>
               <Grid item>
-                <CombatantForm submitNewCombatant={combatActorSubmitHandler} />
+                <CombatantForm
+                  combatantsNumber={combatActors.length}
+                  combatActorSubmitHandler={handleCombatActorSubmit}
+                />
               </Grid>
             </Grid>
+          </Grid>
+          <Grid container display="grid" justifyContent="center">
+            <PlayerStatusesTable
+              combatActors={combatActors}
+              playerStatuses={playerStatuses}
+              playerStatusSubmitHandler={handlePlayerStatusSubmit}
+              playerStatusRemoveHandler={handlePlayerStatusRemove}
+              playerStatusDurationEditHandler={handlePlayerStatusDurationEdit}
+              playerStatusNameEditHandler={handlePlayerStatusNameEdit}
+              playerStatusStatusEditHandler={handlePlayerStatusStatusEdit}
+            />
           </Grid>
         </Box>
       </ThemeProvider>
