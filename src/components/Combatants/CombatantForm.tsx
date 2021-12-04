@@ -13,30 +13,31 @@ import {
   colorTable,
   combatant,
   combatantAlignment,
-  combatants,
   combatantType,
 } from "../../dummy/data";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 const CombatantForm = ({
-  submitNewCombatant,
+  combatActorSubmitHandler,
+  combatantsNumber
 }: {
-  submitNewCombatant: (combatActor: combatant) => void;
+  combatActorSubmitHandler: (combatActor: combatant) => void;
+  combatantsNumber: number;
 }) => {
   const [inputName, setInputName] = useState<string>("");
-  const [inputInitiative, setInputInitiative] = useState<number>();
+  const [inputInitiative, setInputInitiative] = useState<number>(0);
   const [inputAlignment, setInputAlignment] =
     useState<combatantAlignment>("PARTY");
   const [inputType, setInputType] = useState<combatantType>("PC");
   const [inputClass, setInputClass] = useState<string>("");
-  const [inputHp, setInputHp] = useState<number>();
+  const [inputHp, setInputHp] = useState<number>(0);
   const [inputColor, setInputColor] = useState<string>("Magenta");
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
         const combatActorSubmit: combatant = {
-          id: combatants.length + 1,
+          id: combatantsNumber + 1,
           name: inputName,
           initiative: inputInitiative || 0,
           alignment: inputAlignment,
@@ -46,7 +47,7 @@ const CombatantForm = ({
           currentHp: inputHp,
           maxHp: inputHp,
         };
-        submitNewCombatant(combatActorSubmit);
+        combatActorSubmitHandler(combatActorSubmit);
       }}
     >
       <Grid container spacing={2} m={2}>
@@ -129,9 +130,10 @@ const CombatantForm = ({
             <Select
               value={inputColor}
               onChange={(e) => setInputColor(e.target.value)}
+              variant="standard"
             >
               {Object.keys(colorTable).map((color) => (
-                <MenuItem value={color}>
+                <MenuItem value={color} key={color}>
                   <Grid container alignContent="center">
                   <span>{color}{" "}</span>
                   <FiberManualRecordIcon
