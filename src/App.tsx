@@ -41,7 +41,8 @@ const App = () => {
 
   useEffect(() => {
     // dummy data for the round timeline
-    // setCombatActors(sortCombatants(dummyCombatants));
+    setCombatActors(sortCombatants(dummyCombatants));
+    // dummy data for the player statuses
     setPlayerStatuses(dummyPlayerStatuses);
     setRound(1);
     setTurn({ number: round - 1, actorPlaying: combatActors[0] });
@@ -82,7 +83,7 @@ const App = () => {
         (playerStatus) => playerStatus.id !== playerStatusId
       );
       tmpPlayerStatuses.push(playerStatusToEdit);
-      setPlayerStatuses(tmpPlayerStatuses.sort((a, b) => b.id > a.id ? -1 : 1));
+      setPlayerStatuses(tmpPlayerStatuses);
     }
   };
 
@@ -99,7 +100,7 @@ const App = () => {
         (playerStatus) => playerStatus.id !== playerStatusId
       );
       tmpPlayerStatuses.push(playerStatusToEdit);
-      setPlayerStatuses(tmpPlayerStatuses.sort((a, b) => b.id > a.id ? -1 : 1));
+      setPlayerStatuses(tmpPlayerStatuses);
     }
   };
 
@@ -116,7 +117,7 @@ const App = () => {
         (playerStatus) => playerStatus.id !== playerStatusId
       );
       tmpPlayerStatuses.push(playerStatusToEdit);
-      setPlayerStatuses(tmpPlayerStatuses.sort((a, b) => b.id > a.id ? -1 : 1));
+      setPlayerStatuses(tmpPlayerStatuses);
     }
   };
 
@@ -145,7 +146,16 @@ const App = () => {
         turn.number === combatActors.length - 1 ||
         combatActors.length === 0
       ) {
-        setRound((prevRound) => prevRound + 1);
+        setRound((prevRound) => {
+          const tmpPlayerStatuses = playerStatuses.filter(
+            (tmpPlayerStatus) => tmpPlayerStatus.duration !== 0
+          );
+          tmpPlayerStatuses.forEach((tmpPlayerStatus) => {
+            tmpPlayerStatus.duration--;
+          });
+          setPlayerStatuses(tmpPlayerStatuses);
+          return prevRound + 1;
+        });
       }
       setTurn((prevTurn) => ({
         number:
@@ -161,7 +171,14 @@ const App = () => {
     } else if (turnButtonType === "previous") {
       if (round !== 1) {
         if (turn.number === 0 || combatActors.length === 0) {
-          setRound((prevRound) => prevRound - 1);
+          setRound((prevRound) => {
+            const tmpPlayerStatuses = playerStatuses;
+            tmpPlayerStatuses.forEach((tmpPlayerStatus) => {
+              tmpPlayerStatus.duration++;
+            });
+            setPlayerStatuses(tmpPlayerStatuses);
+            return prevRound - 1;
+          });
         }
       }
       setTurn((prevTurn) => ({
