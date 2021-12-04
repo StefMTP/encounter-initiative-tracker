@@ -7,20 +7,23 @@ import {
   TimelineConnector,
   TimelineContent,
 } from "@mui/lab";
-import { TextField, Typography } from "@mui/material";
+import { Grid, IconButton, TextField, Typography } from "@mui/material";
 import { colorTable, combatant, turn } from "../../dummy/data";
 import CombatantIcon from "../Combatants/CombatantIcon";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 
 const RoundTimelineItem = ({
   turn,
   combatActor,
   combatActorHpEditHandler,
+  combatActorRemoveHandler,
   index,
   array,
 }: {
   turn: turn;
   combatActor: combatant;
   combatActorHpEditHandler: (combatActorId: string, hpInput: number) => void;
+  combatActorRemoveHandler: (combatActorId: string) => void;
   index: number;
   array: combatant[];
 }) => {
@@ -117,17 +120,60 @@ const RoundTimelineItem = ({
         ) : null}
       </TimelineSeparator>
       <TimelineContent>
-        <Typography
-          variant="h6"
-          color={color(index, turn.number, combatActor, "text.primary", true)}
+        <Grid
+          container
+          direction="row"
+          justifyContent={
+            combatActor.alignment === "PARTY" ? "flex-end" : "flex-start"
+          }
+          alignItems="center"
         >
-          {combatActor.name}
-        </Typography>
-        <Typography
-          color={color(index, turn.number, combatActor, "text.secondary", true)}
-        >
-          {combatActor.class}
-        </Typography>
+          {combatActor.alignment === "PARTY" && (
+            <Grid item>
+              <IconButton
+                color="error"
+                onClick={() => combatActorRemoveHandler(combatActor.id)}
+              >
+                <PersonRemoveIcon />
+              </IconButton>
+            </Grid>
+          )}
+          <Grid item>
+            <Typography
+              variant="h6"
+              color={color(
+                index,
+                turn.number,
+                combatActor,
+                "text.primary",
+                true
+              )}
+            >
+              {combatActor.name}
+            </Typography>
+            <Typography
+              color={color(
+                index,
+                turn.number,
+                combatActor,
+                "text.secondary",
+                true
+              )}
+            >
+              {combatActor.class}
+            </Typography>
+          </Grid>
+          {combatActor.alignment === "FOE" && (
+            <Grid item>
+              <IconButton
+                color="error"
+                onClick={() => combatActorRemoveHandler(combatActor.id)}
+              >
+                <PersonRemoveIcon />
+              </IconButton>
+            </Grid>
+          )}
+        </Grid>
       </TimelineContent>
     </TimelineItem>
   );

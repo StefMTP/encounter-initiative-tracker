@@ -5,10 +5,12 @@ import RoundTimelineItem from "./RoundTimelineItem";
 const RoundTimeline = ({
   combatActors,
   combatActorsHpEditHandler,
+  combatActorsRemoveHandler,
   turn,
 }: {
   combatActors: combatant[];
   combatActorsHpEditHandler: (combatActorId: string, hpInput: number) => void;
+  combatActorsRemoveHandler: (combatActorId: string) => void;
   turn: turn;
 }) => {
   return (
@@ -23,6 +25,7 @@ const RoundTimeline = ({
             key={combatActor.id}
             turn={turn}
             combatActorHpEditHandler={combatActorsHpEditHandler}
+            combatActorRemoveHandler={combatActorsRemoveHandler}
             combatActor={combatActor}
             index={index}
             array={array}

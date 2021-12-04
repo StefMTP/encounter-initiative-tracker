@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { v4 as uuid } from "uuid";
-
 import {
   turn,
   combatant,
@@ -22,7 +20,6 @@ import CombatantForm from "./components/Combatants/CombatantForm";
 import PlayerStatusesTable from "./components/Status/PlayerStatusesTable";
 
 const darkTheme = createTheme({ palette: { mode: "dark" } });
-const lightTheme = createTheme({ palette: { mode: "light" } });
 
 const App = () => {
   const [round, setRound] = useState<number>(1);
@@ -226,6 +223,7 @@ const App = () => {
               <RoundTimeline
                 combatActors={combatActors}
                 combatActorsHpEditHandler={handleCombatActorsHpEdit}
+                combatActorsRemoveHandler={handleCombatActorRemove}
                 turn={turn}
               />
             </Grid>
