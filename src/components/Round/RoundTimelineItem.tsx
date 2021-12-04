@@ -14,13 +14,13 @@ import CombatantIcon from "../Combatants/CombatantIcon";
 const RoundTimelineItem = ({
   turn,
   combatActor,
-  combatActorsHandler,
+  combatActorHpEditHandler,
   index,
   array,
 }: {
   turn: turn;
   combatActor: combatant;
-  combatActorsHandler: (combatActorId: number, hpInput: number) => void;
+  combatActorHpEditHandler: (combatActorId: number, hpInput: number) => void;
   index: number;
   array: combatant[];
 }) => {
@@ -72,7 +72,7 @@ const RoundTimelineItem = ({
               <form
                 onSubmit={(event) => {
                   event.preventDefault();
-                  combatActorsHandler(combatActor.id, hpInput);
+                  combatActorHpEditHandler(combatActor.id, hpInput);
                   setHpFill(false);
                 }}
               >
