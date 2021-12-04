@@ -122,7 +122,6 @@ const RoundTimelineItem = ({
       <TimelineContent>
         <Grid
           container
-          direction="row"
           justifyContent={
             combatActor.alignment === "PARTY" ? "flex-end" : "flex-start"
           }

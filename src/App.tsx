@@ -218,8 +218,8 @@ const App = () => {
               />
             </Grid>
           </Grid>
-          <Grid container direction="column">
-            <Grid item>
+          <Grid container>
+            <Grid item xs={6} display="grid" >
               <RoundTimeline
                 combatActors={combatActors}
                 combatActorsHpEditHandler={handleCombatActorsHpEdit}
@@ -227,30 +227,33 @@ const App = () => {
                 turn={turn}
               />
             </Grid>
-            <Grid container justifyContent="center" display="grid">
+            <Grid item xs={6} display="grid" justifyContent="center">
               <Grid item>
-                <Typography variant="h4" color="secondary">
-                  Insert characters into the battle:
-                </Typography>
+              <Typography variant="h4" color="secondary" textAlign="center">
+                Insert characters into the battle:
+              </Typography>
+              <CombatantForm
+                combatantsNumber={combatActors.length}
+                combatActorSubmitHandler={handleCombatActorSubmit}
+              />
               </Grid>
               <Grid item>
-                <CombatantForm
-                  combatantsNumber={combatActors.length}
-                  combatActorSubmitHandler={handleCombatActorSubmit}
+              <Typography textAlign="center" variant="h5" color="secondary">
+                Keep track of spells, effects and conditions:
+              </Typography>
+                <PlayerStatusesTable
+                  combatActors={combatActors}
+                  playerStatuses={playerStatuses}
+                  playerStatusSubmitHandler={handlePlayerStatusSubmit}
+                  playerStatusRemoveHandler={handlePlayerStatusRemove}
+                  playerStatusDurationEditHandler={
+                    handlePlayerStatusDurationEdit
+                  }
+                  playerStatusNameEditHandler={handlePlayerStatusNameEdit}
+                  playerStatusStatusEditHandler={handlePlayerStatusStatusEdit}
                 />
               </Grid>
             </Grid>
-          </Grid>
-          <Grid container display="grid" justifyContent="center">
-            <PlayerStatusesTable
-              combatActors={combatActors}
-              playerStatuses={playerStatuses}
-              playerStatusSubmitHandler={handlePlayerStatusSubmit}
-              playerStatusRemoveHandler={handlePlayerStatusRemove}
-              playerStatusDurationEditHandler={handlePlayerStatusDurationEdit}
-              playerStatusNameEditHandler={handlePlayerStatusNameEdit}
-              playerStatusStatusEditHandler={handlePlayerStatusStatusEdit}
-            />
           </Grid>
         </Box>
       </ThemeProvider>
