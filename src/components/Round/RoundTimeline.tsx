@@ -1,6 +1,6 @@
 import { Timeline } from "@mui/lab";
 import { Typography } from "@mui/material";
-import { combatant, turn } from "../../dummy/data";
+import { combatant, turn } from "../../types";
 import RoundTimelineItem from "./RoundTimelineItem";
 const RoundTimeline = ({
   combatActors,

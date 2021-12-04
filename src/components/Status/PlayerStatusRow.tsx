@@ -7,7 +7,7 @@ import {
   Button,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { combatant, playerStatus } from "../../dummy/data";
+import { combatant, playerStatus } from "../../types";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const PlayerStatusRow = ({

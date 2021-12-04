@@ -4,9 +4,8 @@ import {
   combatant,
   dummyCombatants,
   dummyPlayerStatuses,
-  sortCombatants,
   playerStatus,
-} from "./dummy/data";
+} from "./types";
 import {
   Typography,
   createTheme,
@@ -38,7 +37,7 @@ const App = () => {
 
   useEffect(() => {
     // dummy data for the round timeline
-    setCombatActors(sortCombatants(dummyCombatants));
+    setCombatActors(sortPlayerActors(dummyCombatants));
     // dummy data for the player statuses
     setPlayerStatuses(dummyPlayerStatuses);
     setRound(1);
@@ -46,7 +45,7 @@ const App = () => {
   }, []);
 
   const handleCombatActorSubmit = (combatActorSubmit: combatant) => {
-    setCombatActors(sortCombatants([...combatActors, combatActorSubmit]));
+    setCombatActors(sortPlayerActors([...combatActors, combatActorSubmit]));
   };
 
   const handleCombatActorRemove = (combatActorId: string) => {
@@ -133,7 +132,7 @@ const App = () => {
         (combatActor) => combatActor.id !== combatActorId
       );
       tmpActors.push(combatActorToEdit);
-      setCombatActors(sortCombatants(tmpActors));
+      setCombatActors(sortPlayerActors(tmpActors));
     }
   };
 
@@ -193,6 +192,16 @@ const App = () => {
     }
   };
 
+  const sortPlayerActors = (combatants: combatant[]) => {
+    return combatants.sort((a, b) =>
+      b.initiative - a.initiative === 0
+        ? b.alignment === "PARTY"
+          ? +1
+          : -1
+        : b.initiative - a.initiative
+    );
+  }
+  
   return (
     <React.Fragment>
       <ThemeProvider theme={darkTheme}>

@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { combatant, playerStatus } from "../../dummy/data";
+import { combatant, playerStatus } from "../../types";
 import PlayerStatusRow from "./PlayerStatusRow";
 import { v4 as uuid } from "uuid";
 

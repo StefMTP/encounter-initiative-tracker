@@ -160,13 +160,3 @@ export const dummyPlayerStatuses: playerStatus[] = [
     duration: 8,
   },
 ];
-
-export const sortCombatants = (combatants: combatant[]) => {
-  return combatants.sort((a, b) =>
-    b.initiative - a.initiative === 0
-      ? b.alignment === "PARTY"
-        ? +1
-        : -1
-      : b.initiative - a.initiative
-  );
-};

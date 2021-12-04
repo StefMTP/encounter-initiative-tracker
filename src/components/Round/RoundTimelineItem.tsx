@@ -8,7 +8,7 @@ import {
   TimelineContent,
 } from "@mui/lab";
 import { Grid, IconButton, TextField, Typography } from "@mui/material";
-import { colorTable, combatant, turn } from "../../dummy/data";
+import { colorTable, combatant, turn } from "../../types";
 import CombatantIcon from "../Combatants/CombatantIcon";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 

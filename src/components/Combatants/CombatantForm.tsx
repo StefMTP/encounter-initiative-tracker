@@ -14,7 +14,7 @@ import {
   combatant,
   combatantAlignment,
   combatantType,
-} from "../../dummy/data";
+} from "../../types";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import {v4 as uuid} from 'uuid';
 
