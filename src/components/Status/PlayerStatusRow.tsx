@@ -4,7 +4,7 @@ import {
   TableCell,
   IconButton,
   TextField,
-  Typography,
+  Button,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { combatant, playerStatus } from "../../dummy/data";
@@ -13,7 +13,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 const PlayerStatusRow = ({
   playerStatus,
   combatActor,
-  combatActors,
   playerStatusRemoveHandler,
   playerStatusNameEditHandler,
   playerStatusStatusEditHandler,
@@ -21,7 +20,6 @@ const PlayerStatusRow = ({
 }: {
   playerStatus: playerStatus;
   combatActor?: combatant;
-  combatActors: combatant[];
   playerStatusRemoveHandler: (playerStatusRemoveId: string) => void;
   playerStatusNameEditHandler: (
     playerStatusId: string,
@@ -44,7 +42,6 @@ const PlayerStatusRow = ({
   const [durationInput, setDurationInput] = useState<number>(0);
   return (
     <TableRow
-      key={playerStatus.name}
       sx={{
         bgcolor: combatActor?.color?.primary,
       }}
@@ -103,7 +100,7 @@ const PlayerStatusRow = ({
           </>
         )}
       </TableCell>
-      <TableCell>
+      <TableCell align="right">
         {durationFill ? (
           <form
             onSubmit={(event) => {
@@ -133,13 +130,16 @@ const PlayerStatusRow = ({
           </>
         )}
       </TableCell>
-      <TableCell>
-        <IconButton
+      <TableCell align="center">
+        <Button
           size="small"
+          variant="contained"
+          color="error"
           onClick={() => playerStatusRemoveHandler(playerStatus.id)}
+          endIcon={<DeleteIcon />}
         >
-          <DeleteIcon />
-        </IconButton>
+          Remove
+        </Button>
       </TableCell>
     </TableRow>
   );

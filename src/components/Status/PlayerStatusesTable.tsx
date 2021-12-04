@@ -7,11 +7,12 @@ import {
   TableCell,
   TableBody,
   Button,
+  Typography,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { combatant, playerStatus } from "../../dummy/data";
 import PlayerStatusRow from "./PlayerStatusRow";
-import {v4 as uuid} from "uuid";
+import { v4 as uuid } from "uuid";
 
 const PlayerStatusesTable = ({
   playerStatuses,
@@ -41,7 +42,7 @@ const PlayerStatusesTable = ({
 }) => {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small">
+      <Table sx={{ minWidth: 450 }} size="small">
         <TableHead>
           <TableRow>
             <TableCell>Character</TableCell>
@@ -66,19 +67,27 @@ const PlayerStatusesTable = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {playerStatuses.map((playerStatus) => (
-            <PlayerStatusRow
-              combatActors={combatActors}
-              combatActor={combatActors.find(
-                (actor) => actor.name === playerStatus.name
-              )}
-              playerStatus={playerStatus}
-              playerStatusRemoveHandler={playerStatusRemoveHandler}
-              playerStatusNameEditHandler={playerStatusNameEditHandler}
-              playerStatusStatusEditHandler={playerStatusStatusEditHandler}
-              playerStatusDurationEditHandler={playerStatusDurationEditHandler}
-            />
-          ))}
+          {playerStatuses.length <= 0 ? (
+            <Typography textAlign="center" variant="h6">
+              No status effects added.
+            </Typography>
+          ) : (
+            playerStatuses.map((playerStatus) => (
+              <PlayerStatusRow
+                key={playerStatus.id}
+                combatActor={combatActors.find(
+                  (actor) => actor.name === playerStatus.name
+                )}
+                playerStatus={playerStatus}
+                playerStatusRemoveHandler={playerStatusRemoveHandler}
+                playerStatusNameEditHandler={playerStatusNameEditHandler}
+                playerStatusStatusEditHandler={playerStatusStatusEditHandler}
+                playerStatusDurationEditHandler={
+                  playerStatusDurationEditHandler
+                }
+              />
+            ))
+          )}
         </TableBody>
       </Table>
     </TableContainer>
