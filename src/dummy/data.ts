@@ -27,10 +27,17 @@ export type colors = {
   [label: string]: color;
 };
 
+export type playerStatus = {
+  id: number;
+  name: string;
+  status: string;
+  duration: number;
+};
+
 export const colorTable: colors = {
   Default: {
     primary: "",
-    secondary: ""
+    secondary: "",
   },
   Magenta: {
     primary: "#C20BC2",
@@ -58,7 +65,7 @@ export const colorTable: colors = {
   },
 };
 
-export const combatants: combatant[] = [
+export const dummyCombatants: combatant[] = [
   {
     id: 1,
     name: "Talion",
@@ -130,6 +137,27 @@ export const combatants: combatant[] = [
     alignment: "FOE",
     type: "ENEMY",
     initiative: 23,
+  },
+];
+
+export const dummyPlayerStatuses: playerStatus[] = [
+  {
+    id: 1,
+    name: "Talion",
+    status: "Haste",
+    duration: 10,
+  },
+  {
+    id: 2,
+    name: "Ludwic",
+    status: "Rage",
+    duration: 6,
+  },
+  {
+    id: 3,
+    name: "Zoren",
+    status: "Bless",
+    duration: 8,
   },
 ];
 
