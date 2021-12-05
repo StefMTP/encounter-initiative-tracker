@@ -59,7 +59,7 @@ const ConditionDialog = ({
         </IconButton>
       </DialogTitle>
       <Box sx={{ width: "100%", maxWidth: 400, bgcolor: "background.paper" }}>
-        {!!conditions ? (
+        {!!conditions && conditions.length > 0 ? (
           <List>
             {conditions?.map((condition) => (
               <ConditionDialogDescription
