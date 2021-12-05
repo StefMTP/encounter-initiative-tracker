@@ -7,7 +7,6 @@ import {
   TableCell,
   TableBody,
   Button,
-  Typography,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { combatant, playerStatus } from "../../types";
@@ -68,9 +67,9 @@ const PlayerStatusesTable = ({
         </TableHead>
         <TableBody>
           {playerStatuses.length <= 0 ? (
-            <Typography textAlign="center" variant="h6">
-              No status effects added.
-            </Typography>
+            <TableRow>
+              <TableCell>No status effects added.</TableCell>
+            </TableRow>
           ) : (
             playerStatuses.map((playerStatus) => (
               <PlayerStatusRow
