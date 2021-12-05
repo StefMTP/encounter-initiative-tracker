@@ -200,8 +200,8 @@ const App = () => {
           : -1
         : b.initiative - a.initiative
     );
-  }
-  
+  };
+
   return (
     <React.Fragment>
       <ThemeProvider theme={darkTheme}>
@@ -222,13 +222,13 @@ const App = () => {
               <TurnButton
                 label="Next turn"
                 color="primary"
-                variant="outlined"
+                variant="contained"
                 turnChangeHandler={() => handleTurnChange("next")}
               />
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={6} display="grid" >
+            <Grid item xs={6} display="grid">
               <RoundTimeline
                 combatActors={combatActors}
                 combatActorsHpEditHandler={handleCombatActorsHpEdit}
@@ -236,20 +236,26 @@ const App = () => {
                 turn={turn}
               />
             </Grid>
-            <Grid item xs={6} display="grid" justifyContent="center" padding={4}>
+            <Grid
+              item
+              xs={6}
+              display="grid"
+              justifyContent="center"
+              padding={4}
+            >
               <Grid item>
-              <Typography variant="h4" color="secondary" textAlign="center">
-                Insert characters into the battle:
-              </Typography>
-              <CombatantForm
-                combatantsNumber={combatActors.length}
-                combatActorSubmitHandler={handleCombatActorSubmit}
-              />
+                <Typography variant="h4" color="secondary" textAlign="center">
+                  Insert characters into the battle:
+                </Typography>
+                <CombatantForm
+                  combatantsNumber={combatActors.length}
+                  combatActorSubmitHandler={handleCombatActorSubmit}
+                />
               </Grid>
               <Grid item>
-              <Typography textAlign="center" variant="h5" color="secondary">
-                Keep track of spells, effects and conditions:
-              </Typography>
+                <Typography textAlign="center" variant="h5" color="secondary">
+                  Keep track of spells, effects and conditions:
+                </Typography>
                 <PlayerStatusesTable
                   combatActors={combatActors}
                   playerStatuses={playerStatuses}

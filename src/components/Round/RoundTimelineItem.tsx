@@ -7,10 +7,11 @@ import {
   TimelineConnector,
   TimelineContent,
 } from "@mui/lab";
-import { Grid, IconButton, TextField, Typography } from "@mui/material";
+import { Badge, Grid, IconButton, TextField, Typography } from "@mui/material";
 import { colorTable, combatant, turn } from "../../types";
 import CombatantIcon from "../Combatants/CombatantIcon";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import RoundTimelineLabel from "./RoundTimelineLabel";
 
 const RoundTimelineItem = ({
   turn,
@@ -137,31 +138,12 @@ const RoundTimelineItem = ({
               </IconButton>
             </Grid>
           )}
-          <Grid item>
-            <Typography
-              variant="h6"
-              color={color(
-                index,
-                turn.number,
-                combatActor,
-                "text.primary",
-                true
-              )}
-            >
-              {combatActor.name}
-            </Typography>
-            <Typography
-              color={color(
-                index,
-                turn.number,
-                combatActor,
-                "text.secondary",
-                true
-              )}
-            >
-              {combatActor.class}
-            </Typography>
-          </Grid>
+          <RoundTimelineLabel
+            color={color}
+            combatActor={combatActor}
+            index={index}
+            turnNumber={turn.number}
+          />
           {combatActor.alignment === "FOE" && (
             <Grid item>
               <IconButton

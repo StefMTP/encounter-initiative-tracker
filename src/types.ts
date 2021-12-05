@@ -11,6 +11,7 @@ export type combatant = {
   color?: color;
   type: combatantType;
   initiative: number;
+  conditions?: string[];
 };
 
 export type turn = {
@@ -65,9 +66,27 @@ export const colorTable: colors = {
   },
 };
 
+export const conditionsTable: { [condition: string]: string } = {
+  Blinded: "",
+  Deafened: "",
+  Poisoned: "32egw234f42",
+  Grappled: "",
+  Prone: "fsgswerq3f",
+  Invisible: "",
+  Frightened: "",
+  Charmed: "",
+  Incapacitated: "",
+  Restrained: "",
+  Stunned: "",
+  Paralyzed: "",
+  Petrified: "",
+  Exhaustion: "1232141",
+  Unconscious: "",
+};
+
 export const dummyCombatants: combatant[] = [
   {
-    id: 'abc',
+    id: "abc",
     name: "Talion",
     currentHp: 40,
     maxHp: 40,
@@ -76,9 +95,10 @@ export const dummyCombatants: combatant[] = [
     color: colorTable["Magenta"],
     type: "PC",
     initiative: 15,
+    conditions: ["Poisoned"],
   },
   {
-    id: 'def',
+    id: "def",
     name: "Violetta",
     currentHp: 22,
     maxHp: 34,
@@ -89,16 +109,17 @@ export const dummyCombatants: combatant[] = [
     initiative: 12,
   },
   {
-    id: 'ghi',
+    id: "ghi",
     name: "Ludwic",
     class: "Barbarian",
     color: colorTable["Crimson"],
     alignment: "PARTY",
     type: "PC",
     initiative: 22,
+    conditions: ["Exhaustion", "Prone"],
   },
   {
-    id: 'jkl',
+    id: "jkl",
     name: "Zoren",
     class: "Cleric",
     color: colorTable["Maple"],
@@ -107,7 +128,7 @@ export const dummyCombatants: combatant[] = [
     initiative: 2,
   },
   {
-    id: 'mno',
+    id: "mno",
     name: "Black Wolf",
     class: "Creature: Animal",
     alignment: "FOE",
@@ -115,7 +136,7 @@ export const dummyCombatants: combatant[] = [
     initiative: 10,
   },
   {
-    id: 'pqr',
+    id: "pqr",
     name: "Black Direwolf",
     class: "Creature: Animal",
     alignment: "FOE",
@@ -123,7 +144,7 @@ export const dummyCombatants: combatant[] = [
     initiative: 29,
   },
   {
-    id: 'stu',
+    id: "stu",
     name: "Black Wolf",
     class: "Creature: Animal",
     alignment: "FOE",
@@ -131,7 +152,7 @@ export const dummyCombatants: combatant[] = [
     initiative: 15,
   },
   {
-    id: 'vwx',
+    id: "vwx",
     name: "Goblin Warchief",
     class: "Creature: Goblinoid",
     alignment: "FOE",
@@ -142,19 +163,19 @@ export const dummyCombatants: combatant[] = [
 
 export const dummyPlayerStatuses: playerStatus[] = [
   {
-    id: 'agl',
+    id: "agl",
     name: "Talion",
     status: "Haste",
     duration: 10,
   },
   {
-    id: 'qtp',
+    id: "qtp",
     name: "Ludwic",
     status: "Rage",
     duration: 6,
   },
   {
-    id:'zcm',
+    id: "zcm",
     name: "Zoren",
     status: "Bless",
     duration: 8,
