@@ -18,8 +18,8 @@ const PlayerStatusCell = ({
     playerStatusId: string,
     fieldInput: string
   ) => void;
-  setFieldFillHandler: React.Dispatch<React.SetStateAction<boolean>>
-  setFieldInputHandler: React.Dispatch<React.SetStateAction<string>>
+  setFieldFillHandler: React.Dispatch<React.SetStateAction<boolean>>;
+  setFieldInputHandler: React.Dispatch<React.SetStateAction<string>>;
   icon: React.ReactNode;
 }) => {
   return (
@@ -37,14 +37,17 @@ const PlayerStatusCell = ({
             variant="standard"
             size="small"
             onChange={(e) => {
-                setFieldInputHandler(e.target.value);
+              setFieldInputHandler(e.target.value);
             }}
           />
         </form>
       ) : (
         <>
           {playerStatusField}
-          <IconButton size="small" onClick={() => setFieldFillHandler(!fieldFill)}>
+          <IconButton
+            size="small"
+            onClick={() => setFieldFillHandler(!fieldFill)}
+          >
             {icon}
           </IconButton>
         </>

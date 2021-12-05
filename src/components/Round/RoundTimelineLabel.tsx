@@ -7,11 +7,21 @@ const RoundTimelineLabel = ({
   combatActor,
   turnNumber,
   index,
+  combatActorConditionAddHandler,
+  combatActorConditionRemoveHandler,
   color,
 }: {
   combatActor: combatant;
   turnNumber: number;
   index: number;
+  combatActorConditionAddHandler: (
+    combatActorId: string,
+    conditionName: string
+  ) => void;
+  combatActorConditionRemoveHandler: (
+    combatActorId: string,
+    conditionName: string
+  ) => void;
   color: (
     index: number,
     turnNumber: number,
@@ -78,6 +88,9 @@ const RoundTimelineLabel = ({
       </Badge>
       <ConditionDialog
         open={isDialogOpen}
+        combatActorId={combatActor.id}
+        combatActorConditionAddHandler={combatActorConditionAddHandler}
+        combatActorConditionRemoveHandler={combatActorConditionRemoveHandler}
         closeHandler={handleConditionDialogClose}
         conditions={combatActor.conditions}
       />

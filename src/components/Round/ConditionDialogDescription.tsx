@@ -11,19 +11,34 @@ import { conditionsTable } from "../../types";
 import HelpIcon from "@mui/icons-material/Help";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const ConditionDialogDescription = ({ condition }: { condition: string }) => {
+const ConditionDialogDescription = ({
+  condition,
+  combatActorId,
+  combatActorConditionRemoveHandler,
+}: {
+  condition: string;
+  combatActorId: string;
+  combatActorConditionRemoveHandler: (
+    combatActorId: string,
+    conditionName: string
+  ) => void;
+}) => {
   const [infoOpen, setInfoOpen] = useState<boolean>(false);
 
   return (
     <>
       <ListItem key={condition}>
-        <ListItemText>{condition}</ListItemText>
         <ListItemButton onClick={() => setInfoOpen(!infoOpen)}>
           <ListItemIcon>
             <HelpIcon />
           </ListItemIcon>
+          <ListItemText primary={condition} />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton
+          onClick={() =>
+            combatActorConditionRemoveHandler(combatActorId, condition)
+          }
+        >
           <ListItemIcon>
             <DeleteIcon />
           </ListItemIcon>
@@ -31,7 +46,11 @@ const ConditionDialogDescription = ({ condition }: { condition: string }) => {
       </ListItem>
       <Collapse in={infoOpen} timeout="auto" unmountOnExit>
         <List component="div">
-          <ListItemText primary={conditionsTable[condition]} />
+          <ListItemText>
+            <p
+              dangerouslySetInnerHTML={{ __html: conditionsTable[condition] }}
+            ></p>
+          </ListItemText>
         </List>
       </Collapse>
     </>

@@ -3,15 +3,25 @@ import { Typography } from "@mui/material";
 import { combatant, turn } from "../../types";
 import RoundTimelineItem from "./RoundTimelineItem";
 const RoundTimeline = ({
+  turn,
   combatActors,
   combatActorsHpEditHandler,
   combatActorsRemoveHandler,
-  turn,
+  combatActorsConditionAddHandler,
+  combatActorsConditionRemoveHandler,
 }: {
+  turn: turn;
   combatActors: combatant[];
   combatActorsHpEditHandler: (combatActorId: string, hpInput: number) => void;
+  combatActorsConditionAddHandler: (
+    combatActorId: string,
+    conditionName: string
+  ) => void;
+  combatActorsConditionRemoveHandler: (
+    combatActorId: string,
+    conditionName: string
+  ) => void;
   combatActorsRemoveHandler: (combatActorId: string) => void;
-  turn: turn;
 }) => {
   return (
     <Timeline>
@@ -26,6 +36,10 @@ const RoundTimeline = ({
             turn={turn}
             combatActorHpEditHandler={combatActorsHpEditHandler}
             combatActorRemoveHandler={combatActorsRemoveHandler}
+            combatActorConditionAddHandler={combatActorsConditionAddHandler}
+            combatActorConditionRemoveHandler={
+              combatActorsConditionRemoveHandler
+            }
             combatActor={combatActor}
             index={index}
             array={array}

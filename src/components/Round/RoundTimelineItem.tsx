@@ -7,17 +7,18 @@ import {
   TimelineConnector,
   TimelineContent,
 } from "@mui/lab";
-import { Badge, Grid, IconButton, TextField, Typography } from "@mui/material";
 import { colorTable, combatant, turn } from "../../types";
 import CombatantIcon from "../Combatants/CombatantIcon";
-import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
-import RoundTimelineLabel from "./RoundTimelineLabel";
+import RoundTimelineTrack from "./RoundTimelineTrack";
+import RoundTimelineDetails from "./RoundTimelineDetails";
 
 const RoundTimelineItem = ({
   turn,
   combatActor,
   combatActorHpEditHandler,
   combatActorRemoveHandler,
+  combatActorConditionAddHandler,
+  combatActorConditionRemoveHandler,
   index,
   array,
 }: {
@@ -25,6 +26,14 @@ const RoundTimelineItem = ({
   combatActor: combatant;
   combatActorHpEditHandler: (combatActorId: string, hpInput: number) => void;
   combatActorRemoveHandler: (combatActorId: string) => void;
+  combatActorConditionAddHandler: (
+    combatActorId: string,
+    conditionName: string
+  ) => void;
+  combatActorConditionRemoveHandler: (
+    combatActorId: string,
+    conditionName: string
+  ) => void;
   index: number;
   array: combatant[];
 }) => {
@@ -56,45 +65,17 @@ const RoundTimelineItem = ({
         align="center"
         variant="body2"
       >
-        <Typography
-          color={color(index, turn.number, combatActor, "text.secondary", true)}
-        >
-          Initiative: {combatActor.initiative}
-        </Typography>
-        {combatActor.currentHp && combatActor.maxHp && (
-          <Typography
-            color={color(
-              index,
-              turn.number,
-              combatActor,
-              "text.secondary",
-              true
-            )}
-          >
-            HP:{" "}
-            {hpFill ? (
-              <form
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  combatActorHpEditHandler(combatActor.id, hpInput);
-                  setHpFill(false);
-                }}
-              >
-                <TextField
-                  type="number"
-                  variant="standard"
-                  size="small"
-                  onChange={(e) => {
-                    setHpInput(+e.target.value);
-                  }}
-                />
-              </form>
-            ) : (
-              combatActor.currentHp
-            )}
-            /{combatActor.maxHp}
-          </Typography>
-        )}
+        <RoundTimelineTrack
+          combatActor={combatActor}
+          index={index}
+          turnNumber={turn.number}
+          hpFill={hpFill}
+          hpInput={hpInput}
+          hpFillToggler={setHpFill}
+          hpInputEditHandler={setHpInput}
+          combatActorHpEditHandler={combatActorHpEditHandler}
+          color={color}
+        />
       </TimelineOppositeContent>
       <TimelineSeparator>
         <TimelineDot
@@ -121,40 +102,15 @@ const RoundTimelineItem = ({
         ) : null}
       </TimelineSeparator>
       <TimelineContent>
-        <Grid
-          container
-          justifyContent={
-            combatActor.alignment === "PARTY" ? "flex-end" : "flex-start"
-          }
-          alignItems="center"
-        >
-          {combatActor.alignment === "PARTY" && (
-            <Grid item>
-              <IconButton
-                color="error"
-                onClick={() => combatActorRemoveHandler(combatActor.id)}
-              >
-                <PersonRemoveIcon />
-              </IconButton>
-            </Grid>
-          )}
-          <RoundTimelineLabel
-            color={color}
-            combatActor={combatActor}
-            index={index}
-            turnNumber={turn.number}
-          />
-          {combatActor.alignment === "FOE" && (
-            <Grid item>
-              <IconButton
-                color="error"
-                onClick={() => combatActorRemoveHandler(combatActor.id)}
-              >
-                <PersonRemoveIcon />
-              </IconButton>
-            </Grid>
-          )}
-        </Grid>
+        <RoundTimelineDetails
+          combatActor={combatActor}
+          index={index}
+          turnNumber={turn.number}
+          combatActorRemoveHandler={combatActorRemoveHandler}
+          combatActorConditionAddHandler={combatActorConditionAddHandler}
+          combatActorConditionRemoveHandler={combatActorConditionRemoveHandler}
+          color={color}
+        />
       </TimelineContent>
     </TimelineItem>
   );
