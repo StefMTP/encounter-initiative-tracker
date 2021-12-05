@@ -17,6 +17,7 @@ import TurnButton from "./components/TurnButton";
 import RoundTimeline from "./components/Round/RoundTimeline";
 import CombatantForm from "./components/Combatants/CombatantForm";
 import PlayerStatusesTable from "./components/Status/PlayerStatusesTable";
+import "./global.css";
 
 const darkTheme = createTheme({ palette: { mode: "dark" } });
 
@@ -246,7 +247,14 @@ const App = () => {
   return (
     <React.Fragment>
       <ThemeProvider theme={darkTheme}>
-        <Box sx={{ bgcolor: "background.default", width: 1, height: 1 }}>
+        <Box
+          sx={{
+            bgcolor: "background.default",
+            width: 1,
+            height: 1,
+            padding: "50px 0",
+          }}
+        >
           <Typography variant="h3" color="white" textAlign="center">
             Round {round}
           </Typography>
