@@ -136,6 +136,45 @@ const App = () => {
     }
   };
 
+  const handleCombatActorsConditionAdd = (
+    combatActorId: string,
+    conditionName: string
+  ) => {
+    const combatActorToEdit = combatActors.find(
+      (combatActor) => combatActorId === combatActor.id
+    );
+    if (combatActorToEdit) {
+      if (!combatActorToEdit.conditions) {
+        combatActorToEdit["conditions"] = [];
+      }
+      combatActorToEdit.conditions.push(conditionName);
+      const tmpActors = combatActors.filter(
+        (combatActor) => combatActor.id !== combatActorId
+      );
+      tmpActors.push(combatActorToEdit);
+      setCombatActors(sortPlayerActors(tmpActors));
+    }
+  };
+
+  const handleCombatActorsConditionRemove = (
+    combatActorId: string,
+    conditionName: string
+  ) => {
+    const combatActorToEdit = combatActors.find(
+      (combatActor) => combatActorId === combatActor.id
+    );
+    if (combatActorToEdit && combatActorToEdit["conditions"]) {
+      combatActorToEdit.conditions = combatActorToEdit.conditions.filter(
+        (condition) => condition !== conditionName
+      );
+      const tmpActors = combatActors.filter(
+        (combatActor) => combatActor.id !== combatActorId
+      );
+      tmpActors.push(combatActorToEdit);
+      setCombatActors(sortPlayerActors(tmpActors));
+    }
+  };
+
   const handleTurnChange = (turnButtonType: "next" | "previous") => {
     if (turnButtonType === "next") {
       if (
@@ -233,6 +272,10 @@ const App = () => {
                 combatActors={combatActors}
                 combatActorsHpEditHandler={handleCombatActorsHpEdit}
                 combatActorsRemoveHandler={handleCombatActorRemove}
+                combatActorsConditionAddHandler={handleCombatActorsConditionAdd}
+                combatActorsConditionRemoveHandler={
+                  handleCombatActorsConditionRemove
+                }
                 turn={turn}
               />
             </Grid>
