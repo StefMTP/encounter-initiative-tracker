@@ -9,6 +9,7 @@ import {
   List,
   MenuItem,
   Select,
+  Typography,
 } from "@mui/material";
 import ConditionDialogDescription from "./ConditionDialogDescription";
 import { conditionsTable } from "../../types";
@@ -58,18 +59,24 @@ const ConditionDialog = ({
         </IconButton>
       </DialogTitle>
       <Box sx={{ width: "100%", maxWidth: 400, bgcolor: "background.paper" }}>
-        <List>
-          {conditions?.map((condition) => (
-            <ConditionDialogDescription
-              key={condition}
-              condition={condition}
-              combatActorId={combatActorId}
-              combatActorConditionRemoveHandler={
-                combatActorConditionRemoveHandler
-              }
-            />
-          ))}
-        </List>
+        {!!conditions ? (
+          <List>
+            {conditions?.map((condition) => (
+              <ConditionDialogDescription
+                key={condition}
+                condition={condition}
+                combatActorId={combatActorId}
+                combatActorConditionRemoveHandler={
+                  combatActorConditionRemoveHandler
+                }
+              />
+            ))}
+          </List>
+        ) : (
+          <Typography variant="h6" textAlign="center">
+            Character has no conditions...
+          </Typography>
+        )}
       </Box>
     </Dialog>
   );
