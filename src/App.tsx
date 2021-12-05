@@ -147,12 +147,14 @@ const App = () => {
       if (!combatActorToEdit.conditions) {
         combatActorToEdit["conditions"] = [];
       }
-      combatActorToEdit.conditions.push(conditionName);
-      const tmpActors = combatActors.filter(
-        (combatActor) => combatActor.id !== combatActorId
-      );
-      tmpActors.push(combatActorToEdit);
-      setCombatActors(sortPlayerActors(tmpActors));
+      if (!combatActorToEdit.conditions.includes(conditionName)) {
+        combatActorToEdit.conditions.push(conditionName);
+        const tmpActors = combatActors.filter(
+          (combatActor) => combatActor.id !== combatActorId
+        );
+        tmpActors.push(combatActorToEdit);
+        setCombatActors(sortPlayerActors(tmpActors));
+      }
     }
   };
 
