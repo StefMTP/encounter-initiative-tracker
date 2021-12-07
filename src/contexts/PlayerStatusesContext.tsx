@@ -21,7 +21,16 @@ const PlayerStatusesProvider = ({
 
   useEffect(() => {
     // dummy data for the player statuses
-    setPlayerStatuses(dummyPlayerStatuses);
+    // setPlayerStatuses(dummyPlayerStatuses);
+    const localData = localStorage.getItem("playerStatuses");
+    if (localData) {
+      try {
+        const parsedLocalData = JSON.parse(localData);
+        setPlayerStatuses(parsedLocalData);
+      } catch (e) {
+        setPlayerStatuses([]);
+      }
+    }
   }, []);
 
   useEffect(() => {

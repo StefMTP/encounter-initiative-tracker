@@ -14,6 +14,46 @@ export type combatant = {
   conditions?: string[];
 };
 
+export const isColor = (item: any): boolean => {
+  return (
+    typeof item === "object" &&
+    "primary" in item &&
+    typeof item.primary === "string" &&
+    primaryColors.includes(item.primary) &&
+    "secondary" in item &&
+    typeof item.secondary === "string" &&
+    secondaryColors.includes(item.secondary)
+  );
+};
+
+export const isCombatant = (item: any): boolean => {
+  if ("maxHp" in item && !("currentHp" in item)) {
+    return false;
+  }
+  if ("currentHp" in item && !("maxHp" in item)) {
+    return false;
+  }
+  if (
+    ("maxHp" in item && typeof item.maxHp !== "number") ||
+    ("currentHp" in item && typeof item.currentHp !== "number") ||
+    item.currentHp > item.maxHp ||
+    ("class" in item && typeof item.class !== "string") ||
+    ("color" in item && !isColor(item.color))
+  ) {
+    return false;
+  }
+  return (
+    "id" in item &&
+    typeof item.id === "string" &&
+    "name" in item &&
+    typeof item.name === "string" &&
+    "alignment" in item &&
+    (item.alignment === "PARTY" || item.alignment === "FOE") &&
+    "initiative" in item &&
+    typeof item.initiative === "number"
+  );
+};
+
 export type turn = {
   number: number;
   actorPlaying: combatant;
@@ -65,6 +105,13 @@ export const colorTable: colors = {
     secondary: "#ffff7f",
   },
 };
+
+export const primaryColors: string[] = Object.values(colorTable).map(
+  (color) => color.primary
+);
+export const secondaryColors: string[] = Object.values(colorTable).map(
+  (color) => color.secondary
+);
 
 export const conditionsTable: { [condition: string]: string } = {
   Blinded: `

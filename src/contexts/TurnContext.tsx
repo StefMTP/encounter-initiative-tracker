@@ -1,6 +1,7 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { sortPlayerActors } from "../helpers";
 import { dummyCombatants, turn } from "../types";
+import { CombatActorsContext } from "./CombatActorsContext";
 
 type TurnContextProviderProps = {
   children: React.ReactNode;
@@ -30,12 +31,29 @@ const TurnContextProvider = ({ children }: TurnContextProviderProps) => {
     },
   });
 
+  const { combatActors } = useContext(CombatActorsContext);
+
   useEffect(() => {
-    setRound(1);
-    setTurn({
-      number: 0,
-      actorPlaying: sortPlayerActors(dummyCombatants)[0],
-    });
+    const localDataRound = localStorage.getItem("round");
+    const localDataTurn = localStorage.getItem("turn");
+    const localDataCombatActors = localStorage.getItem("combatActors");
+    if (localDataRound && localDataTurn) {
+      try {
+        if (localDataCombatActors && localDataCombatActors.length <= 0) {
+          throw new Error();
+        }
+        const parsedLocalDataRound = JSON.parse(localDataRound);
+        const parsedLocalDataTurn = JSON.parse(localDataTurn);
+        setRound(parsedLocalDataRound);
+        setTurn(parsedLocalDataTurn);
+      } catch (e) {
+        setRound(1);
+        setTurn({
+          number: 0,
+          actorPlaying: sortPlayerActors(combatActors)[0],
+        });
+      }
+    }
   }, []);
 
   useEffect(() => {
