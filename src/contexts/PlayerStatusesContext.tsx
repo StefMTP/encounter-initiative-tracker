@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { dummyPlayerStatuses, playerStatus } from "../types";
+import { playerStatus } from "../types";
 
 type PlayerStatusesContextProviderProps = {
   children: React.ReactNode;

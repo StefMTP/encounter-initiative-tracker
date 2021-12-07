@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { sortPlayerActors } from "../helpers";
-import { dummyCombatants, turn } from "../types";
+import { turn } from "../types";
 import { CombatActorsContext } from "./CombatActorsContext";
 
 type TurnContextProviderProps = {

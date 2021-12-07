@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { combatant, isCombatant, dummyCombatants } from "../types";
+import { combatant } from "../types";
 import { sortPlayerActors } from "../helpers";
 
 type CombatActorsContextProviderProps = {
@@ -27,11 +27,6 @@ const CombatActorsProvider = ({
     if (localData) {
       try {
         const parsedLocalData = JSON.parse(localData);
-        // parsedLocalData.forEach((dataItem: any) => {
-        //   if (!isCombatant(dataItem)) {
-        //     throw new Error();
-        //   }
-        // });
         setCombatActors(sortPlayerActors(parsedLocalData));
       } catch (e) {
         setCombatActors([]);
