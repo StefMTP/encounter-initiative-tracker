@@ -24,6 +24,10 @@ const PlayerStatusesProvider = ({
     setPlayerStatuses(dummyPlayerStatuses);
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("playerStatuses", JSON.stringify(playerStatuses));
+  }, [playerStatuses]);
+
   return (
     <PlayerStatusesContext.Provider
       value={{ playerStatuses, setPlayerStatuses }}

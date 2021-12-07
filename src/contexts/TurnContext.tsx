@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
-import { combatant, turn } from "../types";
+import { sortPlayerActors } from "../helpers";
+import { dummyCombatants, turn } from "../types";
 
 type TurnContextProviderProps = {
   children: React.ReactNode;
@@ -30,9 +31,22 @@ const TurnContextProvider = ({ children }: TurnContextProviderProps) => {
   });
 
   useEffect(() => {
+    console.log("fire turn, round initializer");
     setRound(1);
-    setTurn({ number: round - 1, actorPlaying: {} as combatant });
+    setTurn({
+      number: 0,
+      actorPlaying: sortPlayerActors(dummyCombatants)[0],
+    });
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("round", JSON.stringify(round));
+  }, [round]);
+
+  useEffect(() => {
+    console.log("fire turn change");
+    localStorage.setItem("turn", JSON.stringify(turn));
+  }, [turn]);
 
   return (
     <TurnContext.Provider value={{ turn, setTurn, round, setRound }}>
