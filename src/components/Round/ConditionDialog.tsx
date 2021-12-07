@@ -13,28 +13,45 @@ import {
 } from "@mui/material";
 import ConditionDialogDescription from "./ConditionDialogDescription";
 import { conditionsTable } from "../../types";
+import { sortPlayerActors } from "../../helpers";
+import { useContext } from "react";
+import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 
 const ConditionDialog = ({
   open,
   combatActorId,
   closeHandler,
-  combatActorConditionAddHandler,
-  combatActorConditionRemoveHandler,
   conditions,
 }: {
   open: boolean;
   combatActorId: string;
   closeHandler: () => void;
-  combatActorConditionAddHandler: (
-    combatActorId: string,
-    conditionName: string
-  ) => void;
-  combatActorConditionRemoveHandler: (
-    combatActorId: string,
-    conditionName: string
-  ) => void;
   conditions: string[] | undefined;
 }) => {
+  const { combatActors, setCombatActors } = useContext(CombatActorsContext);
+
+  const addConditionToCombatActor = (
+    combatActorId: string,
+    conditionName: string
+  ) => {
+    const combatActorToEdit = combatActors.find(
+      (combatActor) => combatActorId === combatActor.id
+    );
+    if (combatActorToEdit) {
+      if (!combatActorToEdit.conditions) {
+        combatActorToEdit["conditions"] = [];
+      }
+      if (!combatActorToEdit.conditions.includes(conditionName)) {
+        combatActorToEdit.conditions.push(conditionName);
+        const tmpActors = combatActors.filter(
+          (combatActor) => combatActor.id !== combatActorId
+        );
+        tmpActors.push(combatActorToEdit);
+        setCombatActors(sortPlayerActors(tmpActors));
+      }
+    }
+  };
+
   return (
     <Dialog open={open} onClose={closeHandler}>
       <DialogTitle sx={{ display: "flex", gap: "10px", alignItems: "center" }}>
@@ -46,7 +63,7 @@ const ConditionDialog = ({
               <MenuItem
                 key={condition}
                 onClick={() =>
-                  combatActorConditionAddHandler(combatActorId, condition)
+                  addConditionToCombatActor(combatActorId, condition)
                 }
               >
                 {condition}
@@ -66,9 +83,6 @@ const ConditionDialog = ({
                 key={condition}
                 condition={condition}
                 combatActorId={combatActorId}
-                combatActorConditionRemoveHandler={
-                  combatActorConditionRemoveHandler
-                }
               />
             ))}
           </List>

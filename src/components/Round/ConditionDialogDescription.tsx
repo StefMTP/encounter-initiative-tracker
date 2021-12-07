@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   ListItem,
   ListItemText,
@@ -10,21 +10,37 @@ import {
 import { conditionsTable } from "../../types";
 import HelpIcon from "@mui/icons-material/Help";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { CombatActorsContext } from "../../contexts/CombatActorsContext";
+import { sortPlayerActors } from "../../helpers";
 
 const ConditionDialogDescription = ({
   condition,
   combatActorId,
-  combatActorConditionRemoveHandler,
 }: {
   condition: string;
   combatActorId: string;
-  combatActorConditionRemoveHandler: (
-    combatActorId: string,
-    conditionName: string
-  ) => void;
 }) => {
   const [infoOpen, setInfoOpen] = useState<boolean>(false);
+  const { combatActors, setCombatActors } = useContext(CombatActorsContext);
 
+  const removeConditionFromCombatActor = (
+    combatActorId: string,
+    conditionName: string
+  ) => {
+    const combatActorToEdit = combatActors.find(
+      (combatActor) => combatActorId === combatActor.id
+    );
+    if (combatActorToEdit && combatActorToEdit["conditions"]) {
+      combatActorToEdit.conditions = combatActorToEdit.conditions.filter(
+        (condition) => condition !== conditionName
+      );
+      const tmpActors = combatActors.filter(
+        (combatActor) => combatActor.id !== combatActorId
+      );
+      tmpActors.push(combatActorToEdit);
+      setCombatActors(sortPlayerActors(tmpActors));
+    }
+  };
   return (
     <>
       <ListItem key={condition}>
@@ -36,7 +52,7 @@ const ConditionDialogDescription = ({
         </ListItemButton>
         <ListItemButton
           onClick={() =>
-            combatActorConditionRemoveHandler(combatActorId, condition)
+            removeConditionFromCombatActor(combatActorId, condition)
           }
         >
           <ListItemIcon>

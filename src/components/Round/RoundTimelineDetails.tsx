@@ -2,36 +2,26 @@ import { Grid, IconButton } from "@mui/material";
 import { combatant } from "../../types";
 import RoundTimelineLabel from "./RoundTimelineLabel";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import { useContext } from "react";
+import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 
 const RoundTimelineDetails = ({
   combatActor,
   index,
   turnNumber,
-  combatActorRemoveHandler,
-  combatActorConditionAddHandler,
-  combatActorConditionRemoveHandler,
-  color,
 }: {
   combatActor: combatant;
   index: number;
   turnNumber: number;
-  combatActorRemoveHandler: (combatActorId: string) => void;
-  combatActorConditionAddHandler: (
-    combatActorId: string,
-    conditionName: string
-  ) => void;
-  combatActorConditionRemoveHandler: (
-    combatActorId: string,
-    conditionName: string
-  ) => void;
-  color: (
-    index: number,
-    turnNumber: number,
-    combatActor: combatant,
-    value: string,
-    isText?: boolean | undefined
-  ) => string;
 }) => {
+  const { combatActors, setCombatActors } = useContext(CombatActorsContext);
+
+  const removeCombatActor = (combatActorId: string) => {
+    setCombatActors(
+      combatActors.filter((combatActor) => combatActorId !== combatActor.id)
+    );
+  };
+
   return (
     <Grid
       container
@@ -42,19 +32,16 @@ const RoundTimelineDetails = ({
       <Grid item>
         <IconButton
           color="error"
-          onClick={() => combatActorRemoveHandler(combatActor.id)}
+          onClick={() => removeCombatActor(combatActor.id)}
         >
           <PersonRemoveIcon />
         </IconButton>
       </Grid>
       <Grid item>
         <RoundTimelineLabel
-          color={color}
           combatActor={combatActor}
           index={index}
           turnNumber={turnNumber}
-          combatActorConditionAddHandler={combatActorConditionAddHandler}
-          combatActorConditionRemoveHandler={combatActorConditionRemoveHandler}
         />
       </Grid>
     </Grid>

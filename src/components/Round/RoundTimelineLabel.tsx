@@ -1,34 +1,17 @@
 import { Badge, Grid, Typography } from "@mui/material";
 import ConditionDialog from "./ConditionDialog";
 import { combatant } from "../../types";
+import { color } from "../../helpers";
 import { useState } from "react";
 
 const RoundTimelineLabel = ({
   combatActor,
   turnNumber,
   index,
-  combatActorConditionAddHandler,
-  combatActorConditionRemoveHandler,
-  color,
 }: {
   combatActor: combatant;
   turnNumber: number;
   index: number;
-  combatActorConditionAddHandler: (
-    combatActorId: string,
-    conditionName: string
-  ) => void;
-  combatActorConditionRemoveHandler: (
-    combatActorId: string,
-    conditionName: string
-  ) => void;
-  color: (
-    index: number,
-    turnNumber: number,
-    combatActor: combatant,
-    value: string,
-    isText?: boolean | undefined
-  ) => string;
 }) => {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
@@ -89,8 +72,6 @@ const RoundTimelineLabel = ({
       <ConditionDialog
         open={isDialogOpen}
         combatActorId={combatActor.id}
-        combatActorConditionAddHandler={combatActorConditionAddHandler}
-        combatActorConditionRemoveHandler={combatActorConditionRemoveHandler}
         closeHandler={handleConditionDialogClose}
         conditions={combatActor.conditions}
       />

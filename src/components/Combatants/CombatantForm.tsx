@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AddReaction } from "@mui/icons-material";
 import {
   Grid,
@@ -16,15 +16,11 @@ import {
   combatantType,
 } from "../../types";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from "uuid";
+import { sortPlayerActors } from "../../helpers";
+import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 
-const CombatantForm = ({
-  combatActorSubmitHandler,
-  combatantsNumber
-}: {
-  combatActorSubmitHandler: (combatActor: combatant) => void;
-  combatantsNumber: number;
-}) => {
+const CombatantForm = () => {
   const [inputName, setInputName] = useState<string>("");
   const [inputInitiative, setInputInitiative] = useState<number>(0);
   const [inputAlignment, setInputAlignment] =
@@ -33,6 +29,13 @@ const CombatantForm = ({
   const [inputClass, setInputClass] = useState<string>("");
   const [inputHp, setInputHp] = useState<number>(0);
   const [inputColor, setInputColor] = useState<string>("Magenta");
+
+  const { combatActors, setCombatActors } = useContext(CombatActorsContext);
+
+  const submitCombatActor = (combatActorSubmit: combatant) => {
+    setCombatActors(sortPlayerActors([...combatActors, combatActorSubmit]));
+  };
+
   return (
     <form
       onSubmit={(e) => {
@@ -48,7 +51,7 @@ const CombatantForm = ({
           currentHp: inputHp,
           maxHp: inputHp,
         };
-        combatActorSubmitHandler(combatActorSubmit);
+        submitCombatActor(combatActorSubmit);
       }}
     >
       <Grid container spacing={2} m={2}>
@@ -136,11 +139,11 @@ const CombatantForm = ({
               {Object.keys(colorTable).map((color) => (
                 <MenuItem value={color} key={color}>
                   <Grid container alignContent="center">
-                  <span>{color}{" "}</span>
-                  <FiberManualRecordIcon
-                    sx={{ color: colorTable[color]["primary"] }}
-                    fontSize="small"
-                  />
+                    <span>{color} </span>
+                    <FiberManualRecordIcon
+                      sx={{ color: colorTable[color]["primary"] }}
+                      fontSize="small"
+                    />
                   </Grid>
                 </MenuItem>
               ))}

@@ -1,33 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { TableRow, TableCell, Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { combatant, playerStatus } from "../../types";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PlayerStatusCell from "./PlayerStatusCell";
+import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
 
 const PlayerStatusRow = ({
   playerStatus,
   combatActor,
-  playerStatusRemoveHandler,
-  playerStatusNameEditHandler,
-  playerStatusStatusEditHandler,
-  playerStatusDurationEditHandler,
 }: {
   playerStatus: playerStatus;
   combatActor?: combatant;
-  playerStatusRemoveHandler: (playerStatusRemoveId: string) => void;
-  playerStatusNameEditHandler: (
-    playerStatusId: string,
-    playerStatusNameSubmit: string
-  ) => void;
-  playerStatusStatusEditHandler: (
-    playerStatusId: string,
-    playerStatusStatusSubmit: string
-  ) => void;
-  playerStatusDurationEditHandler: (
-    playerStatusId: string,
-    playerStatusDurationSubmit: string
-  ) => void;
 }) => {
   const [nameFill, setNameFill] = useState<boolean>(false);
   const [statusFill, setStatusFill] = useState<boolean>(false);
@@ -35,6 +19,70 @@ const PlayerStatusRow = ({
   const [nameInput, setNameInput] = useState<string>("");
   const [statusInput, setStatusInput] = useState<string>("");
   const [durationInput, setDurationInput] = useState<string>("");
+
+  const { playerStatuses, setPlayerStatuses } = useContext(
+    PlayerStatusesContext
+  );
+
+  const removePlayerStatus = (playerStatusId: string) => {
+    setPlayerStatuses(
+      playerStatuses.filter(
+        (playerStatus) => playerStatusId !== playerStatus.id
+      )
+    );
+  };
+
+  const editPlayerStatusName = (
+    playerStatusId: string,
+    playerStatusNameSubmit: string
+  ) => {
+    const playerStatusToEdit = playerStatuses.find(
+      (playerStatus) => playerStatus.id === playerStatusId
+    );
+    if (playerStatusToEdit) {
+      playerStatusToEdit.name = playerStatusNameSubmit;
+      const tmpPlayerStatuses = playerStatuses.filter(
+        (playerStatus) => playerStatus.id !== playerStatusId
+      );
+      tmpPlayerStatuses.push(playerStatusToEdit);
+      setPlayerStatuses(tmpPlayerStatuses);
+    }
+  };
+
+  const editPlayerStatusDuration = (
+    playerStatusId: string,
+    playerStatusDurationSubmit: string
+  ) => {
+    const playerStatusToEdit = playerStatuses.find(
+      (playerStatus) => playerStatus.id === playerStatusId
+    );
+    if (playerStatusToEdit) {
+      playerStatusToEdit.duration = +playerStatusDurationSubmit;
+      const tmpPlayerStatuses = playerStatuses.filter(
+        (playerStatus) => playerStatus.id !== playerStatusId
+      );
+      tmpPlayerStatuses.push(playerStatusToEdit);
+      setPlayerStatuses(tmpPlayerStatuses);
+    }
+  };
+
+  const editPlayerStatusStatus = (
+    playerStatusId: string,
+    playerStatusStatusSubmit: string
+  ) => {
+    const playerStatusToEdit = playerStatuses.find(
+      (playerStatus) => playerStatus.id === playerStatusId
+    );
+    if (playerStatusToEdit) {
+      playerStatusToEdit.status = playerStatusStatusSubmit;
+      const tmpPlayerStatuses = playerStatuses.filter(
+        (playerStatus) => playerStatus.id !== playerStatusId
+      );
+      tmpPlayerStatuses.push(playerStatusToEdit);
+      setPlayerStatuses(tmpPlayerStatuses);
+    }
+  };
+
   return (
     <TableRow
       sx={{
@@ -46,7 +94,7 @@ const PlayerStatusRow = ({
         fieldInput={nameInput}
         playerStatusId={playerStatus.id}
         playerStatusField={playerStatus.name}
-        playerStatusFieldEditHandler={playerStatusNameEditHandler}
+        playerStatusFieldEditHandler={editPlayerStatusName}
         setFieldFillHandler={setNameFill}
         setFieldInputHandler={setNameInput}
         icon={<EditIcon />}
@@ -56,7 +104,7 @@ const PlayerStatusRow = ({
         fieldInput={statusInput}
         playerStatusId={playerStatus.id}
         playerStatusField={playerStatus.status}
-        playerStatusFieldEditHandler={playerStatusStatusEditHandler}
+        playerStatusFieldEditHandler={editPlayerStatusStatus}
         setFieldFillHandler={setStatusFill}
         setFieldInputHandler={setStatusInput}
         icon={<EditIcon />}
@@ -66,7 +114,7 @@ const PlayerStatusRow = ({
         fieldInput={durationInput}
         playerStatusId={playerStatus.id}
         playerStatusField={`${playerStatus.duration}`}
-        playerStatusFieldEditHandler={playerStatusDurationEditHandler}
+        playerStatusFieldEditHandler={editPlayerStatusDuration}
         setFieldFillHandler={setDurationFill}
         setFieldInputHandler={setDurationInput}
         icon={<EditIcon />}
@@ -76,7 +124,7 @@ const PlayerStatusRow = ({
           size="small"
           variant="contained"
           color="error"
-          onClick={() => playerStatusRemoveHandler(playerStatus.id)}
+          onClick={() => removePlayerStatus(playerStatus.id)}
           endIcon={<DeleteIcon />}
         >
           Remove

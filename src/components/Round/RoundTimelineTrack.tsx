@@ -1,5 +1,8 @@
 import { Typography, TextField } from "@mui/material";
 import { combatant } from "../../types";
+import { color, sortPlayerActors } from "../../helpers";
+import { useContext } from "react";
+import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 
 const RoundTimelineTrack = ({
   combatActor,
@@ -9,8 +12,6 @@ const RoundTimelineTrack = ({
   hpInput,
   hpFillToggler,
   hpInputEditHandler,
-  combatActorHpEditHandler,
-  color,
 }: {
   combatActor: combatant;
   index: number;
@@ -19,15 +20,27 @@ const RoundTimelineTrack = ({
   hpInput: number;
   hpFillToggler: React.Dispatch<React.SetStateAction<boolean>>;
   hpInputEditHandler: React.Dispatch<React.SetStateAction<number>>;
-  combatActorHpEditHandler: (combatActorId: string, hpInput: number) => void;
-  color: (
-    index: number,
-    turnNumber: number,
-    combatActor: combatant,
-    value: string,
-    isText?: boolean
-  ) => string;
 }) => {
+  const { combatActors, setCombatActors } = useContext(CombatActorsContext);
+
+  const editCombatActorsHp = (combatActorId: string, hpInput: number) => {
+    const combatActorToEdit = combatActors.find(
+      (combatActor) => combatActorId === combatActor.id
+    );
+    if (
+      combatActorToEdit &&
+      combatActorToEdit["currentHp"] &&
+      combatActorToEdit["maxHp"]
+    ) {
+      combatActorToEdit.currentHp =
+        hpInput > combatActorToEdit.maxHp ? combatActorToEdit.maxHp : hpInput;
+      const tmpActors = combatActors.filter(
+        (combatActor) => combatActor.id !== combatActorId
+      );
+      tmpActors.push(combatActorToEdit);
+      setCombatActors(sortPlayerActors(tmpActors));
+    }
+  };
   return (
     <>
       <Typography
@@ -44,7 +57,7 @@ const RoundTimelineTrack = ({
             <form
               onSubmit={(event) => {
                 event.preventDefault();
-                combatActorHpEditHandler(combatActor.id, hpInput);
+                editCombatActorsHp(combatActor.id, hpInput);
                 hpFillToggler(false);
               }}
             >

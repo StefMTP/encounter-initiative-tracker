@@ -9,36 +9,23 @@ import {
   Button,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { combatant, playerStatus } from "../../types";
+import { playerStatus } from "../../types";
 import PlayerStatusRow from "./PlayerStatusRow";
 import { v4 as uuid } from "uuid";
+import { useContext } from "react";
+import { CombatActorsContext } from "../../contexts/CombatActorsContext";
+import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
 
-const PlayerStatusesTable = ({
-  playerStatuses,
-  combatActors,
-  playerStatusSubmitHandler,
-  playerStatusRemoveHandler,
-  playerStatusNameEditHandler,
-  playerStatusStatusEditHandler,
-  playerStatusDurationEditHandler,
-}: {
-  playerStatuses: playerStatus[];
-  combatActors: combatant[];
-  playerStatusSubmitHandler: (playerStatusSubmit: playerStatus) => void;
-  playerStatusRemoveHandler: (playerStatusRemoveId: string) => void;
-  playerStatusNameEditHandler: (
-    playerStatusId: string,
-    playerStatusNameSubmit: string
-  ) => void;
-  playerStatusStatusEditHandler: (
-    playerStatusId: string,
-    playerStatusStatusSubmit: string
-  ) => void;
-  playerStatusDurationEditHandler: (
-    playerStatusId: string,
-    playerStatusDurationSubmit: string
-  ) => void;
-}) => {
+const PlayerStatusesTable = () => {
+  const { combatActors } = useContext(CombatActorsContext);
+  const { playerStatuses, setPlayerStatuses } = useContext(
+    PlayerStatusesContext
+  );
+
+  const submitPlayerStatus = (playerStatusSubmit: playerStatus) => {
+    setPlayerStatuses([...playerStatuses, playerStatusSubmit]);
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 450 }} size="small">
@@ -52,7 +39,7 @@ const PlayerStatusesTable = ({
                 variant="outlined"
                 endIcon={<AddIcon />}
                 onClick={() =>
-                  playerStatusSubmitHandler({
+                  submitPlayerStatus({
                     id: uuid(),
                     name: "",
                     status: "",
@@ -78,12 +65,6 @@ const PlayerStatusesTable = ({
                   (actor) => actor.name === playerStatus.name
                 )}
                 playerStatus={playerStatus}
-                playerStatusRemoveHandler={playerStatusRemoveHandler}
-                playerStatusNameEditHandler={playerStatusNameEditHandler}
-                playerStatusStatusEditHandler={playerStatusStatusEditHandler}
-                playerStatusDurationEditHandler={
-                  playerStatusDurationEditHandler
-                }
               />
             ))
           )}
