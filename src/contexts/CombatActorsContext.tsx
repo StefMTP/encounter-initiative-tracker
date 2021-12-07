@@ -22,7 +22,16 @@ const CombatActorsProvider = ({
 
   useEffect(() => {
     // dummy data for the round timeline
-    setCombatActors(sortPlayerActors(dummyCombatants));
+    // setCombatActors(sortPlayerActors(dummyCombatants));
+    const localData = localStorage.getItem("combatActors");
+    if (localData) {
+      try {
+        const parsedLocalData = JSON.parse(localData);
+        setCombatActors(sortPlayerActors(parsedLocalData));
+      } catch (e) {
+        setCombatActors([]);
+      }
+    }
   }, []);
 
   useEffect(() => {
