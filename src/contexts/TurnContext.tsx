@@ -31,7 +31,6 @@ const TurnContextProvider = ({ children }: TurnContextProviderProps) => {
   });
 
   useEffect(() => {
-    console.log("fire turn, round initializer");
     setRound(1);
     setTurn({
       number: 0,
@@ -44,7 +43,6 @@ const TurnContextProvider = ({ children }: TurnContextProviderProps) => {
   }, [round]);
 
   useEffect(() => {
-    console.log("fire turn change");
     localStorage.setItem("turn", JSON.stringify(turn));
   }, [turn]);
 
