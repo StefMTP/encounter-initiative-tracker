@@ -29,17 +29,15 @@ const Header = () => {
           return prevRound + 1;
         });
       }
-      setTurn((prevTurn) => ({
-        number:
-          prevTurn.number + 1 < combatActors.length ? prevTurn.number + 1 : 0,
+      setTurn({
+        number: turn.number + 1 < combatActors.length ? turn.number + 1 : 0,
         actorPlaying:
           combatActors[
-            combatActors.indexOf(prevTurn.actorPlaying) + 1 <
-            combatActors.length
-              ? combatActors.indexOf(prevTurn.actorPlaying) + 1
+            combatActors.indexOf(turn.actorPlaying) + 1 < combatActors.length
+              ? combatActors.indexOf(turn.actorPlaying) + 1
               : 0
           ],
-      }));
+      });
     } else if (turnButtonType === "previous") {
       if (round !== 1) {
         if (turn.number === 0 || combatActors.length === 0) {
@@ -53,18 +51,15 @@ const Header = () => {
           });
         }
       }
-      setTurn((prevTurn) => ({
-        number:
-          prevTurn.number - 1 < 0
-            ? combatActors.length - 1
-            : prevTurn.number - 1,
+      setTurn({
+        number: turn.number - 1 < 0 ? combatActors.length - 1 : turn.number - 1,
         actorPlaying:
           combatActors[
-            combatActors.indexOf(prevTurn.actorPlaying) > 0
-              ? combatActors.indexOf(prevTurn.actorPlaying) - 1
+            combatActors.indexOf(turn.actorPlaying) > 0
+              ? combatActors.indexOf(turn.actorPlaying) - 1
               : combatActors.length - 1
           ],
-      }));
+      });
     }
   };
   return (
