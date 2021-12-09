@@ -23,13 +23,13 @@ import { TurnContext } from "../../contexts/TurnContext";
 
 const CombatantForm = () => {
   const [inputName, setInputName] = useState<string>("");
-  const [inputInitiative, setInputInitiative] = useState<number>(0);
+  const [inputInitiative, setInputInitiative] = useState<string>("");
   const [inputAlignment, setInputAlignment] =
     useState<combatantAlignment>("PARTY");
   const [inputType, setInputType] = useState<combatantType>("PC");
   const [inputClass, setInputClass] = useState<string>("");
-  const [inputHp, setInputHp] = useState<number>(0);
-  const [inputColor, setInputColor] = useState<string>("Magenta");
+  const [inputHp, setInputHp] = useState<string>("");
+  const [inputColor, setInputColor] = useState<string>("Default");
 
   const { combatActors, setCombatActors } = useContext(CombatActorsContext);
   const { turn, setTurn } = useContext(TurnContext);
@@ -46,6 +46,15 @@ const CombatantForm = () => {
     setCombatActors(sortPlayerActors([...combatActors, combatActorSubmit]));
   };
 
+  const clearInputs = () => {
+    setInputName("");
+    setInputInitiative("");
+    setInputAlignment("PARTY");
+    setInputType("PC");
+    setInputHp("");
+    setInputColor("Default");
+  };
+
   return (
     <form
       onSubmit={(e) => {
@@ -53,15 +62,16 @@ const CombatantForm = () => {
         const combatActorSubmit: combatant = {
           id: uuid(),
           name: inputName,
-          initiative: inputInitiative || 0,
+          initiative: +inputInitiative || 0,
           alignment: inputAlignment,
           type: inputType,
           class: inputClass,
           color: colorTable[inputColor],
-          currentHp: inputHp,
-          maxHp: inputHp,
+          currentHp: +inputHp || 0,
+          maxHp: +inputHp || 0,
         };
         submitCombatActor(combatActorSubmit);
+        clearInputs();
       }}
     >
       <Grid container spacing={2} m={2}>
@@ -81,10 +91,18 @@ const CombatantForm = () => {
             variant="standard"
             label="Initiative"
             color="secondary"
-            type="number"
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            onInvalid={(e: any) => {
+              if (e.target.validity.patternMismatch) {
+                e.target.setCustomValidity("Type a number!");
+              }
+            }}
             required
             value={inputInitiative}
-            onChange={(e) => setInputInitiative(+e.target.value)}
+            onChange={(e) => {
+              e.target.setCustomValidity("");
+              setInputInitiative(e.target.value);
+            }}
           />
         </Grid>
       </Grid>
@@ -130,12 +148,20 @@ const CombatantForm = () => {
         </Grid>
         <Grid item xs={4}>
           <TextField
-            type="number"
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            onInvalid={(e: any) => {
+              if (e.target.validity.patternMismatch) {
+                e.target.setCustomValidity("Type a number!");
+              }
+            }}
             variant="standard"
             label="Health Points"
             color="secondary"
             value={inputHp}
-            onChange={(e) => setInputHp(+e.target.value)}
+            onChange={(e) => {
+              e.target.setCustomValidity("");
+              setInputHp(e.target.value);
+            }}
           />
         </Grid>
         <Grid item xs={4}>
