@@ -19,6 +19,7 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { v4 as uuid } from "uuid";
 import { sortPlayerActors } from "../../helpers";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
+import { TurnContext } from "../../contexts/TurnContext";
 
 const CombatantForm = () => {
   const [inputName, setInputName] = useState<string>("");
@@ -31,8 +32,17 @@ const CombatantForm = () => {
   const [inputColor, setInputColor] = useState<string>("Magenta");
 
   const { combatActors, setCombatActors } = useContext(CombatActorsContext);
+  const { turn, setTurn } = useContext(TurnContext);
 
   const submitCombatActor = (combatActorSubmit: combatant) => {
+    if (turn.actorPlaying.initiative < combatActorSubmit.initiative) {
+      setTurn((prevTurn) => {
+        return {
+          number: prevTurn.number + 1,
+          actorPlaying: prevTurn.actorPlaying,
+        };
+      });
+    }
     setCombatActors(sortPlayerActors([...combatActors, combatActorSubmit]));
   };
 

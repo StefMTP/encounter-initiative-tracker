@@ -4,6 +4,7 @@ import RoundTimelineLabel from "./RoundTimelineLabel";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { useContext } from "react";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
+import { TurnContext } from "../../contexts/TurnContext";
 
 const RoundTimelineDetails = ({
   combatActor,
@@ -15,11 +16,25 @@ const RoundTimelineDetails = ({
   turnNumber: number;
 }) => {
   const { combatActors, setCombatActors } = useContext(CombatActorsContext);
+  const { turn, setTurn } = useContext(TurnContext);
 
   const removeCombatActor = (combatActorId: string) => {
-    setCombatActors(
-      combatActors.filter((combatActor) => combatActorId !== combatActor.id)
+    const combatActorRemove = combatActors.find(
+      (combatActor) => combatActor.id === combatActorId
     );
+    if (combatActorRemove) {
+      if (turn.actorPlaying.initiative < combatActorRemove.initiative) {
+        setTurn((prevTurn) => {
+          return {
+            number: prevTurn.number - 1,
+            actorPlaying: prevTurn.actorPlaying,
+          };
+        });
+      }
+      setCombatActors(
+        combatActors.filter((combatActor) => combatActorId !== combatActor.id)
+      );
+    }
   };
 
   return (

@@ -34,7 +34,7 @@ const Header = () => {
         actorPlaying:
           combatActors[
             combatActors.indexOf(turn.actorPlaying) + 1 < combatActors.length
-              ? combatActors.indexOf(turn.actorPlaying) + 1
+              ? turn.number + 1
               : 0
           ],
       });
@@ -51,15 +51,20 @@ const Header = () => {
           });
         }
       }
-      setTurn({
-        number: turn.number - 1 < 0 ? combatActors.length - 1 : turn.number - 1,
-        actorPlaying:
-          combatActors[
-            combatActors.indexOf(turn.actorPlaying) > 0
-              ? combatActors.indexOf(turn.actorPlaying) - 1
-              : combatActors.length - 1
-          ],
-      });
+      if (round === 1 && turn.number === 0) {
+        setTurn(turn);
+      } else {
+        setTurn({
+          number:
+            turn.number - 1 < 0 ? combatActors.length - 1 : turn.number - 1,
+          actorPlaying:
+            combatActors[
+              combatActors.indexOf(turn.actorPlaying) > 0
+                ? turn.number - 1
+                : combatActors.length - 1
+            ],
+        });
+      }
     }
   };
   return (
