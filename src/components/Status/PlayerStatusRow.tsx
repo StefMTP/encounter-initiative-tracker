@@ -5,6 +5,7 @@ import { combatant, playerStatus } from "../../types";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PlayerStatusCell from "./PlayerStatusCell";
 import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
+import { Add } from "@mui/icons-material";
 
 const PlayerStatusRow = ({
   playerStatus,
@@ -98,6 +99,7 @@ const PlayerStatusRow = ({
         setFieldFillHandler={setNameFill}
         setFieldInputHandler={setNameInput}
         icon={<EditIcon />}
+        type="autocomplete"
       />
       <PlayerStatusCell
         fieldFill={statusFill}
@@ -108,6 +110,7 @@ const PlayerStatusRow = ({
         setFieldFillHandler={setStatusFill}
         setFieldInputHandler={setStatusInput}
         icon={<EditIcon />}
+        type="text"
       />
       <PlayerStatusCell
         fieldFill={durationFill}
@@ -118,17 +121,37 @@ const PlayerStatusRow = ({
         setFieldFillHandler={setDurationFill}
         setFieldInputHandler={setDurationInput}
         icon={<EditIcon />}
+        type="number"
       />
       <TableCell align="center">
-        <Button
-          size="small"
-          variant="contained"
-          color="error"
-          onClick={() => removePlayerStatus(playerStatus.id)}
-          endIcon={<DeleteIcon />}
-        >
-          Remove
-        </Button>
+        {nameFill || statusFill || durationFill ? (
+          <Button
+            size="small"
+            variant="contained"
+            color="success"
+            onClick={() => {
+              editPlayerStatusName(playerStatus.id, nameInput);
+              editPlayerStatusStatus(playerStatus.id, statusInput);
+              editPlayerStatusDuration(playerStatus.id, durationInput);
+              setNameFill(false);
+              setDurationFill(false);
+              setStatusFill(false);
+            }}
+            endIcon={<Add />}
+          >
+            Enter
+          </Button>
+        ) : (
+          <Button
+            size="small"
+            variant="contained"
+            color="error"
+            onClick={() => removePlayerStatus(playerStatus.id)}
+            endIcon={<DeleteIcon />}
+          >
+            Remove
+          </Button>
+        )}
       </TableCell>
     </TableRow>
   );

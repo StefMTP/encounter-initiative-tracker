@@ -1,4 +1,6 @@
-import { TableCell, TextField, IconButton } from "@mui/material";
+import { TableCell, TextField, IconButton, Autocomplete } from "@mui/material";
+import { useContext } from "react";
+import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 
 const PlayerStatusCell = ({
   fieldFill,
@@ -9,6 +11,7 @@ const PlayerStatusCell = ({
   setFieldFillHandler,
   setFieldInputHandler,
   icon,
+  type,
 }: {
   fieldFill: boolean;
   fieldInput: string;
@@ -21,7 +24,9 @@ const PlayerStatusCell = ({
   setFieldFillHandler: React.Dispatch<React.SetStateAction<boolean>>;
   setFieldInputHandler: React.Dispatch<React.SetStateAction<string>>;
   icon: React.ReactNode;
+  type: "autocomplete" | "text" | "number" | undefined;
 }) => {
+  const { combatActors } = useContext(CombatActorsContext);
   return (
     <TableCell>
       {fieldFill ? (
@@ -32,14 +37,43 @@ const PlayerStatusCell = ({
             setFieldFillHandler(false);
           }}
         >
-          <TextField
-            type="text"
-            variant="standard"
-            size="small"
-            onChange={(e) => {
-              setFieldInputHandler(e.target.value);
-            }}
-          />
+          {type === "autocomplete" ? (
+            <Autocomplete
+              disablePortal
+              options={combatActors.map((combatActor) => combatActor.name)}
+              value={fieldInput}
+              onChange={(e: any, newValue: string | null) => {
+                if (newValue) {
+                  setFieldInputHandler(newValue);
+                }
+              }}
+              renderInput={(params) => <TextField {...params} label="Name" />}
+            />
+          ) : type === "text" ? (
+            <TextField
+              type="text"
+              variant="standard"
+              size="small"
+              onChange={(e) => {
+                setFieldInputHandler(e.target.value);
+              }}
+            />
+          ) : (
+            <TextField
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+              onInvalid={(e: any) => {
+                if (e.target.validity.patternMismatch) {
+                  e.target.setCustomValidity("Type a number!");
+                }
+              }}
+              variant="standard"
+              size="small"
+              onChange={(e) => {
+                e.target.setCustomValidity("");
+                setFieldInputHandler(e.target.value);
+              }}
+            />
+          )}
         </form>
       ) : (
         <>
