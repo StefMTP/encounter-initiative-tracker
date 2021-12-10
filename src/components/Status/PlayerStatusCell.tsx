@@ -1,4 +1,10 @@
-import { TableCell, TextField, IconButton, Autocomplete } from "@mui/material";
+import {
+  TableCell,
+  TextField,
+  IconButton,
+  Autocomplete,
+  Typography,
+} from "@mui/material";
 import { useContext } from "react";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 
@@ -77,7 +83,14 @@ const PlayerStatusCell = ({
         </form>
       ) : (
         <>
-          {playerStatusField}
+          <Typography
+            sx={{
+              textShadow:
+                "-1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.9)",
+            }}
+          >
+            {playerStatusField}
+          </Typography>
           <IconButton
             size="small"
             onClick={() => setFieldFillHandler(!fieldFill)}
