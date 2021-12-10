@@ -7,6 +7,7 @@ import {
   TableCell,
   TableBody,
   Button,
+  Typography,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { playerStatus } from "../../types";
@@ -55,7 +56,11 @@ const PlayerStatusesTable = () => {
         <TableBody>
           {playerStatuses.length <= 0 ? (
             <TableRow>
-              <TableCell>No status effects added.</TableCell>
+              <TableCell colSpan={4}>
+                <Typography textAlign="center">
+                  No status effects added.
+                </Typography>
+              </TableCell>
             </TableRow>
           ) : (
             playerStatuses.map((playerStatus) => (
