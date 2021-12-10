@@ -23,7 +23,18 @@ const RoundTimelineDetails = ({
       (combatActor) => combatActor.id === combatActorId
     );
     if (combatActorRemove) {
-      if (turn.actorPlaying.initiative < combatActorRemove.initiative) {
+      if (combatActors.length === 1 || !turn.actorPlaying) {
+        setTurn({
+          number: 0,
+          actorPlaying: {
+            id: "123",
+            name: "",
+            alignment: "PARTY",
+            initiative: 0,
+            type: "PC",
+          },
+        });
+      } else if (turn.actorPlaying.initiative < combatActorRemove.initiative) {
         setTurn((prevTurn) => {
           return {
             number: prevTurn.number - 1,
