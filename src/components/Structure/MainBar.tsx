@@ -9,6 +9,7 @@ import {
 import { useContext, useState } from "react";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import RoundTimeline from "../Round/RoundTimeline";
+import BulkRemoveDialog from "./BulkRemoveDialog";
 
 const MainBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +18,11 @@ const MainBar = () => {
 
   const handleClose = () => {
     setIsOpen(!isOpen);
+  };
+
+  const clearActors = () => {
+    setCombatActors([]);
+    setIsOpen(false);
   };
 
   return (
@@ -35,7 +41,15 @@ const MainBar = () => {
           </Grid>
         )}
       </Grid>
-      <Dialog open={isOpen} onClose={handleClose}>
+      <BulkRemoveDialog
+        open={isOpen}
+        closeHandler={handleClose}
+        openSetter={setIsOpen}
+        contextClearer={clearActors}
+        dialogMessage={`By pressing "Yes" all current characters will be lost. Are you sure
+        you want to do this?`}
+      />
+      {/* <Dialog open={isOpen} onClose={handleClose}>
         <DialogTitle>WARNING!</DialogTitle>
         <Box
           sx={{
@@ -47,7 +61,7 @@ const MainBar = () => {
         >
           <Typography variant="h6" textAlign="center">
             By pressing "Yes" all current characters will be lost. Are you sure
-            you want to go on?
+            you want to do this?
           </Typography>
           <Grid container sx={{ mt: 3 }} justifyContent="space-evenly">
             <Grid item>
@@ -73,7 +87,7 @@ const MainBar = () => {
             </Grid>
           </Grid>
         </Box>
-      </Dialog>
+      </Dialog> */}
     </>
   );
 };
