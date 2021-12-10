@@ -1,4 +1,4 @@
-import { colorTable, combatant } from "./types";
+import { combatant } from "./types";
 
 export const sortPlayerActors = (combatants: combatant[]) => {
   return combatants.sort((a, b) =>
