@@ -35,7 +35,9 @@ const CombatantForm = () => {
   const { turn, setTurn } = useContext(TurnContext);
 
   const submitCombatActor = (combatActorSubmit: combatant) => {
-    if (turn.actorPlaying.initiative < combatActorSubmit.initiative) {
+    if (combatActors.length === 0 || !turn.actorPlaying) {
+      setTurn({ number: 0, actorPlaying: combatActorSubmit });
+    } else if (turn.actorPlaying.initiative < combatActorSubmit.initiative) {
       setTurn((prevTurn) => {
         return {
           number: prevTurn.number + 1,
