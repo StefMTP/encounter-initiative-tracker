@@ -66,7 +66,7 @@ const CombatantForm = () => {
           alignment: inputAlignment,
           type: inputType,
           class: inputClass,
-          color: colorTable[inputColor],
+          color: inputColor === "Default" ? undefined : colorTable[inputColor],
           currentHp: +inputHp || 0,
           maxHp: +inputHp || 0,
         };

@@ -18,7 +18,7 @@ export const color = (
   isText?: boolean
 ) => {
   return index === turnNumber
-    ? combatActor.color && colorTable["Default"] !== combatActor.color
+    ? combatActor.color
       ? !!isText
         ? combatActor.color.secondary
         : combatActor.color.primary
