@@ -1,11 +1,4 @@
-import {
-  Grid,
-  Button,
-  Dialog,
-  DialogTitle,
-  Box,
-  Typography,
-} from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import { useContext, useState } from "react";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import RoundTimeline from "../Round/RoundTimeline";
@@ -49,45 +42,6 @@ const MainBar = () => {
         dialogMessage={`By pressing "Yes" all current characters will be lost. Are you sure
         you want to do this?`}
       />
-      {/* <Dialog open={isOpen} onClose={handleClose}>
-        <DialogTitle>WARNING!</DialogTitle>
-        <Box
-          sx={{
-            width: "100%",
-            maxWidth: 400,
-            bgcolor: "background.paper",
-            p: 3,
-          }}
-        >
-          <Typography variant="h6" textAlign="center">
-            By pressing "Yes" all current characters will be lost. Are you sure
-            you want to do this?
-          </Typography>
-          <Grid container sx={{ mt: 3 }} justifyContent="space-evenly">
-            <Grid item>
-              <Button
-                variant="outlined"
-                color="error"
-                onClick={() => {
-                  setCombatActors([]);
-                  setIsOpen(false);
-                }}
-              >
-                Yes
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="outlined"
-                color="warning"
-                onClick={() => setIsOpen(false)}
-              >
-                No
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </Dialog> */}
     </>
   );
 };
