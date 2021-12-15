@@ -21,6 +21,7 @@ const TurnButton = ({
 }) => {
   return (
     <Button
+      size={label === "Next turn" ? "large" : "medium"}
       startIcon={label === "Previous turn" ? <ArrowBack /> : null}
       endIcon={label === "Next turn" ? <ArrowForward /> : null}
       variant={variant}
