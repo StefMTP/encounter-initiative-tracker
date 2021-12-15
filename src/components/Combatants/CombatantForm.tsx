@@ -37,7 +37,8 @@ const CombatantForm = ({
   const [inputHp, setInputHp] = useState<string>("");
   const [inputColor, setInputColor] = useState<string>("Default");
 
-  const { setActorSubmitAlertOpen } = useContext(AlertContext);
+  const { setActorSubmitAlertOpen, setActorSubmitAlertMessage } =
+    useContext(AlertContext);
   const { combatActors, setCombatActors } = useContext(CombatActorsContext);
   const { turn, setTurn } = useContext(TurnContext);
 
@@ -54,6 +55,9 @@ const CombatantForm = ({
     }
     openSetter(false);
     setCombatActors(sortPlayerActors([...combatActors, combatActorSubmit]));
+    setActorSubmitAlertMessage(
+      `${combatActorSubmit.name} added succcessfully!`
+    );
     setActorSubmitAlertOpen(true);
   };
 
