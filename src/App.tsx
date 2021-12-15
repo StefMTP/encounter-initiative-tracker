@@ -8,33 +8,36 @@ import SideBar from "./components/Structure/SideBar";
 import CombatActorsContextProvider from "./contexts/CombatActorsContext";
 import PlayerStatusesProvider from "./contexts/PlayerStatusesContext";
 import TurnContextProvider from "./contexts/TurnContext";
+import AlertContextProvider from "./contexts/AlertContext";
 
 const darkTheme = createTheme({ palette: { mode: "dark" } });
 
 const App = () => {
   return (
-    <CombatActorsContextProvider>
-      <PlayerStatusesProvider>
-        <TurnContextProvider>
-          <ThemeProvider theme={darkTheme}>
-            <Box
-              sx={{
-                bgcolor: "background.default",
-                width: 1,
-                height: 1,
-                padding: "50px 0",
-              }}
-            >
-              <Header />
-              <Grid container>
-                <MainBar />
-                <SideBar />
-              </Grid>
-            </Box>
-          </ThemeProvider>
-        </TurnContextProvider>
-      </PlayerStatusesProvider>
-    </CombatActorsContextProvider>
+    <AlertContextProvider>
+      <CombatActorsContextProvider>
+        <PlayerStatusesProvider>
+          <TurnContextProvider>
+            <ThemeProvider theme={darkTheme}>
+              <Box
+                sx={{
+                  bgcolor: "background.default",
+                  width: 1,
+                  height: 1,
+                  padding: "50px 0",
+                }}
+              >
+                <Header />
+                <Grid container>
+                  <MainBar />
+                  <SideBar />
+                </Grid>
+              </Box>
+            </ThemeProvider>
+          </TurnContextProvider>
+        </PlayerStatusesProvider>
+      </CombatActorsContextProvider>
+    </AlertContextProvider>
   );
 };
 
