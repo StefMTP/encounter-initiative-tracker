@@ -1,19 +1,23 @@
 import { Button, Grid, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
-import CombatantForm from "../Combatants/CombatantForm";
 import PlayerStatusesTable from "../Status/PlayerStatusesTable";
 import BulkRemoveDialog from "./BulkRemoveDialog";
+import CombatantFormDialog from "../Combatants/CombatantFormDialog";
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [addIsOpen, setAddIsOpen] = useState(false);
 
   const { playerStatuses, setPlayerStatuses } = useContext(
     PlayerStatusesContext
   );
 
-  const handleClose = () => {
+  const handleCloseRemove = () => {
     setIsOpen(!isOpen);
+  };
+  const handleCloseAdd = () => {
+    setAddIsOpen(!addIsOpen);
   };
   const clearStatuses = () => {
     setPlayerStatuses([]);
@@ -22,13 +26,16 @@ const SideBar = () => {
 
   return (
     <>
-      <Grid item xs={6} display="grid" justifyContent="center" padding={4}>
-        <Grid item>
-          <Typography variant="h4" color="secondary" textAlign="center">
-            Insert characters into the battle:
-          </Typography>
-          <CombatantForm />
-        </Grid>
+      <Grid item xs={6} display="grid" justifyItems="center" padding={4}>
+        <Button
+          sx={{ margin: "30px 0" }}
+          size="large"
+          variant="outlined"
+          color="success"
+          onClick={() => setAddIsOpen(true)}
+        >
+          Insert characters into the battle
+        </Button>
         <Grid container justifyContent="center">
           <Typography textAlign="center" variant="h5" color="secondary">
             Keep track of spells, effects and conditions:
@@ -49,11 +56,16 @@ const SideBar = () => {
       </Grid>
       <BulkRemoveDialog
         open={isOpen}
-        closeHandler={handleClose}
+        closeHandler={handleCloseRemove}
         openSetter={setIsOpen}
         contextClearer={clearStatuses}
         dialogMessage={`By pressing "Yes" all current statuses will be lost. Are you sure
         you want to go on?`}
+      />
+      <CombatantFormDialog
+        open={addIsOpen}
+        closeHandler={handleCloseAdd}
+        openSetter={setAddIsOpen}
       />
     </>
   );
