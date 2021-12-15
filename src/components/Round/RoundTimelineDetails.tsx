@@ -5,6 +5,7 @@ import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { useContext } from "react";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import { TurnContext } from "../../contexts/TurnContext";
+import { AlertContext } from "../../contexts/AlertContext";
 
 const RoundTimelineDetails = ({
   combatActor,
@@ -17,6 +18,8 @@ const RoundTimelineDetails = ({
 }) => {
   const { combatActors, setCombatActors } = useContext(CombatActorsContext);
   const { turn, setTurn } = useContext(TurnContext);
+  const { setActorRemoveAlertOpen, setActorRemoveAlertMessage } =
+    useContext(AlertContext);
 
   const removeCombatActor = (combatActorId: string) => {
     const combatActorRemove = combatActors.find(
@@ -45,6 +48,8 @@ const RoundTimelineDetails = ({
       setCombatActors(
         combatActors.filter((combatActor) => combatActorId !== combatActor.id)
       );
+      setActorRemoveAlertMessage(`${combatActorRemove.name} removed...`);
+      setActorRemoveAlertOpen(true);
     }
   };
 

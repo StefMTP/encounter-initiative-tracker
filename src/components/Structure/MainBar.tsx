@@ -1,24 +1,23 @@
 import React, { useContext, useState } from "react";
 import { Grid, Button, Snackbar } from "@mui/material";
-import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import Alert from "../Alert";
 import { AlertContext } from "../../contexts/AlertContext";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import RoundTimeline from "../Round/RoundTimeline";
 import BulkRemoveDialog from "./BulkRemoveDialog";
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  props,
-  ref
-) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
 const MainBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { combatActors, setCombatActors } = useContext(CombatActorsContext);
-  const { actorSubmitAlertOpen, setActorSubmitAlertOpen } =
-    useContext(AlertContext);
+  const {
+    actorSubmitAlertOpen,
+    setActorSubmitAlertOpen,
+    actorSubmitAlertMessage,
+    setActorRemoveAlertOpen,
+    actorRemoveAlertOpen,
+    actorRemoveAlertMessage,
+  } = useContext(AlertContext);
 
   const handleSubmitAlertClose = (
     event?: React.SyntheticEvent | Event,
@@ -28,6 +27,16 @@ const MainBar = () => {
       return;
     }
     setActorSubmitAlertOpen(false);
+  };
+
+  const handleRemoveAlertClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setActorRemoveAlertOpen(false);
   };
 
   const handleDialogRemoveClose = () => {
@@ -73,7 +82,20 @@ const MainBar = () => {
           sx={{ width: "100%" }}
           severity="success"
         >
-          Character added successfully!
+          {actorSubmitAlertMessage}
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={actorRemoveAlertOpen}
+        onClose={handleRemoveAlertClose}
+        autoHideDuration={6000}
+      >
+        <Alert
+          onClose={handleRemoveAlertClose}
+          sx={{ width: "100%" }}
+          severity="error"
+        >
+          {actorRemoveAlertMessage}
         </Alert>
       </Snackbar>
     </>
