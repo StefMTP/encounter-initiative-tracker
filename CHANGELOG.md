@@ -20,3 +20,8 @@ version 1.0.4
 - fixed turns to work properly when adding, removing characters and generally restoring project
 - fixed a bug with colors not appearing for default colored characters
 - added bulk removals for characters and statuses
+
+version 1.0.5
+
+- removed the add character form from the sidebar
+- insert characters by pressing a button and filling the form in a dialog 
