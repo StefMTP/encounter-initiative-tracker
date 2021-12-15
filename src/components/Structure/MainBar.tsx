@@ -1,15 +1,36 @@
-import { Grid, Button } from "@mui/material";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
+import { Grid, Button, Snackbar } from "@mui/material";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import { AlertContext } from "../../contexts/AlertContext";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import RoundTimeline from "../Round/RoundTimeline";
 import BulkRemoveDialog from "./BulkRemoveDialog";
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const MainBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { combatActors, setCombatActors } = useContext(CombatActorsContext);
+  const { actorSubmitAlertOpen, setActorSubmitAlertOpen } =
+    useContext(AlertContext);
 
-  const handleClose = () => {
+  const handleSubmitAlertClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setActorSubmitAlertOpen(false);
+  };
+
+  const handleDialogRemoveClose = () => {
     setIsOpen(!isOpen);
   };
 
@@ -36,12 +57,25 @@ const MainBar = () => {
       </Grid>
       <BulkRemoveDialog
         open={isOpen}
-        closeHandler={handleClose}
+        closeHandler={handleDialogRemoveClose}
         openSetter={setIsOpen}
         contextClearer={clearActors}
         dialogMessage={`By pressing "Yes" all current characters will be lost. Are you sure
         you want to do this?`}
       />
+      <Snackbar
+        open={actorSubmitAlertOpen}
+        onClose={handleSubmitAlertClose}
+        autoHideDuration={6000}
+      >
+        <Alert
+          onClose={handleSubmitAlertClose}
+          sx={{ width: "100%" }}
+          severity="success"
+        >
+          Character added successfully!
+        </Alert>
+      </Snackbar>
     </>
   );
 };

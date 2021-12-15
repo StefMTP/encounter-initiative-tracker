@@ -21,6 +21,8 @@ import { sortPlayerActors } from "../../helpers";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import { TurnContext } from "../../contexts/TurnContext";
 
+import { AlertContext } from "../../contexts/AlertContext";
+
 const CombatantForm = ({
   openSetter,
 }: {
@@ -35,6 +37,7 @@ const CombatantForm = ({
   const [inputHp, setInputHp] = useState<string>("");
   const [inputColor, setInputColor] = useState<string>("Default");
 
+  const { setActorSubmitAlertOpen } = useContext(AlertContext);
   const { combatActors, setCombatActors } = useContext(CombatActorsContext);
   const { turn, setTurn } = useContext(TurnContext);
 
@@ -51,6 +54,7 @@ const CombatantForm = ({
     }
     openSetter(false);
     setCombatActors(sortPlayerActors([...combatActors, combatActorSubmit]));
+    setActorSubmitAlertOpen(true);
   };
 
   const clearInputs = () => {
