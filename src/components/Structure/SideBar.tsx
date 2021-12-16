@@ -43,9 +43,17 @@ const SideBar = () => {
 
   return (
     <>
-      <Grid item xs={6} display="grid" justifyItems="center" padding={4}>
+      <Grid
+        item
+        xs={6}
+        display="flex"
+        flexDirection="column"
+        justifyItems="center"
+        alignItems="center"
+        padding={4}
+      >
         <Button
-          sx={{ margin: "30px 0" }}
+          sx={{ margin: "30px 0", maxHeight: "45px" }}
           size="large"
           variant="outlined"
           color="success"
@@ -54,12 +62,12 @@ const SideBar = () => {
           Insert characters into the battle
         </Button>
         <Grid container justifyContent="center">
-          <Typography textAlign="center" variant="h5" color="secondary">
-            Keep track of spells, effects and conditions:
+          <Typography textAlign="center" variant="h6" color="primary">
+            Keep track of spells, effects and conditions
           </Typography>
           <PlayerStatusesTable />
           {playerStatuses.length > 0 && (
-            <Grid item>
+            <Grid item my={2}>
               <Button
                 variant="contained"
                 color="error"
