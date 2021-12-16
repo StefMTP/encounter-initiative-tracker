@@ -13,6 +13,10 @@ type AlertContextType = {
   actorRemoveAlertMessage: string;
   setActorRemoveAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setActorRemoveAlertMessage: React.Dispatch<React.SetStateAction<string>>;
+  statusRemoveAlertOpen: boolean;
+  statusRemoveAlertMessage: string;
+  setStatusRemoveAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setStatusRemoveAlertMessage: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const AlertContext = createContext<AlertContextType>(
@@ -28,6 +32,10 @@ const AlertContextProvider = ({ children }: AlertContextProviderProps) => {
     useState<boolean>(false);
   const [actorRemoveAlertMessage, setActorRemoveAlertMessage] =
     useState<string>("");
+  const [statusRemoveAlertOpen, setStatusRemoveAlertOpen] =
+    useState<boolean>(false);
+  const [statusRemoveAlertMessage, setStatusRemoveAlertMessage] =
+    useState<string>("");
 
   return (
     <AlertContext.Provider
@@ -40,6 +48,10 @@ const AlertContextProvider = ({ children }: AlertContextProviderProps) => {
         actorRemoveAlertMessage,
         setActorRemoveAlertOpen,
         setActorRemoveAlertMessage,
+        statusRemoveAlertOpen,
+        statusRemoveAlertMessage,
+        setStatusRemoveAlertOpen,
+        setStatusRemoveAlertMessage,
       }}
     >
       {children}

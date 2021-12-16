@@ -1,9 +1,11 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Snackbar, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
 import PlayerStatusesTable from "../Status/PlayerStatusesTable";
 import BulkRemoveDialog from "./BulkRemoveDialog";
 import CombatantFormDialog from "../Combatants/CombatantFormDialog";
+import Alert from "../Alert";
+import { AlertContext } from "../../contexts/AlertContext";
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +14,11 @@ const SideBar = () => {
   const { playerStatuses, setPlayerStatuses } = useContext(
     PlayerStatusesContext
   );
+  const {
+    statusRemoveAlertOpen,
+    setStatusRemoveAlertOpen,
+    statusRemoveAlertMessage,
+  } = useContext(AlertContext);
 
   const handleCloseRemove = () => {
     setIsOpen(!isOpen);
@@ -22,6 +29,16 @@ const SideBar = () => {
   const clearStatuses = () => {
     setPlayerStatuses([]);
     setIsOpen(false);
+  };
+
+  const handleRemoveAlertClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setStatusRemoveAlertOpen(false);
   };
 
   return (
@@ -67,6 +84,19 @@ const SideBar = () => {
         closeHandler={handleCloseAdd}
         openSetter={setAddIsOpen}
       />
+      <Snackbar
+        open={statusRemoveAlertOpen}
+        onClose={handleRemoveAlertClose}
+        autoHideDuration={6000}
+      >
+        <Alert
+          onClose={handleRemoveAlertClose}
+          sx={{ width: "100%" }}
+          severity="error"
+        >
+          {statusRemoveAlertMessage}
+        </Alert>
+      </Snackbar>
     </>
   );
 };

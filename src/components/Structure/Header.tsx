@@ -1,5 +1,6 @@
 import { Typography, Grid, Button } from "@mui/material";
 import { useContext, useState } from "react";
+import { AlertContext } from "../../contexts/AlertContext";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
 import { TurnContext } from "../../contexts/TurnContext";
@@ -12,6 +13,8 @@ const Header = () => {
   const { playerStatuses, setPlayerStatuses } = useContext(
     PlayerStatusesContext
   );
+  const { setStatusRemoveAlertOpen, setStatusRemoveAlertMessage } =
+    useContext(AlertContext);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -38,9 +41,16 @@ const Header = () => {
         combatActors.length === 0
       ) {
         setRound((prevRound) => {
-          const tmpPlayerStatuses = playerStatuses.filter(
-            (tmpPlayerStatus) => tmpPlayerStatus.duration !== 0
-          );
+          const tmpPlayerStatuses = playerStatuses.filter((tmpPlayerStatus) => {
+            if (tmpPlayerStatus.duration !== 0) {
+              return true;
+            }
+            setStatusRemoveAlertMessage(
+              `${tmpPlayerStatus.status} was removed from ${tmpPlayerStatus.name}`
+            );
+            setStatusRemoveAlertOpen(true);
+            return false;
+          });
           tmpPlayerStatuses.forEach((tmpPlayerStatus) => {
             tmpPlayerStatus.duration--;
           });
