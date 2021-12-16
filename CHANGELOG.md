@@ -24,4 +24,11 @@ version 1.0.4
 version 1.0.5
 
 - removed the add character form from the sidebar
-- insert characters by pressing a button and filling the form in a dialog 
+- insert characters by pressing a button and filling the form in a dialog
+
+version 1.0.6
+
+- alerts for character add, character remove and when a status runs out 
+- click on character to make it his own turn
+- edit character initiative by clicking on "Initiative"
+- edit character HP by clicking on "HP"
