@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   TimelineItem,
   TimelineOppositeContent,
@@ -12,6 +11,8 @@ import { color } from "../../helpers";
 import CombatantIcon from "../Combatants/CombatantIcon";
 import RoundTimelineTrack from "./RoundTimelineTrack";
 import RoundTimelineDetails from "./RoundTimelineDetails";
+import { TurnContext } from "../../contexts/TurnContext";
+import { useContext } from "react";
 
 const RoundTimelineItem = ({
   turn,
@@ -24,8 +25,7 @@ const RoundTimelineItem = ({
   index: number;
   array: combatant[];
 }) => {
-  const [hpFill, setHpFill] = useState<boolean>(false);
-  const [hpInput, setHpInput] = useState<number>(0);
+  const { setTurn } = useContext(TurnContext);
   return (
     <TimelineItem
       position={combatActor.alignment === "PARTY" ? "left" : "right"}
@@ -39,19 +39,18 @@ const RoundTimelineItem = ({
           combatActor={combatActor}
           index={index}
           turnNumber={turn.number}
-          hpFill={hpFill}
-          hpInput={hpInput}
-          hpFillToggler={setHpFill}
-          hpInputEditHandler={setHpInput}
         />
       </TimelineOppositeContent>
       <TimelineSeparator>
         <TimelineDot
           sx={{
             bgcolor: color(index, turn.number, combatActor, ""),
+            "&:hover": {
+              cursor: "pointer",
+            },
           }}
           variant={index === turn.number ? "filled" : "outlined"}
-          onClick={() => setHpFill((prevHpFill) => !prevHpFill)}
+          onClick={() => setTurn({ number: index, actorPlaying: combatActor })}
         >
           <CombatantIcon
             size={index === turn.number ? "large" : "medium"}
