@@ -18,8 +18,11 @@ const RoundTimelineDetails = ({
 }) => {
   const { combatActors, setCombatActors } = useContext(CombatActorsContext);
   const { turn, setTurn } = useContext(TurnContext);
-  const { setActorRemoveAlertOpen, setActorRemoveAlertMessage } =
-    useContext(AlertContext);
+  const {
+    setActorRemoveAlertOpen,
+    setActorRemoveAlertMessage,
+    setActorRemoveAlertObject,
+  } = useContext(AlertContext);
 
   const removeCombatActor = (combatActorId: string) => {
     const combatActorRemove = combatActors.find(
@@ -37,7 +40,10 @@ const RoundTimelineDetails = ({
             type: "PC",
           },
         });
-      } else if (turn.actorPlaying.initiative <= combatActorRemove.initiative) {
+      } else if (
+        turn.actorPlaying.initiative < combatActorRemove.initiative ||
+        turn.number === combatActors.length - 1
+      ) {
         setTurn((prevTurn) => {
           return {
             number: prevTurn.number - 1,
@@ -48,6 +54,7 @@ const RoundTimelineDetails = ({
       setCombatActors(
         combatActors.filter((combatActor) => combatActorId !== combatActor.id)
       );
+      setActorRemoveAlertObject(combatActorRemove);
       setActorRemoveAlertMessage(`${combatActorRemove.name} removed...`);
       setActorRemoveAlertOpen(true);
     }
