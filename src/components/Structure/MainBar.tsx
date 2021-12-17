@@ -32,10 +32,12 @@ const MainBar = () => {
         sortPlayerActors([...combatActors, actorRemoveAlertObject])
       );
       if (turn.actorPlaying.name === actorRemoveAlertObject.name) {
-        console.log("up");
-        setTurn({ ...turn, actorPlaying: actorRemoveAlertObject });
+        // if it is the player at the bottom that gets removed and it is their turn, fix????
+        setTurn({
+          number: turn.number,
+          actorPlaying: actorRemoveAlertObject,
+        });
       } else {
-        console.log("down");
         if (actorRemoveAlertObject.initiative > turn.actorPlaying.initiative) {
           setTurn({ number: turn.number + 1, actorPlaying: turn.actorPlaying });
         } else {
