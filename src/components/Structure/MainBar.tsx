@@ -32,11 +32,15 @@ const MainBar = () => {
         sortPlayerActors([...combatActors, actorRemoveAlertObject])
       );
       if (turn.actorPlaying.name === actorRemoveAlertObject.name) {
-        console.log("here");
+        console.log("up");
         setTurn({ ...turn, actorPlaying: actorRemoveAlertObject });
       } else {
-        console.log("or here");
-        setTurn({ number: turn.number + 1, actorPlaying: turn.actorPlaying });
+        console.log("down");
+        if (actorRemoveAlertObject.initiative > turn.actorPlaying.initiative) {
+          setTurn({ number: turn.number + 1, actorPlaying: turn.actorPlaying });
+        } else {
+          setTurn(turn);
+        }
       }
     }
     setActorRemoveAlertOpen(false);
