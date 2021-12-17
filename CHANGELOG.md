@@ -4,31 +4,36 @@ version 1.0.0
 
 version 1.0.1
 
-- implemented table player statuses, conditions and spells
+- feature: implemented table player statuses, conditions and spells
 
 version 1.0.2
 
-- implemented character conditions on the initiative timeline
+- feature: implemented character conditions on the initiative timeline
 
 version 1.0.3 
 
-- changed the inner workings so that data can be recalled from any point in the app
+- feature: changed the inner workings so that data can be recalled from any point in the app
 - also, data is saved in local storage and restored on page reload
 
 version 1.0.4
 
+- feature: added bulk removals for characters and statuses
 - fixed turns to work properly when adding, removing characters and generally restoring project
 - fixed a bug with colors not appearing for default colored characters
-- added bulk removals for characters and statuses
 
 version 1.0.5
 
+- feature: insert characters by pressing a button and filling the form in a dialog
 - removed the add character form from the sidebar
-- insert characters by pressing a button and filling the form in a dialog
 
 version 1.0.6
 
-- alerts for character add, character remove and when a status runs out 
-- click on character to make it his own turn
-- edit character initiative by clicking on "Initiative"
-- edit character HP by clicking on "HP"
+- feature: alerts for character add, character remove and when a status runs out 
+- feature: click on character to make it his own turn
+- feature: edit character initiative by clicking on "Initiative"
+- feature: edit character HP by clicking on "HP"
+
+version 1.0.7
+
+- feature: undo last character removal
+- fixed a turn bug on last character removal
