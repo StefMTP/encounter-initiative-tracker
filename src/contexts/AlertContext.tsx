@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import { combatant } from "../types";
 
 type AlertContextProviderProps = {
   children: React.ReactNode;
@@ -13,6 +14,8 @@ type AlertContextType = {
   actorRemoveAlertMessage: string;
   setActorRemoveAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setActorRemoveAlertMessage: React.Dispatch<React.SetStateAction<string>>;
+  actorRemoveAlertObject: combatant;
+  setActorRemoveAlertObject: React.Dispatch<React.SetStateAction<combatant>>;
   statusRemoveAlertOpen: boolean;
   statusRemoveAlertMessage: string;
   setStatusRemoveAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,6 +35,8 @@ const AlertContextProvider = ({ children }: AlertContextProviderProps) => {
     useState<boolean>(false);
   const [actorRemoveAlertMessage, setActorRemoveAlertMessage] =
     useState<string>("");
+  const [actorRemoveAlertObject, setActorRemoveAlertObject] =
+    useState<combatant>({} as combatant);
   const [statusRemoveAlertOpen, setStatusRemoveAlertOpen] =
     useState<boolean>(false);
   const [statusRemoveAlertMessage, setStatusRemoveAlertMessage] =
@@ -48,6 +53,8 @@ const AlertContextProvider = ({ children }: AlertContextProviderProps) => {
         actorRemoveAlertMessage,
         setActorRemoveAlertOpen,
         setActorRemoveAlertMessage,
+        actorRemoveAlertObject,
+        setActorRemoveAlertObject,
         statusRemoveAlertOpen,
         statusRemoveAlertMessage,
         setStatusRemoveAlertOpen,

@@ -5,6 +5,8 @@ import { AlertContext } from "../../contexts/AlertContext";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import RoundTimeline from "../Round/RoundTimeline";
 import BulkRemoveDialog from "./BulkRemoveDialog";
+import { isEmpty, sortPlayerActors } from "../../helpers";
+import { TurnContext } from "../../contexts/TurnContext";
 
 const MainBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +19,28 @@ const MainBar = () => {
     setActorRemoveAlertOpen,
     actorRemoveAlertOpen,
     actorRemoveAlertMessage,
+    actorRemoveAlertObject,
   } = useContext(AlertContext);
+  const { turn, setTurn } = useContext(TurnContext);
+
+  const undoActorRemoval = () => {
+    if (
+      !isEmpty(actorRemoveAlertObject) &&
+      !combatActors.includes(actorRemoveAlertObject)
+    ) {
+      setCombatActors(
+        sortPlayerActors([...combatActors, actorRemoveAlertObject])
+      );
+      if (turn.actorPlaying.name === actorRemoveAlertObject.name) {
+        console.log("here");
+        setTurn({ ...turn, actorPlaying: actorRemoveAlertObject });
+      } else {
+        console.log("or here");
+        setTurn({ number: turn.number + 1, actorPlaying: turn.actorPlaying });
+      }
+    }
+    setActorRemoveAlertOpen(false);
+  };
 
   const handleSubmitAlertClose = (
     event?: React.SyntheticEvent | Event,
@@ -94,6 +117,18 @@ const MainBar = () => {
           onClose={handleRemoveAlertClose}
           sx={{ width: "100%" }}
           severity="error"
+          action={
+            <>
+              <Button
+                color="warning"
+                size="small"
+                sx={{ fontWeight: 600 }}
+                onClick={() => undoActorRemoval()}
+              >
+                UNDO
+              </Button>
+            </>
+          }
         >
           {actorRemoveAlertMessage}
         </Alert>
