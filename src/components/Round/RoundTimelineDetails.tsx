@@ -37,7 +37,7 @@ const RoundTimelineDetails = ({
             type: "PC",
           },
         });
-      } else if (turn.actorPlaying.initiative < combatActorRemove.initiative) {
+      } else if (turn.actorPlaying.initiative <= combatActorRemove.initiative) {
         setTurn((prevTurn) => {
           return {
             number: prevTurn.number - 1,
