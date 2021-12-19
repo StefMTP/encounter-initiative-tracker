@@ -5,6 +5,7 @@ import {
   Box,
   Grid,
   Typography,
+  Link,
 } from "@mui/material";
 import "./global.css";
 import Header from "./components/Structure/Header";
@@ -16,6 +17,7 @@ import PlayerStatusesProvider from "./contexts/PlayerStatusesContext";
 import TurnContextProvider from "./contexts/TurnContext";
 import AlertContextProvider from "./contexts/AlertContext";
 import { version } from "./../package.json";
+import Footer from "./components/Structure/Footer";
 
 const darkTheme = createTheme({ palette: { mode: "dark" } });
 
@@ -39,13 +41,7 @@ const App = () => {
                   <MainBar />
                   <SideBar />
                 </Grid>
-                <Typography
-                  textAlign="center"
-                  color="primary"
-                  variant="subtitle2"
-                >
-                  Version {version}
-                </Typography>
+                <Footer />
               </Box>
             </ThemeProvider>
           </TurnContextProvider>
