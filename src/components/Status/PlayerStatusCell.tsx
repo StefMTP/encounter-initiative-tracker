@@ -4,6 +4,7 @@ import {
   IconButton,
   Autocomplete,
   Typography,
+  Grid,
 } from "@mui/material";
 import { useContext } from "react";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
@@ -35,70 +36,72 @@ const PlayerStatusCell = ({
   const { combatActors } = useContext(CombatActorsContext);
   return (
     <TableCell>
-      {fieldFill ? (
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
-            playerStatusFieldEditHandler(playerStatusId, fieldInput);
-            setFieldFillHandler(false);
-          }}
-        >
-          {type === "autocomplete" ? (
-            <Autocomplete
-              disablePortal
-              options={combatActors.map((combatActor) => combatActor.name)}
-              value={fieldInput}
-              onChange={(e: any, newValue: string | null) => {
-                if (newValue) {
-                  setFieldInputHandler(newValue);
-                }
-              }}
-              renderInput={(params) => <TextField {...params} label="Name" />}
-            />
-          ) : type === "text" ? (
-            <TextField
-              type="text"
-              variant="standard"
-              size="small"
-              onChange={(e) => {
-                setFieldInputHandler(e.target.value);
-              }}
-            />
-          ) : (
-            <TextField
-              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-              onInvalid={(e: any) => {
-                if (e.target.validity.patternMismatch) {
-                  e.target.setCustomValidity("Type a number!");
-                }
-              }}
-              variant="standard"
-              size="small"
-              onChange={(e) => {
-                e.target.setCustomValidity("");
-                setFieldInputHandler(e.target.value);
-              }}
-            />
-          )}
-        </form>
-      ) : (
-        <>
-          <Typography
-            sx={{
-              textShadow:
-                "-1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.9)",
+      <Grid container alignItems="center">
+        {fieldFill ? (
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              playerStatusFieldEditHandler(playerStatusId, fieldInput);
+              setFieldFillHandler(false);
             }}
           >
-            {playerStatusField}
-          </Typography>
-          <IconButton
-            size="small"
-            onClick={() => setFieldFillHandler(!fieldFill)}
-          >
-            {icon}
-          </IconButton>
-        </>
-      )}
+            {type === "autocomplete" ? (
+              <Autocomplete
+                disablePortal
+                options={combatActors.map((combatActor) => combatActor.name)}
+                value={fieldInput}
+                onChange={(e: any, newValue: string | null) => {
+                  if (newValue) {
+                    setFieldInputHandler(newValue);
+                  }
+                }}
+                renderInput={(params) => <TextField {...params} label="Name" />}
+              />
+            ) : type === "text" ? (
+              <TextField
+                type="text"
+                variant="standard"
+                size="small"
+                onChange={(e) => {
+                  setFieldInputHandler(e.target.value);
+                }}
+              />
+            ) : (
+              <TextField
+                inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                onInvalid={(e: any) => {
+                  if (e.target.validity.patternMismatch) {
+                    e.target.setCustomValidity("Type a number!");
+                  }
+                }}
+                variant="standard"
+                size="small"
+                onChange={(e) => {
+                  e.target.setCustomValidity("");
+                  setFieldInputHandler(e.target.value);
+                }}
+              />
+            )}
+          </form>
+        ) : (
+          <>
+            <Typography
+              sx={{
+                textShadow:
+                  "-1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.9)",
+              }}
+            >
+              {playerStatusField}
+            </Typography>
+            <IconButton
+              size="small"
+              onClick={() => setFieldFillHandler(!fieldFill)}
+            >
+              {icon}
+            </IconButton>
+          </>
+        )}
+      </Grid>
     </TableCell>
   );
 };

@@ -29,13 +29,13 @@ const PlayerStatusesTable = () => {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 450 }} size="small">
+      <Table sx={{ minWidth: 450, tableLayout: "fixed" }} size="small">
         <TableHead>
           <TableRow>
             <TableCell>Character</TableCell>
             <TableCell>Status</TableCell>
             <TableCell>Duration (rounds)</TableCell>
-            <TableCell>
+            <TableCell align="right">
               <Button
                 variant="outlined"
                 endIcon={<AddIcon />}

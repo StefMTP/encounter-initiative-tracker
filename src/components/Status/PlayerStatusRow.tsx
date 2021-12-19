@@ -123,7 +123,7 @@ const PlayerStatusRow = ({
         icon={<EditIcon />}
         type="number"
       />
-      <TableCell align="center">
+      <TableCell align="right">
         {nameFill || statusFill || durationFill ? (
           <Button
             size="small"
