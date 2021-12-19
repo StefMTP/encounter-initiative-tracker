@@ -62,9 +62,10 @@ const RoundTimelineItem = ({
               },
             }}
             variant={index === turn.number ? "filled" : "outlined"}
-            onClick={() =>
-              setTurn({ number: index, actorPlaying: combatActor })
-            }
+            onClick={() => {
+              setTurn({ number: index, actorPlaying: combatActor });
+              setOpen(false);
+            }}
           >
             <CombatantIcon
               size={index === turn.number ? "large" : "medium"}
