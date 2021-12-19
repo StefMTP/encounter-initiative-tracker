@@ -37,3 +37,8 @@ version 1.0.7
 
 - feature: undo last character removal
 - fixed a turn bug on last character removal
+
+version 1.0.8
+
+- feature: tooltips when hovering over other characters to change turn
+- fixing general layout 
