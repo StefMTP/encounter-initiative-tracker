@@ -6,26 +6,27 @@ import {
   TimelineConnector,
   TimelineContent,
 } from "@mui/lab";
-import { combatant, turn } from "../../types";
+import { combatant } from "../../types";
 import { color } from "../../helpers";
 import CombatantIcon from "../Combatants/CombatantIcon";
 import RoundTimelineTrack from "./RoundTimelineTrack";
 import RoundTimelineDetails from "./RoundTimelineDetails";
 import { TurnContext } from "../../contexts/TurnContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { Tooltip } from "@mui/material";
 
 const RoundTimelineItem = ({
-  turn,
   combatActor,
   index,
   array,
 }: {
-  turn: turn;
   combatActor: combatant;
   index: number;
   array: combatant[];
 }) => {
-  const { setTurn } = useContext(TurnContext);
+  const { turn, setTurn } = useContext(TurnContext);
+  const [open, setOpen] = useState(false);
+
   return (
     <TimelineItem
       position={combatActor.alignment === "PARTY" ? "left" : "right"}
@@ -42,21 +43,35 @@ const RoundTimelineItem = ({
         />
       </TimelineOppositeContent>
       <TimelineSeparator>
-        <TimelineDot
-          sx={{
-            bgcolor: color(index, turn.number, combatActor, ""),
-            "&:hover": {
-              cursor: "pointer",
-            },
+        <Tooltip
+          open={open}
+          onClose={() => setOpen(false)}
+          onOpen={() => {
+            if (combatActor.name !== turn.actorPlaying.name) {
+              setOpen(true);
+            }
           }}
-          variant={index === turn.number ? "filled" : "outlined"}
-          onClick={() => setTurn({ number: index, actorPlaying: combatActor })}
+          title="Click to change turn"
+          arrow
         >
-          <CombatantIcon
-            size={index === turn.number ? "large" : "medium"}
-            combatActorType={combatActor.type}
-          />
-        </TimelineDot>
+          <TimelineDot
+            sx={{
+              bgcolor: color(index, turn.number, combatActor, ""),
+              "&:hover": {
+                cursor: "pointer",
+              },
+            }}
+            variant={index === turn.number ? "filled" : "outlined"}
+            onClick={() =>
+              setTurn({ number: index, actorPlaying: combatActor })
+            }
+          >
+            <CombatantIcon
+              size={index === turn.number ? "large" : "medium"}
+              combatActorType={combatActor.type}
+            />
+          </TimelineDot>
+        </Tooltip>
         {index < array.length - 1 ? (
           <TimelineConnector
             sx={{
