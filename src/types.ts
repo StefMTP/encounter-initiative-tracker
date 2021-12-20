@@ -195,6 +195,13 @@ export const conditionsTable: { [condition: string]: string } = {
   `,
 };
 
+export type savedCombat = {
+  savedRound: number;
+  savedActors: combatant[];
+  savedTurn: turn;
+  savedPlayerStatuses: playerStatus[];
+};
+
 export const dummyCombatants: combatant[] = [
   {
     id: "abc",
