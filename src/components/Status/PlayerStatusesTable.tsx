@@ -48,14 +48,16 @@ const PlayerStatusesTable = () => {
                   })
                 }
               >
-                Add Status
+                Add
               </Button>
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {playerStatuses.length <= 0 ? (
-            <TableRow>
+            <TableRow
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
               <TableCell colSpan={4}>
                 <Typography textAlign="center">
                   No status effects added.

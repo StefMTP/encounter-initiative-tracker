@@ -3,7 +3,7 @@ import { version } from "react";
 
 const Footer = () => {
   return (
-    <Grid my={4}>
+    <Grid my={6}>
       <Typography
         fontWeight={600}
         textAlign="center"
@@ -34,7 +34,7 @@ const Footer = () => {
           target="_blank"
           rel="noreferrer"
         >
-          Suport me!
+          Support me!
         </Link>
       </Typography>
     </Grid>
