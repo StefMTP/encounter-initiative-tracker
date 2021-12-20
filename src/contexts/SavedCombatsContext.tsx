@@ -23,6 +23,7 @@ const SavedCombatsProvider = ({
     // dummy data for saved combats
     // setSavedCombats([
     //   {
+    //     name: "Origins",
     //     savedActors: dummyCombatants,
     //     savedRound: 1,
     //     savedPlayerStatuses: dummyPlayerStatuses,
