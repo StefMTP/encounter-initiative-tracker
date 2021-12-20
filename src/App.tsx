@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  createTheme,
-  ThemeProvider,
-  Box,
-  Grid,
-  Typography,
-  Link,
-} from "@mui/material";
+import { createTheme, ThemeProvider, Box, Grid } from "@mui/material";
 import "./global.css";
 import Header from "./components/Structure/Header";
 import MainBar from "./components/Structure/MainBar";
@@ -16,7 +9,6 @@ import CombatActorsContextProvider from "./contexts/CombatActorsContext";
 import PlayerStatusesProvider from "./contexts/PlayerStatusesContext";
 import TurnContextProvider from "./contexts/TurnContext";
 import AlertContextProvider from "./contexts/AlertContext";
-import { version } from "./../package.json";
 import Footer from "./components/Structure/Footer";
 
 const darkTheme = createTheme({ palette: { mode: "dark" } });
