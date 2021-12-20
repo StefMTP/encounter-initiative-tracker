@@ -131,7 +131,7 @@ const Header = () => {
         <Grid item>
           <TurnButton
             label="Next turn"
-            color="primary"
+            color="info"
             variant="contained"
             turnChangeHandler={() => changeTurn("next")}
           />
