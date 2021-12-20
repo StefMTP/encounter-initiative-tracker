@@ -1,5 +1,5 @@
 import { Grid, Typography, Link } from "@mui/material";
-import { version } from "react";
+import { version } from "./../../../package.json";
 
 const Footer = () => {
   return (
