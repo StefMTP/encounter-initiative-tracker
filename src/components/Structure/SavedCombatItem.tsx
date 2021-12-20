@@ -24,7 +24,7 @@ const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
         <ListItemIcon>
           <SportsKabaddiIcon />
         </ListItemIcon>
-        <ListItemText primary="Combat 1" />
+        <ListItemText primary={combat.name} />
         {infoOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={infoOpen} timeout="auto" unmountOnExit>

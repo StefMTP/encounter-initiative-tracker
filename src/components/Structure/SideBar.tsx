@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Drawer,
-  Grid,
-  List,
-  Snackbar,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, Snackbar, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
 import PlayerStatusesTable from "../Status/PlayerStatusesTable";
@@ -14,8 +6,7 @@ import BulkRemoveDialog from "./BulkRemoveDialog";
 import CombatantFormDialog from "../Combatants/CombatantFormDialog";
 import Alert from "../Alert";
 import { AlertContext } from "../../contexts/AlertContext";
-import { SavedCombatsContext } from "../../contexts/SavedCombatsContext";
-import SavedCombatItem from "./SavedCombatItem";
+import SavedCombatDrawer from "./SavedCombatDrawer";
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +21,6 @@ const SideBar = () => {
     setStatusRemoveAlertOpen,
     statusRemoveAlertMessage,
   } = useContext(AlertContext);
-  const { savedCombats } = useContext(SavedCombatsContext);
 
   const handleCloseRemove = () => {
     setIsOpen(!isOpen);
@@ -54,7 +44,7 @@ const SideBar = () => {
   };
 
   const toggleDrawer =
-    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+    () => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
         event.type === "keydown" &&
         ((event as React.KeyboardEvent).key === "Tab" ||
@@ -63,7 +53,7 @@ const SideBar = () => {
         return;
       }
 
-      setDrawer(open);
+      setDrawer(!drawer);
     };
 
   return (
@@ -92,7 +82,7 @@ const SideBar = () => {
           size="large"
           variant="outlined"
           color="secondary"
-          onClick={toggleDrawer(true)}
+          onClick={toggleDrawer()}
         >
           Saved Combats
         </Button>
@@ -114,19 +104,7 @@ const SideBar = () => {
           )}
         </Grid>
       </Grid>
-      <Drawer anchor="right" open={drawer} onClose={toggleDrawer(false)}>
-        <Box
-          role="presentation"
-          sx={{ width: 300 }}
-          onKeyDown={toggleDrawer(false)}
-        >
-          <List>
-            {savedCombats.map((combat) => (
-              <SavedCombatItem combat={combat} />
-            ))}
-          </List>
-        </Box>
-      </Drawer>
+      <SavedCombatDrawer isOpen={drawer} drawerToggler={toggleDrawer} />
       <BulkRemoveDialog
         open={isOpen}
         closeHandler={handleCloseRemove}
