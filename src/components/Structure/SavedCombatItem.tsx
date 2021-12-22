@@ -9,6 +9,7 @@ import {
   Grid,
   TextField,
   Typography,
+  Tooltip,
 } from "@mui/material";
 import {
   ExpandLess,
@@ -18,6 +19,7 @@ import {
   AccessibilityNew,
   Person,
   SportsKabaddi,
+  Edit,
 } from "@mui/icons-material";
 import { TurnContext } from "../../contexts/TurnContext";
 import { SavedCombatsContext } from "../../contexts/SavedCombatsContext";
@@ -40,21 +42,23 @@ const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
       <ListItem>
         <Grid container>
           <Grid container item xs={2} alignItems="center">
-            <ListItemButton
-              onClick={() => {
-                setCombatActors(combat.savedActors);
-                setPlayerStatuses(combat.savedPlayerStatuses);
-                setRound(combat.savedRound);
-                setTurn(combat.savedTurn);
-              }}
-            >
-              <SportsKabaddi />
-            </ListItemButton>
+            <Tooltip title="Restore" placement="left">
+              <ListItemButton
+                onClick={() => {
+                  setCombatActors(combat.savedActors);
+                  setPlayerStatuses(combat.savedPlayerStatuses);
+                  setRound(combat.savedRound);
+                  setTurn(combat.savedTurn);
+                }}
+              >
+                <SportsKabaddi />
+              </ListItemButton>
+            </Tooltip>
           </Grid>
           <Grid
             container
             item
-            xs={6}
+            xs={4}
             alignItems="center"
             justifyContent="center"
           >
@@ -81,9 +85,7 @@ const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
                 />
               </form>
             ) : (
-              <Typography onClick={() => setChangeName(true)}>
-                {combat.name}
-              </Typography>
+              <Typography textAlign="center">{combat.name}</Typography>
             )}
           </Grid>
           <Grid container item xs={2} justifyContent="center">
@@ -95,21 +97,30 @@ const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
             </ListItemButton>
           </Grid>
           <Grid container item xs={2} justifyContent="center">
-            <ListItemButton
-              onClick={() => {
-                setSavedCombats(
-                  savedCombats.filter(
-                    (savedCombat) => savedCombat.id !== combat.id
-                  )
-                );
-              }}
-            >
-              <Delete
-                color="error"
-                fontSize="small"
-                sx={{ border: "1px solid #f44336", borderRadius: "50%" }}
-              />
-            </ListItemButton>
+            <Tooltip title="Edit name" placement="bottom">
+              <ListItemButton onClick={() => setChangeName(true)}>
+                <Edit />
+              </ListItemButton>
+            </Tooltip>
+          </Grid>
+          <Grid container item xs={2} justifyContent="center">
+            <Tooltip title="Delete" placement="bottom">
+              <ListItemButton
+                onClick={() => {
+                  setSavedCombats(
+                    savedCombats.filter(
+                      (savedCombat) => savedCombat.id !== combat.id
+                    )
+                  );
+                }}
+              >
+                <Delete
+                  color="error"
+                  fontSize="small"
+                  sx={{ border: "1px solid #f44336", borderRadius: "50%" }}
+                />
+              </ListItemButton>
+            </Tooltip>
           </Grid>
         </Grid>
       </ListItem>
@@ -122,19 +133,31 @@ const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
                   <Person
                     color="action"
                     fontSize="small"
-                    sx={{ border: "1px solid white", borderRadius: "50%" }}
+                    sx={{
+                      border: "1px solid white",
+                      borderRadius: "50%",
+                      padding: "2px",
+                    }}
                   />
                 ) : actor.type === "NPC" ? (
                   <AccessibilityNew
                     color="action"
                     fontSize="small"
-                    sx={{ border: "1px solid white", borderRadius: "50%" }}
+                    sx={{
+                      border: "1px solid white",
+                      borderRadius: "50%",
+                      padding: "2px",
+                    }}
                   />
                 ) : (
                   <MoodBad
                     color="action"
                     fontSize="small"
-                    sx={{ border: "1px solid white", borderRadius: "50%" }}
+                    sx={{
+                      border: "1px solid white",
+                      borderRadius: "50%",
+                      padding: "2px",
+                    }}
                   />
                 )}
               </ListItemIcon>

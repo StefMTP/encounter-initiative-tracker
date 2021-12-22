@@ -6,6 +6,7 @@ import {
   Autocomplete,
   Typography,
   Grid,
+  Tooltip,
 } from "@mui/material";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 
@@ -93,12 +94,14 @@ const PlayerStatusCell = ({
             >
               {playerStatusField}
             </Typography>
-            <IconButton
-              size="small"
-              onClick={() => setFieldFillHandler(!fieldFill)}
-            >
-              {icon}
-            </IconButton>
+            <Tooltip title="Edit" placement="right">
+              <IconButton
+                size="small"
+                onClick={() => setFieldFillHandler(!fieldFill)}
+              >
+                {icon}
+              </IconButton>
+            </Tooltip>
           </>
         )}
       </Grid>

@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { Grid, IconButton } from "@mui/material";
-import RoundTimelineLabel from "./RoundTimelineLabel";
+import { Grid, IconButton, Tooltip } from "@mui/material";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import RoundTimelineLabel from "./RoundTimelineLabel";
 import { TurnContext } from "../../contexts/TurnContext";
 import { AlertContext } from "../../contexts/AlertContext";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
@@ -68,12 +68,17 @@ const RoundTimelineDetails = ({
       flexDirection={combatActor.alignment === "PARTY" ? "row" : "row-reverse"}
     >
       <Grid item>
-        <IconButton
-          color="error"
-          onClick={() => removeCombatActor(combatActor.id)}
+        <Tooltip
+          title="Remove character"
+          placement={combatActor.alignment === "PARTY" ? "left" : "right"}
         >
-          <PersonRemoveIcon />
-        </IconButton>
+          <IconButton
+            color="error"
+            onClick={() => removeCombatActor(combatActor.id)}
+          >
+            <PersonRemoveIcon />
+          </IconButton>
+        </Tooltip>
       </Grid>
       <Grid item>
         <RoundTimelineLabel
