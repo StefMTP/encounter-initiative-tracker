@@ -1,6 +1,4 @@
-import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
-import { MoodBad } from "@mui/icons-material";
-import PersonIcon from "@mui/icons-material/Person";
+import { MoodBad, Person, AccessibilityNew } from "@mui/icons-material";
 
 const CombatantIcon = ({
   size,
@@ -10,9 +8,9 @@ const CombatantIcon = ({
   combatActorType: string;
 }) => {
   return combatActorType === "PC" ? (
-    <PersonIcon color="action" fontSize={size} />
+    <Person color="action" fontSize={size} />
   ) : combatActorType === "NPC" ? (
-    <AccessibilityNewIcon color="action" fontSize={size} />
+    <AccessibilityNew color="action" fontSize={size} />
   ) : (
     <MoodBad color="action" fontSize={size} />
   );

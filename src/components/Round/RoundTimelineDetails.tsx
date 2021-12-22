@@ -1,11 +1,11 @@
+import { useContext } from "react";
 import { Grid, IconButton } from "@mui/material";
-import { combatant } from "../../types";
 import RoundTimelineLabel from "./RoundTimelineLabel";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
-import { useContext } from "react";
-import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import { TurnContext } from "../../contexts/TurnContext";
 import { AlertContext } from "../../contexts/AlertContext";
+import { CombatActorsContext } from "../../contexts/CombatActorsContext";
+import { combatant } from "../../types";
 
 const RoundTimelineDetails = ({
   combatActor,

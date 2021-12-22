@@ -1,4 +1,4 @@
-import { ExpandLess, ExpandMore, MoodBad } from "@mui/icons-material";
+import { useContext, useState } from "react";
 import {
   ListItem,
   ListItemButton,
@@ -10,16 +10,20 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
-import PersonIcon from "@mui/icons-material/Person";
-import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
-import { savedCombat } from "../../types";
-import { useContext, useState } from "react";
-import { SavedCombatsContext } from "../../contexts/SavedCombatsContext";
-import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
-import { CombatActorsContext } from "../../contexts/CombatActorsContext";
+import {
+  ExpandLess,
+  ExpandMore,
+  MoodBad,
+  Delete,
+  AccessibilityNew,
+  Person,
+  SportsKabaddi,
+} from "@mui/icons-material";
 import { TurnContext } from "../../contexts/TurnContext";
+import { SavedCombatsContext } from "../../contexts/SavedCombatsContext";
+import { CombatActorsContext } from "../../contexts/CombatActorsContext";
+import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
+import { savedCombat } from "../../types";
 
 const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
   const [infoOpen, setInfoOpen] = useState(false);
@@ -44,7 +48,7 @@ const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
                 setTurn(combat.savedTurn);
               }}
             >
-              <SportsKabaddiIcon />
+              <SportsKabaddi />
             </ListItemButton>
           </Grid>
           <Grid
@@ -100,7 +104,7 @@ const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
                 );
               }}
             >
-              <DeleteIcon
+              <Delete
                 color="error"
                 fontSize="small"
                 sx={{ border: "1px solid #f44336", borderRadius: "50%" }}
@@ -115,13 +119,13 @@ const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
             <ListItem alignItems="center">
               <ListItemIcon>
                 {actor.type === "PC" ? (
-                  <PersonIcon
+                  <Person
                     color="action"
                     fontSize="small"
                     sx={{ border: "1px solid white", borderRadius: "50%" }}
                   />
                 ) : actor.type === "NPC" ? (
-                  <AccessibilityNewIcon
+                  <AccessibilityNew
                     color="action"
                     fontSize="small"
                     sx={{ border: "1px solid white", borderRadius: "50%" }}

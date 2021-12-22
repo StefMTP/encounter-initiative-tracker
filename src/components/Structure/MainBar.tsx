@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import { Grid, Button, Snackbar } from "@mui/material";
 import Alert from "../Alert";
+import BulkRemoveDialog from "./BulkRemoveDialog";
+import RoundTimeline from "../Round/RoundTimeline";
+import { TurnContext } from "../../contexts/TurnContext";
 import { AlertContext } from "../../contexts/AlertContext";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
-import RoundTimeline from "../Round/RoundTimeline";
-import BulkRemoveDialog from "./BulkRemoveDialog";
 import { isEmpty, sortPlayerActors } from "../../helpers";
-import { TurnContext } from "../../contexts/TurnContext";
 
 const MainBar = () => {
   const [isOpen, setIsOpen] = useState(false);

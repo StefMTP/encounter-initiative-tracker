@@ -1,3 +1,4 @@
+import { useContext, useState } from "react";
 import {
   TimelineItem,
   TimelineOppositeContent,
@@ -6,14 +7,13 @@ import {
   TimelineConnector,
   TimelineContent,
 } from "@mui/lab";
-import { combatant } from "../../types";
-import { color } from "../../helpers";
-import CombatantIcon from "../Combatants/CombatantIcon";
+import { Tooltip } from "@mui/material";
 import RoundTimelineTrack from "./RoundTimelineTrack";
+import CombatantIcon from "../Combatants/CombatantIcon";
 import RoundTimelineDetails from "./RoundTimelineDetails";
 import { TurnContext } from "../../contexts/TurnContext";
-import { useContext, useState } from "react";
-import { Tooltip } from "@mui/material";
+import { combatant } from "../../types";
+import { color } from "../../helpers";
 
 const RoundTimelineItem = ({
   combatActor,

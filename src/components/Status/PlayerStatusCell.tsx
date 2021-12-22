@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   TableCell,
   TextField,
@@ -6,7 +7,6 @@ import {
   Typography,
   Grid,
 } from "@mui/material";
-import { useContext } from "react";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 
 const PlayerStatusCell = ({

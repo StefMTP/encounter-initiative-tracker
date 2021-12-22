@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import { StyledEngineProvider } from "@mui/styled-engine";
+import App from "./App";
 
 ReactDOM.render(
   <StyledEngineProvider injectFirst>

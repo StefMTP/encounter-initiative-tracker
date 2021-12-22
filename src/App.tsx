@@ -1,6 +1,6 @@
-import React from "react";
-import { createTheme, ThemeProvider, Box, Grid } from "@mui/material";
 import "./global.css";
+
+import { createTheme, ThemeProvider, Box, Grid } from "@mui/material";
 
 import Header from "./components/Structure/Header";
 import MainBar from "./components/Structure/MainBar";

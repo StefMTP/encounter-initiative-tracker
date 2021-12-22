@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   TableContainer,
   Paper,
@@ -10,12 +11,11 @@ import {
   Typography,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { playerStatus } from "../../types";
-import PlayerStatusRow from "./PlayerStatusRow";
 import { v4 as uuid } from "uuid";
-import { useContext } from "react";
+import PlayerStatusRow from "./PlayerStatusRow";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
+import { playerStatus } from "../../types";
 
 const PlayerStatusesTable = () => {
   const { combatActors } = useContext(CombatActorsContext);

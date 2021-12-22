@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { savedCombat, dummyCombatants, dummyPlayerStatuses } from "../types";
+import { savedCombat } from "../types";
 
 type SavedCombatsContextProviderProps = {
   children: React.ReactNode;

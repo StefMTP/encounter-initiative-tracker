@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { AddReaction } from "@mui/icons-material";
 import {
   Grid,
   TextField,
@@ -9,19 +8,19 @@ import {
   MenuItem,
   Button,
 } from "@mui/material";
+import { AddReaction } from "@mui/icons-material";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import { v4 as uuid } from "uuid";
+import { TurnContext } from "../../contexts/TurnContext";
+import { AlertContext } from "../../contexts/AlertContext";
+import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import {
   colorTable,
   combatant,
   combatantAlignment,
   combatantType,
 } from "../../types";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { v4 as uuid } from "uuid";
 import { sortPlayerActors } from "../../helpers";
-import { CombatActorsContext } from "../../contexts/CombatActorsContext";
-import { TurnContext } from "../../contexts/TurnContext";
-
-import { AlertContext } from "../../contexts/AlertContext";
 
 const CombatantForm = ({
   openSetter,

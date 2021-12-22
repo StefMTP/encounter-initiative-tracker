@@ -1,4 +1,4 @@
-import { Close } from "@mui/icons-material";
+import { useContext } from "react";
 import {
   Box,
   Dialog,
@@ -11,11 +11,11 @@ import {
   Select,
   Typography,
 } from "@mui/material";
+import { Close } from "@mui/icons-material";
 import ConditionDialogDescription from "./ConditionDialogDescription";
+import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import { conditionsTable } from "../../types";
 import { sortPlayerActors } from "../../helpers";
-import { useContext } from "react";
-import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 
 const ConditionDialog = ({
   open,

@@ -1,12 +1,12 @@
-import { Button, Grid, Snackbar, Typography } from "@mui/material";
 import { useContext, useState } from "react";
-import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
-import PlayerStatusesTable from "../Status/PlayerStatusesTable";
-import BulkRemoveDialog from "./BulkRemoveDialog";
-import CombatantFormDialog from "../Combatants/CombatantFormDialog";
+import { Button, Grid, Snackbar, Typography } from "@mui/material";
 import Alert from "../Alert";
-import { AlertContext } from "../../contexts/AlertContext";
+import BulkRemoveDialog from "./BulkRemoveDialog";
 import SavedCombatDrawer from "./SavedCombatDrawer";
+import PlayerStatusesTable from "../Status/PlayerStatusesTable";
+import CombatantFormDialog from "../Combatants/CombatantFormDialog";
+import { AlertContext } from "../../contexts/AlertContext";
+import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);

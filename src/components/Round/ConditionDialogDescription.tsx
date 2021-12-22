@@ -7,11 +7,10 @@ import {
   Collapse,
   List,
 } from "@mui/material";
-import { conditionsTable } from "../../types";
-import HelpIcon from "@mui/icons-material/Help";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Help, Delete } from "@mui/icons-material";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import { sortPlayerActors } from "../../helpers";
+import { conditionsTable } from "../../types";
 
 const ConditionDialogDescription = ({
   condition,
@@ -46,7 +45,7 @@ const ConditionDialogDescription = ({
       <ListItem key={condition}>
         <ListItemButton onClick={() => setInfoOpen(!infoOpen)}>
           <ListItemIcon>
-            <HelpIcon />
+            <Help />
           </ListItemIcon>
           <ListItemText primary={condition} />
         </ListItemButton>
@@ -56,7 +55,7 @@ const ConditionDialogDescription = ({
           }
         >
           <ListItemIcon>
-            <DeleteIcon />
+            <Delete />
           </ListItemIcon>
         </ListItemButton>
       </ListItem>

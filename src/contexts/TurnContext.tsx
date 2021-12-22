@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { CombatActorsContext } from "./CombatActorsContext";
 import { sortPlayerActors } from "../helpers";
 import { turn } from "../types";
-import { CombatActorsContext } from "./CombatActorsContext";
 
 type TurnContextProviderProps = {
   children: React.ReactNode;

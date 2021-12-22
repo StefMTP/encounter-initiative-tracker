@@ -1,11 +1,9 @@
 import React, { useContext, useState } from "react";
 import { TableRow, TableCell, Button } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import { combatant, playerStatus } from "../../types";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Add, Delete, Edit } from "@mui/icons-material";
 import PlayerStatusCell from "./PlayerStatusCell";
 import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
-import { Add } from "@mui/icons-material";
+import { combatant, playerStatus } from "../../types";
 
 const PlayerStatusRow = ({
   playerStatus,
@@ -99,7 +97,7 @@ const PlayerStatusRow = ({
         playerStatusFieldEditHandler={editPlayerStatusName}
         setFieldFillHandler={setNameFill}
         setFieldInputHandler={setNameInput}
-        icon={<EditIcon />}
+        icon={<Edit />}
         type="autocomplete"
       />
       <PlayerStatusCell
@@ -110,7 +108,7 @@ const PlayerStatusRow = ({
         playerStatusFieldEditHandler={editPlayerStatusStatus}
         setFieldFillHandler={setStatusFill}
         setFieldInputHandler={setStatusInput}
-        icon={<EditIcon />}
+        icon={<Edit />}
         type="text"
       />
       <PlayerStatusCell
@@ -121,7 +119,7 @@ const PlayerStatusRow = ({
         playerStatusFieldEditHandler={editPlayerStatusDuration}
         setFieldFillHandler={setDurationFill}
         setFieldInputHandler={setDurationInput}
-        icon={<EditIcon />}
+        icon={<Edit />}
         type="number"
       />
       <TableCell align="right">
@@ -148,7 +146,7 @@ const PlayerStatusRow = ({
             variant="contained"
             color="error"
             onClick={() => removePlayerStatus(playerStatus.id)}
-            endIcon={<DeleteIcon />}
+            endIcon={<Delete />}
           >
             Remove
           </Button>
