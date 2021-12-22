@@ -17,13 +17,7 @@ import { savedCombat } from "../../types";
 import { useContext, useState } from "react";
 import { SavedCombatsContext } from "../../contexts/SavedCombatsContext";
 
-const SavedCombatItem = ({
-  combat,
-  index,
-}: {
-  combat: savedCombat;
-  index: number;
-}) => {
+const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
   const [infoOpen, setInfoOpen] = useState(false);
   const [changeName, setChangeName] = useState(false);
   const { savedCombats, setSavedCombats } = useContext(SavedCombatsContext);

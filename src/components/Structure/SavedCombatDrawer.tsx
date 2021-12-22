@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { Drawer, Box, List, Button, Grid } from "@mui/material";
 import SavedCombatItem from "./SavedCombatItem";
 import { SavedCombatsContext } from "../../contexts/SavedCombatsContext";
-import { Add } from "@mui/icons-material";
+import { Bookmark } from "@mui/icons-material";
+import { v4 as uuid } from "uuid";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import { TurnContext } from "../../contexts/TurnContext";
 import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
@@ -23,6 +24,7 @@ const SavedCombatDrawer = ({
     setSavedCombats([
       ...savedCombats,
       {
+        id: uuid(),
         name: "New Combat",
         savedActors: combatActors,
         savedTurn: turn,
@@ -40,14 +42,14 @@ const SavedCombatDrawer = ({
             onClick={saveCombat}
             variant="contained"
             size="small"
-            endIcon={<Add />}
+            endIcon={<Bookmark />}
           >
             Save current Combat
           </Button>
         </Grid>
         <List>
-          {savedCombats.map((combat) => (
-            <SavedCombatItem combat={combat} />
+          {savedCombats.map((combat, index) => (
+            <SavedCombatItem key={combat.id} combat={combat} />
           ))}
         </List>
       </Box>
