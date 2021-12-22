@@ -8,6 +8,7 @@ import {
   List,
   Grid,
   TextField,
+  Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
@@ -16,22 +17,35 @@ import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 import { savedCombat } from "../../types";
 import { useContext, useState } from "react";
 import { SavedCombatsContext } from "../../contexts/SavedCombatsContext";
+import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
+import { CombatActorsContext } from "../../contexts/CombatActorsContext";
+import { TurnContext } from "../../contexts/TurnContext";
 
 const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
   const [infoOpen, setInfoOpen] = useState(false);
   const [changeName, setChangeName] = useState(false);
-  const { savedCombats, setSavedCombats } = useContext(SavedCombatsContext);
-
   const [nameInput, setNameInput] = useState(combat.name);
+
+  const { savedCombats, setSavedCombats } = useContext(SavedCombatsContext);
+  const { setPlayerStatuses } = useContext(PlayerStatusesContext);
+  const { setCombatActors } = useContext(CombatActorsContext);
+  const { setRound, setTurn } = useContext(TurnContext);
 
   return (
     <>
       <ListItem>
         <Grid container>
           <Grid container item xs={2} alignItems="center">
-            <ListItemIcon>
+            <ListItemButton
+              onClick={() => {
+                setCombatActors(combat.savedActors);
+                setPlayerStatuses(combat.savedPlayerStatuses);
+                setRound(combat.savedRound);
+                setTurn(combat.savedTurn);
+              }}
+            >
               <SportsKabaddiIcon />
-            </ListItemIcon>
+            </ListItemButton>
           </Grid>
           <Grid
             container
@@ -63,10 +77,9 @@ const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
                 />
               </form>
             ) : (
-              <ListItemText
-                primary={combat.name}
-                onClick={() => setChangeName(true)}
-              />
+              <Typography onClick={() => setChangeName(true)}>
+                {combat.name}
+              </Typography>
             )}
           </Grid>
           <Grid container item xs={2} justifyContent="center">
