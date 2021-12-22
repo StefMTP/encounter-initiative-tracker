@@ -42,3 +42,8 @@ version 1.0.8
 
 - feature: tooltips when hovering over other characters to change turn
 - fixing general layout 
+
+version 1.0.9
+
+- feature: current combat can be stored (characters, round and turn as well as statuses)
+- a saved combat can also be restored and brought into the app
