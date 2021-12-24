@@ -6,6 +6,7 @@ import {
   ListItemIcon,
   Collapse,
   List,
+  Grid,
 } from "@mui/material";
 import { Help, Delete } from "@mui/icons-material";
 import { CombatActorsContext } from "../../../../../contexts/CombatActorsContext";
@@ -43,23 +44,34 @@ const ConditionDialogDescription = ({
   return (
     <>
       <ListItem key={condition}>
-        <ListItemButton onClick={() => setInfoOpen(!infoOpen)}>
-          <ListItemIcon>
-            <Help />
-          </ListItemIcon>
-          <ListItemText primary={condition} />
-        </ListItemButton>
-        <ListItemButton
-          onClick={() =>
-            removeConditionFromCombatActor(combatActorId, condition)
-          }
-        >
-          <ListItemIcon>
-            <Delete />
-          </ListItemIcon>
-        </ListItemButton>
+        <Grid container alignItems="center">
+          <Grid item xs={10}>
+            <ListItemButton onClick={() => setInfoOpen(!infoOpen)}>
+              <ListItemIcon>
+                <Help color="info" />
+              </ListItemIcon>
+              <ListItemText primary={condition} />
+            </ListItemButton>
+          </Grid>
+          <Grid item xs={2}>
+            <ListItemButton
+              onClick={() =>
+                removeConditionFromCombatActor(combatActorId, condition)
+              }
+            >
+              <ListItemIcon>
+                <Delete color="error" />
+              </ListItemIcon>
+            </ListItemButton>
+          </Grid>
+        </Grid>
       </ListItem>
-      <Collapse in={infoOpen} timeout="auto" unmountOnExit>
+      <Collapse
+        in={infoOpen}
+        timeout="auto"
+        unmountOnExit
+        sx={{ padding: "5px" }}
+      >
         <List component="div">
           <ListItemText>
             <p
