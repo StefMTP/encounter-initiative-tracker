@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
-import { Button, Grid, Snackbar, Typography } from "@mui/material";
+import { Button, Fab, Grid, Snackbar, Typography, Zoom } from "@mui/material";
+import { Add, Clear, MoreVert, SportsKabaddi } from "@mui/icons-material";
+import { green } from "@mui/material/colors";
 import Alert from "./Alerts/Alert";
 import BulkRemoveDialog from "./Dialogs/BulkRemoveDialog";
 import SavedCombatDrawer from "./Drawers/SavedCombats/SavedCombatDrawer";
@@ -12,6 +14,7 @@ const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [addIsOpen, setAddIsOpen] = useState(false);
   const [drawer, setDrawer] = useState(false);
+  const [isFabExpanded, setIsFabExpanded] = useState(false);
 
   const { playerStatuses, setPlayerStatuses } = useContext(
     PlayerStatusesContext
@@ -64,24 +67,6 @@ const SideBar = () => {
         alignItems="center"
         padding={4}
       >
-        <Button
-          sx={{ maxHeight: "45px" }}
-          size="large"
-          variant="outlined"
-          color="success"
-          onClick={() => setAddIsOpen(true)}
-        >
-          Insert new character
-        </Button>
-        <Button
-          sx={{ maxHeight: "45px" }}
-          size="large"
-          variant="outlined"
-          color="secondary"
-          onClick={toggleDrawer()}
-        >
-          Saved Combats
-        </Button>
         <Grid container justifyContent="center">
           <Typography textAlign="center" variant="h6" color="primary">
             Keep track of spells, effects and conditions
@@ -127,6 +112,48 @@ const SideBar = () => {
           {statusRemoveAlertMessage}
         </Alert>
       </Snackbar>
+      <Fab
+        color="primary"
+        sx={{ position: "fixed", bottom: 30, right: 30 }}
+        onClick={() => setIsFabExpanded(!isFabExpanded)}
+      >
+        {isFabExpanded ? <Clear /> : <MoreVert />}
+      </Fab>
+
+      <Zoom in={isFabExpanded} style={{ transitionDelay: "50ms" }}>
+        <Fab
+          sx={{
+            color: "common.white",
+            bgcolor: green[500],
+            "&:hover": {
+              bgcolor: green[600],
+            },
+            position: "fixed",
+            bottom: 100,
+            right: 30,
+          }}
+          onClick={() => setAddIsOpen(true)}
+        >
+          <Add />
+        </Fab>
+      </Zoom>
+      <Zoom in={isFabExpanded} style={{ transitionDelay: "60ms" }}>
+        <Fab
+          sx={{
+            color: "common.white",
+            bgcolor: "secondary.main",
+            "&:hover": {
+              bgcolor: "secondary.dark",
+            },
+            position: "fixed",
+            bottom: 170,
+            right: 30,
+          }}
+          onClick={toggleDrawer()}
+        >
+          <SportsKabaddi />
+        </Fab>
+      </Zoom>
     </>
   );
 };

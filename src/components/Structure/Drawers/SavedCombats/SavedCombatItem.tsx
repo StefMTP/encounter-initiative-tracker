@@ -18,8 +18,8 @@ import {
   Delete,
   AccessibilityNew,
   Person,
-  SportsKabaddi,
   Edit,
+  Restore,
 } from "@mui/icons-material";
 import { TurnContext } from "../../../../contexts/TurnContext";
 import { SavedCombatsContext } from "../../../../contexts/SavedCombatsContext";
@@ -51,7 +51,7 @@ const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
                   setTurn(combat.savedTurn);
                 }}
               >
-                <SportsKabaddi />
+                <Restore />
               </ListItemButton>
             </Tooltip>
           </Grid>
