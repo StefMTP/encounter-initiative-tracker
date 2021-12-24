@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Typography, TextField } from "@mui/material";
-import { combatant } from "../../types";
-import { color, sortPlayerActors } from "../../helpers";
-import { useContext } from "react";
-import { CombatActorsContext } from "../../contexts/CombatActorsContext";
+import { CombatActorsContext } from "../../../../contexts/CombatActorsContext";
+import { color, sortPlayerActors } from "../../../../helpers";
+import { combatant } from "../../../../types";
 
 const RoundTimelineTrack = ({
   combatActor,

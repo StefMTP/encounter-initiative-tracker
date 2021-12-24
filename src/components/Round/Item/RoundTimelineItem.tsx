@@ -8,12 +8,12 @@ import {
   TimelineContent,
 } from "@mui/lab";
 import { Tooltip } from "@mui/material";
-import RoundTimelineTrack from "./RoundTimelineTrack";
-import CombatantIcon from "../Combatants/CombatantIcon";
-import RoundTimelineDetails from "./RoundTimelineDetails";
-import { TurnContext } from "../../contexts/TurnContext";
-import { combatant } from "../../types";
-import { color } from "../../helpers";
+import RoundTimelineTrack from "./StatTrack/RoundTimelineTrack";
+import CombatantIcon from "../../Combatants/CombatantIcon";
+import RoundTimelineDetails from "./Details/RoundTimelineDetails";
+import { TurnContext } from "../../../contexts/TurnContext";
+import { combatant } from "../../../types";
+import { color } from "../../../helpers";
 
 const RoundTimelineItem = ({
   combatActor,

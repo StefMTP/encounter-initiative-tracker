@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Typography, Grid, Button } from "@mui/material";
-import TurnButton from "../TurnButton";
-import BulkRemoveDialog from "./BulkRemoveDialog";
+import TurnButton from "./Buttons/TurnButton";
+import BulkRemoveDialog from "./Dialogs/BulkRemoveDialog";
 import { TurnContext } from "../../contexts/TurnContext";
 import { AlertContext } from "../../contexts/AlertContext";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";

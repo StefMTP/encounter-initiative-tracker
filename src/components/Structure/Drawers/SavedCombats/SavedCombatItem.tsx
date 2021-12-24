@@ -21,11 +21,11 @@ import {
   SportsKabaddi,
   Edit,
 } from "@mui/icons-material";
-import { TurnContext } from "../../contexts/TurnContext";
-import { SavedCombatsContext } from "../../contexts/SavedCombatsContext";
-import { CombatActorsContext } from "../../contexts/CombatActorsContext";
-import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
-import { savedCombat } from "../../types";
+import { TurnContext } from "../../../../contexts/TurnContext";
+import { SavedCombatsContext } from "../../../../contexts/SavedCombatsContext";
+import { CombatActorsContext } from "../../../../contexts/CombatActorsContext";
+import { PlayerStatusesContext } from "../../../../contexts/PlayerStatusesContext";
+import { savedCombat } from "../../../../types";
 
 const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
   const [infoOpen, setInfoOpen] = useState(false);

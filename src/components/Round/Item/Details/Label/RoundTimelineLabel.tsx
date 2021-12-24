@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Badge, Grid, Typography } from "@mui/material";
 import ConditionDialog from "./ConditionDialog";
-import { combatant } from "../../types";
-import { color } from "../../helpers";
+import { combatant } from "../../../../../types";
+import { color } from "../../../../../helpers";
 
 const RoundTimelineLabel = ({
   combatActor,

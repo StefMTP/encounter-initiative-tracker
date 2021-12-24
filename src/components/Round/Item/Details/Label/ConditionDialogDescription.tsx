@@ -8,9 +8,9 @@ import {
   List,
 } from "@mui/material";
 import { Help, Delete } from "@mui/icons-material";
-import { CombatActorsContext } from "../../contexts/CombatActorsContext";
-import { sortPlayerActors } from "../../helpers";
-import { conditionsTable } from "../../types";
+import { CombatActorsContext } from "../../../../../contexts/CombatActorsContext";
+import { sortPlayerActors } from "../../../../../helpers";
+import { conditionsTable } from "../../../../../types";
 
 const ConditionDialogDescription = ({
   condition,

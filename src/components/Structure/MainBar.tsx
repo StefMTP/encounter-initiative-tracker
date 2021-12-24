@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Grid, Button, Snackbar } from "@mui/material";
-import Alert from "../Alert";
-import BulkRemoveDialog from "./BulkRemoveDialog";
+import Alert from "./Alerts/Alert";
+import BulkRemoveDialog from "./Dialogs/BulkRemoveDialog";
 import RoundTimeline from "../Round/RoundTimeline";
 import { TurnContext } from "../../contexts/TurnContext";
 import { AlertContext } from "../../contexts/AlertContext";

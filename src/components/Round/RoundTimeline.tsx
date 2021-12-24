@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Timeline } from "@mui/lab";
 import { Typography } from "@mui/material";
-import RoundTimelineItem from "./RoundTimelineItem";
+import RoundTimelineItem from "./Item/RoundTimelineItem";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 
 const RoundTimeline = () => {

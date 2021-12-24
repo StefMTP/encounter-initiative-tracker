@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { Button, Grid, Snackbar, Typography } from "@mui/material";
-import Alert from "../Alert";
-import BulkRemoveDialog from "./BulkRemoveDialog";
-import SavedCombatDrawer from "./SavedCombatDrawer";
+import Alert from "./Alerts/Alert";
+import BulkRemoveDialog from "./Dialogs/BulkRemoveDialog";
+import SavedCombatDrawer from "./Drawers/SavedCombats/SavedCombatDrawer";
 import PlayerStatusesTable from "../Status/PlayerStatusesTable";
 import CombatantFormDialog from "../Combatants/CombatantFormDialog";
 import { AlertContext } from "../../contexts/AlertContext";

@@ -28,8 +28,8 @@ const PlayerStatusesTable = () => {
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 450, tableLayout: "fixed" }} size="small">
+    <TableContainer component={Paper} sx={{ maxWidth: 500 }}>
+      <Table sx={{ tableLayout: "fixed" }} size="small">
         <TableHead>
           <TableRow>
             <TableCell>Character</TableCell>
