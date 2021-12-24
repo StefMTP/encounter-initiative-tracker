@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Typography, TextField } from "@mui/material";
+import { Typography, TextField, Tooltip } from "@mui/material";
 import { CombatActorsContext } from "../../../../contexts/CombatActorsContext";
 import { color, sortPlayerActors } from "../../../../helpers";
 import { combatant } from "../../../../types";
@@ -59,19 +59,21 @@ const RoundTimelineTrack = ({
       <Typography
         color={color(index, turnNumber, combatActor, "text.secondary", true)}
       >
-        <Typography
-          sx={{
-            display: "inline",
-            fontWeight: 600,
-            "&:hover": {
-              filter: "brightness(75%)",
-              cursor: "pointer",
-            },
-          }}
-          onClick={() => setInitiativeFill(!initiativeFill)}
-        >
-          Initiative:{" "}
-        </Typography>
+        <Tooltip title="Edit" placement="top">
+          <Typography
+            sx={{
+              display: "inline",
+              fontWeight: 600,
+              "&:hover": {
+                filter: "brightness(75%)",
+                cursor: "pointer",
+              },
+            }}
+            onClick={() => setInitiativeFill(!initiativeFill)}
+          >
+            Initiative:{" "}
+          </Typography>
+        </Tooltip>
         {initiativeFill ? (
           <form
             onSubmit={(event) => {
@@ -99,19 +101,21 @@ const RoundTimelineTrack = ({
         <Typography
           color={color(index, turnNumber, combatActor, "text.secondary", true)}
         >
-          <Typography
-            sx={{
-              display: "inline",
-              fontWeight: 600,
-              "&:hover": {
-                filter: "brightness(75%)",
-                cursor: "pointer",
-              },
-            }}
-            onClick={() => setHpFill(!hpFill)}
-          >
-            HP:{" "}
-          </Typography>
+          <Tooltip placement="bottom" title="Edit">
+            <Typography
+              sx={{
+                display: "inline",
+                fontWeight: 600,
+                "&:hover": {
+                  filter: "brightness(75%)",
+                  cursor: "pointer",
+                },
+              }}
+              onClick={() => setHpFill(!hpFill)}
+            >
+              HP:{" "}
+            </Typography>
+          </Tooltip>
           {hpFill ? (
             <form
               onSubmit={(event) => {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Badge, Grid, Typography } from "@mui/material";
+import { Badge, Grid, Tooltip, Typography } from "@mui/material";
 import ConditionDialog from "./ConditionDialog";
 import { combatant } from "../../../../../types";
 import { color } from "../../../../../helpers";
@@ -36,7 +36,6 @@ const RoundTimelineLabel = ({
           vertical: "bottom",
           horizontal: combatActor.alignment === "PARTY" ? "left" : "right",
         }}
-        onClick={handleConditionDialogClose}
       >
         <Grid
           item
@@ -51,12 +50,31 @@ const RoundTimelineLabel = ({
             padding: "3px 15px",
           }}
         >
-          <Typography
-            variant="h6"
-            color={color(index, turnNumber, combatActor, "text.primary", true)}
+          <Tooltip
+            arrow
+            title="Conditions"
+            placement={combatActor.alignment === "PARTY" ? "left" : "right"}
           >
-            {combatActor.name}
-          </Typography>
+            <Typography
+              variant="h6"
+              color={color(
+                index,
+                turnNumber,
+                combatActor,
+                "text.primary",
+                true
+              )}
+              sx={{
+                "&:hover": {
+                  filter: "brightness(75%)",
+                  cursor: "pointer",
+                },
+              }}
+              onClick={handleConditionDialogClose}
+            >
+              {combatActor.name}
+            </Typography>
+          </Tooltip>
           <Typography
             color={color(
               index,
