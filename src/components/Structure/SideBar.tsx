@@ -1,5 +1,13 @@
 import { useContext, useState } from "react";
-import { Button, Fab, Grid, Snackbar, Typography, Zoom } from "@mui/material";
+import {
+  Button,
+  ClickAwayListener,
+  Fab,
+  Grid,
+  Snackbar,
+  Typography,
+  Zoom,
+} from "@mui/material";
 import { Add, Clear, MoreVert, SportsKabaddi } from "@mui/icons-material";
 import { green } from "@mui/material/colors";
 import Alert from "./Alerts/Alert";
@@ -112,14 +120,15 @@ const SideBar = () => {
           {statusRemoveAlertMessage}
         </Alert>
       </Snackbar>
-      <Fab
-        color="primary"
-        sx={{ position: "fixed", bottom: 30, right: 30 }}
-        onClick={() => setIsFabExpanded(!isFabExpanded)}
-      >
-        {isFabExpanded ? <Clear /> : <MoreVert />}
-      </Fab>
-
+      <ClickAwayListener onClickAway={() => setIsFabExpanded(false)}>
+        <Fab
+          color="primary"
+          sx={{ position: "fixed", bottom: 30, right: 30 }}
+          onClick={() => setIsFabExpanded(!isFabExpanded)}
+        >
+          {isFabExpanded ? <Clear /> : <MoreVert />}
+        </Fab>
+      </ClickAwayListener>
       <Zoom in={isFabExpanded} style={{ transitionDelay: "50ms" }}>
         <Fab
           sx={{
