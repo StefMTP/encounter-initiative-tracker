@@ -1,29 +1,18 @@
 import { useContext, useState } from "react";
-import {
-  Button,
-  ClickAwayListener,
-  Fab,
-  Grid,
-  Snackbar,
-  Tooltip,
-  Typography,
-  Zoom,
-} from "@mui/material";
-import { Add, Clear, MoreVert, SportsKabaddi } from "@mui/icons-material";
-import { green } from "@mui/material/colors";
+import { Button, Grid, Snackbar, Typography } from "@mui/material";
 import Alert from "./Alerts/Alert";
 import BulkRemoveDialog from "./Dialogs/BulkRemoveDialog";
 import SavedCombatDrawer from "./Drawers/SavedCombats/SavedCombatDrawer";
 import PlayerStatusesTable from "../Status/PlayerStatusesTable";
-import CombatantFormDialog from "../Combatants/CombatantFormDialog";
+import CombatantFormDialog from "./Dialogs/CombatantFormDialog";
 import { AlertContext } from "../../contexts/AlertContext";
 import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
+import FloatingActionsButton from "./Buttons/FloatingActionsButton";
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [addIsOpen, setAddIsOpen] = useState(false);
   const [drawer, setDrawer] = useState(false);
-  const [isFabExpanded, setIsFabExpanded] = useState(false);
 
   const { playerStatuses, setPlayerStatuses } = useContext(
     PlayerStatusesContext
@@ -121,61 +110,10 @@ const SideBar = () => {
           {statusRemoveAlertMessage}
         </Alert>
       </Snackbar>
-      <ClickAwayListener onClickAway={() => setIsFabExpanded(false)}>
-        <Tooltip title="Actions" placement="left">
-          <Fab
-            color="primary"
-            sx={{ position: "fixed", bottom: 30, right: 30 }}
-            onClick={() => setIsFabExpanded(!isFabExpanded)}
-          >
-            {isFabExpanded ? <Clear /> : <MoreVert />}
-          </Fab>
-        </Tooltip>
-      </ClickAwayListener>
-      <Zoom
-        in={isFabExpanded}
-        style={{ transitionDelay: isFabExpanded ? "50ms" : "0ms" }}
-      >
-        <Tooltip title="Insert Character" placement="right">
-          <Fab
-            sx={{
-              color: "common.white",
-              bgcolor: green[500],
-              "&:hover": {
-                bgcolor: green[600],
-              },
-              position: "fixed",
-              bottom: 100,
-              right: 30,
-            }}
-            onClick={() => setAddIsOpen(true)}
-          >
-            <Add />
-          </Fab>
-        </Tooltip>
-      </Zoom>
-      <Zoom
-        in={isFabExpanded}
-        style={{ transitionDelay: isFabExpanded ? "100ms" : "0ms" }}
-      >
-        <Tooltip title="Saved Combats" placement="right">
-          <Fab
-            sx={{
-              color: "common.white",
-              bgcolor: "secondary.main",
-              "&:hover": {
-                bgcolor: "secondary.dark",
-              },
-              position: "fixed",
-              bottom: 170,
-              right: 30,
-            }}
-            onClick={toggleDrawer()}
-          >
-            <SportsKabaddi />
-          </Fab>
-        </Tooltip>
-      </Zoom>
+      <FloatingActionsButton
+        toggleAddHandler={handleCloseAdd}
+        toggleDrawerHandler={toggleDrawer}
+      />
     </>
   );
 };
