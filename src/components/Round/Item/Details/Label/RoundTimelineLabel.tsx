@@ -44,10 +44,11 @@ const RoundTimelineLabel = ({
             border:
               !combatActor.conditions || combatActor.conditions.length <= 0
                 ? 0
-                : 1,
+                : 2,
+            borderStyle: "double",
             borderColor: color(index, turnNumber, combatActor, "#c4c4c4", true),
+            borderRadius: 4,
             padding: "3px 15px",
-            borderRadius: "7px",
           }}
         >
           <Typography
