@@ -129,7 +129,10 @@ const SideBar = () => {
           {isFabExpanded ? <Clear /> : <MoreVert />}
         </Fab>
       </ClickAwayListener>
-      <Zoom in={isFabExpanded} style={{ transitionDelay: "50ms" }}>
+      <Zoom
+        in={isFabExpanded}
+        style={{ transitionDelay: isFabExpanded ? "50ms" : "0ms" }}
+      >
         <Fab
           sx={{
             color: "common.white",
@@ -146,7 +149,10 @@ const SideBar = () => {
           <Add />
         </Fab>
       </Zoom>
-      <Zoom in={isFabExpanded} style={{ transitionDelay: "60ms" }}>
+      <Zoom
+        in={isFabExpanded}
+        style={{ transitionDelay: isFabExpanded ? "100ms" : "0ms" }}
+      >
         <Fab
           sx={{
             color: "common.white",
