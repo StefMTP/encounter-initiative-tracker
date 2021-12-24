@@ -1,5 +1,5 @@
 import { Dialog, DialogTitle, Box } from "@mui/material";
-import CombatantForm from "../Combatants/CombatantForm";
+import CombatantForm from "../../Combatants/CombatantForm";
 
 const CombatantFormDialog = ({
   open,
