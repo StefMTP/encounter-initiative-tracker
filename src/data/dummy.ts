@@ -1,0 +1,100 @@
+import { combatant, playerStatus } from "../types";
+import { colorTable } from "./colors";
+
+export const dummyCombatants: combatant[] = [
+  {
+    id: "abc",
+    name: "Talion",
+    currentHp: 40,
+    maxHp: 40,
+    class: "Rogue",
+    alignment: "PARTY",
+    color: colorTable["Magenta"],
+    type: "PC",
+    initiative: 15,
+    conditions: ["Poisoned"],
+  },
+  {
+    id: "def",
+    name: "Violetta",
+    currentHp: 22,
+    maxHp: 34,
+    class: "Wizard",
+    alignment: "PARTY",
+    color: colorTable["Lemon"],
+    type: "PC",
+    initiative: 12,
+  },
+  {
+    id: "ghi",
+    name: "Ludwic",
+    class: "Barbarian",
+    color: colorTable["Crimson"],
+    alignment: "PARTY",
+    type: "PC",
+    initiative: 22,
+    conditions: ["Exhaustion", "Prone"],
+  },
+  {
+    id: "jkl",
+    name: "Zoren",
+    class: "Cleric",
+    color: colorTable["Maple"],
+    alignment: "PARTY",
+    type: "PC",
+    initiative: 2,
+  },
+  {
+    id: "mno",
+    name: "Black Wolf",
+    class: "Creature: Animal",
+    alignment: "FOE",
+    type: "ENEMY",
+    initiative: 10,
+  },
+  {
+    id: "pqr",
+    name: "Black Direwolf",
+    class: "Creature: Animal",
+    alignment: "FOE",
+    type: "ENEMY",
+    initiative: 29,
+  },
+  {
+    id: "stu",
+    name: "Black Wolf",
+    class: "Creature: Animal",
+    alignment: "FOE",
+    type: "ENEMY",
+    initiative: 15,
+  },
+  {
+    id: "vwx",
+    name: "Goblin Warchief",
+    class: "Creature: Goblinoid",
+    alignment: "FOE",
+    type: "ENEMY",
+    initiative: 23,
+  },
+];
+
+export const dummyPlayerStatuses: playerStatus[] = [
+  {
+    id: "agl",
+    name: "Talion",
+    status: "Haste",
+    duration: 10,
+  },
+  {
+    id: "qtp",
+    name: "Ludwic",
+    status: "Rage",
+    duration: 6,
+  },
+  {
+    id: "zcm",
+    name: "Zoren",
+    status: "Bless",
+    duration: 8,
+  },
+];

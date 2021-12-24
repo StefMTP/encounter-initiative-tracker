@@ -14,13 +14,9 @@ import { v4 as uuid } from "uuid";
 import { TurnContext } from "../../contexts/TurnContext";
 import { AlertContext } from "../../contexts/AlertContext";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
-import {
-  colorTable,
-  combatant,
-  combatantAlignment,
-  combatantType,
-} from "../../types";
+import { combatant, combatantAlignment, combatantType } from "../../types";
 import { sortPlayerActors } from "../../helpers";
+import { colorTable } from "../../data/colors";
 
 const CombatantForm = ({
   openSetter,

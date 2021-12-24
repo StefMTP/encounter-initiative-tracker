@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+// import { dummyPlayerStatuses } from "../data/dummy";
 import { playerStatus } from "../types";
 
 type PlayerStatusesContextProviderProps = {

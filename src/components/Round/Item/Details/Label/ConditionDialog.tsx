@@ -14,7 +14,7 @@ import {
 import { Close } from "@mui/icons-material";
 import ConditionDialogDescription from "./ConditionDialogDescription";
 import { CombatActorsContext } from "../../../../../contexts/CombatActorsContext";
-import { conditionsTable } from "../../../../../types";
+import { conditionsTable } from "../../../../../data/conditions";
 import { sortPlayerActors } from "../../../../../helpers";
 
 const ConditionDialog = ({

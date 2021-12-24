@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+// import { dummyCombatants } from "../data/dummy";
 import { combatant } from "../types";
 import { sortPlayerActors } from "../helpers";
 

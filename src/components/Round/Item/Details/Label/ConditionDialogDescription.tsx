@@ -10,7 +10,7 @@ import {
 import { Help, Delete } from "@mui/icons-material";
 import { CombatActorsContext } from "../../../../../contexts/CombatActorsContext";
 import { sortPlayerActors } from "../../../../../helpers";
-import { conditionsTable } from "../../../../../types";
+import { conditionsTable } from "../../../../../data/conditions";
 
 const ConditionDialogDescription = ({
   condition,
