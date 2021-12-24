@@ -47,3 +47,8 @@ version 1.0.9
 
 - feature: current combat can be stored (characters, round and turn as well as statuses)
 - a saved combat can also be restored and brought into the app
+
+version 1.0.10
+
+- feature: add character and saved combat buttons can be accessed through a floating action button on the bottom right
+- various style and design changes/tweaks
