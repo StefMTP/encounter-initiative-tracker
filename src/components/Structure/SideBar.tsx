@@ -5,6 +5,7 @@ import {
   Fab,
   Grid,
   Snackbar,
+  Tooltip,
   Typography,
   Zoom,
 } from "@mui/material";
@@ -121,53 +122,59 @@ const SideBar = () => {
         </Alert>
       </Snackbar>
       <ClickAwayListener onClickAway={() => setIsFabExpanded(false)}>
-        <Fab
-          color="primary"
-          sx={{ position: "fixed", bottom: 30, right: 30 }}
-          onClick={() => setIsFabExpanded(!isFabExpanded)}
-        >
-          {isFabExpanded ? <Clear /> : <MoreVert />}
-        </Fab>
+        <Tooltip title="Actions" placement="left">
+          <Fab
+            color="primary"
+            sx={{ position: "fixed", bottom: 30, right: 30 }}
+            onClick={() => setIsFabExpanded(!isFabExpanded)}
+          >
+            {isFabExpanded ? <Clear /> : <MoreVert />}
+          </Fab>
+        </Tooltip>
       </ClickAwayListener>
       <Zoom
         in={isFabExpanded}
         style={{ transitionDelay: isFabExpanded ? "50ms" : "0ms" }}
       >
-        <Fab
-          sx={{
-            color: "common.white",
-            bgcolor: green[500],
-            "&:hover": {
-              bgcolor: green[600],
-            },
-            position: "fixed",
-            bottom: 100,
-            right: 30,
-          }}
-          onClick={() => setAddIsOpen(true)}
-        >
-          <Add />
-        </Fab>
+        <Tooltip title="Insert Character" placement="right">
+          <Fab
+            sx={{
+              color: "common.white",
+              bgcolor: green[500],
+              "&:hover": {
+                bgcolor: green[600],
+              },
+              position: "fixed",
+              bottom: 100,
+              right: 30,
+            }}
+            onClick={() => setAddIsOpen(true)}
+          >
+            <Add />
+          </Fab>
+        </Tooltip>
       </Zoom>
       <Zoom
         in={isFabExpanded}
         style={{ transitionDelay: isFabExpanded ? "100ms" : "0ms" }}
       >
-        <Fab
-          sx={{
-            color: "common.white",
-            bgcolor: "secondary.main",
-            "&:hover": {
-              bgcolor: "secondary.dark",
-            },
-            position: "fixed",
-            bottom: 170,
-            right: 30,
-          }}
-          onClick={toggleDrawer()}
-        >
-          <SportsKabaddi />
-        </Fab>
+        <Tooltip title="Saved Combats" placement="right">
+          <Fab
+            sx={{
+              color: "common.white",
+              bgcolor: "secondary.main",
+              "&:hover": {
+                bgcolor: "secondary.dark",
+              },
+              position: "fixed",
+              bottom: 170,
+              right: 30,
+            }}
+            onClick={toggleDrawer()}
+          >
+            <SportsKabaddi />
+          </Fab>
+        </Tooltip>
       </Zoom>
     </>
   );
