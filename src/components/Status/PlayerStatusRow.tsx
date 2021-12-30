@@ -4,6 +4,7 @@ import { Add, Delete, Edit } from "@mui/icons-material";
 import PlayerStatusCell from "./PlayerStatusCell";
 import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
 import { combatant, playerStatus } from "../../types";
+import { AlertContext } from "../../contexts/AlertContext";
 
 const PlayerStatusRow = ({
   playerStatus,
@@ -22,13 +23,21 @@ const PlayerStatusRow = ({
   const { playerStatuses, setPlayerStatuses } = useContext(
     PlayerStatusesContext
   );
+  const { setStatusRemoveAlertMessage, setStatusRemoveAlertOpen } =
+    useContext(AlertContext);
 
   const removePlayerStatus = (playerStatusId: string) => {
-    setPlayerStatuses(
-      playerStatuses.filter(
-        (playerStatus) => playerStatusId !== playerStatus.id
-      )
-    );
+    const tmpPlayerStatuses = playerStatuses.filter((tmpPlayerStatus) => {
+      if (tmpPlayerStatus.id !== playerStatusId) {
+        return true;
+      }
+      setStatusRemoveAlertMessage(
+        `${tmpPlayerStatus.status} was removed from ${tmpPlayerStatus.name}`
+      );
+      setStatusRemoveAlertOpen(true);
+      return false;
+    });
+    setPlayerStatuses(tmpPlayerStatuses);
   };
 
   const editPlayerStatusName = (
