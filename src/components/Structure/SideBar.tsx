@@ -1,37 +1,47 @@
 import { useContext, useState } from "react";
-import { Button, Grid, Snackbar, Typography } from "@mui/material";
+import { Grid, Snackbar, Typography } from "@mui/material";
 import Alert from "./Alerts/Alert";
 import BulkRemoveDialog from "./Dialogs/BulkRemoveDialog";
 import SavedCombatDrawer from "./Drawers/SavedCombats/SavedCombatDrawer";
 import PlayerStatusesTable from "../Status/PlayerStatusesTable";
 import CombatantFormDialog from "./Dialogs/CombatantFormDialog";
+import FloatingActionsButton from "./Buttons/FloatingActionsButton";
 import { AlertContext } from "../../contexts/AlertContext";
 import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
-import FloatingActionsButton from "./Buttons/FloatingActionsButton";
+import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 
 const SideBar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isActorsDialogOpen, setIsActorsDialogOpen] = useState(false);
+  const [isStatusDialogOpen, setIsStatusDialogOpen] = useState(false);
   const [addIsOpen, setAddIsOpen] = useState(false);
   const [drawer, setDrawer] = useState(false);
 
-  const { playerStatuses, setPlayerStatuses } = useContext(
-    PlayerStatusesContext
-  );
+  const { setPlayerStatuses } = useContext(PlayerStatusesContext);
+  const { setCombatActors } = useContext(CombatActorsContext);
   const {
     statusRemoveAlertOpen,
     setStatusRemoveAlertOpen,
     statusRemoveAlertMessage,
   } = useContext(AlertContext);
 
-  const handleCloseRemove = () => {
-    setIsOpen(!isOpen);
-  };
-  const handleCloseAdd = () => {
+  const handleCloseAddCharacter = () => {
     setAddIsOpen(!addIsOpen);
+  };
+  const handleCloseRemoveStatuses = () => {
+    setIsStatusDialogOpen(!isStatusDialogOpen);
   };
   const clearStatuses = () => {
     setPlayerStatuses([]);
-    setIsOpen(false);
+    setIsStatusDialogOpen(false);
+  };
+
+  const handleCloseRemoveActors = () => {
+    setIsActorsDialogOpen(!isActorsDialogOpen);
+  };
+
+  const clearActors = () => {
+    setCombatActors([]);
+    setIsActorsDialogOpen(false);
   };
 
   const handleRemoveAlertClose = (
@@ -65,36 +75,33 @@ const SideBar = () => {
         alignItems="center"
         padding={4}
       >
-        <Grid container justifyContent="center">
+        <Grid item justifyContent="center">
           <Typography textAlign="center" variant="h6" color="primary">
             Keep track of spells, effects and conditions
           </Typography>
           <PlayerStatusesTable />
-          {playerStatuses.length > 0 && (
-            <Grid item my={2}>
-              <Button
-                variant="contained"
-                color="error"
-                onClick={() => setIsOpen(true)}
-              >
-                Remove all statuses
-              </Button>
-            </Grid>
-          )}
         </Grid>
       </Grid>
       <SavedCombatDrawer isOpen={drawer} drawerToggler={toggleDrawer} />
       <BulkRemoveDialog
-        open={isOpen}
-        closeHandler={handleCloseRemove}
-        openSetter={setIsOpen}
+        open={isStatusDialogOpen}
+        closeHandler={handleCloseRemoveStatuses}
+        openSetter={setIsStatusDialogOpen}
         contextClearer={clearStatuses}
         dialogMessage={`By pressing "Yes" all current statuses will be lost. Are you sure
         you want to go on?`}
       />
+      <BulkRemoveDialog
+        open={isActorsDialogOpen}
+        closeHandler={handleCloseRemoveActors}
+        openSetter={setIsActorsDialogOpen}
+        contextClearer={clearActors}
+        dialogMessage={`By pressing "Yes" all current characters will be lost. Are you sure
+        you want to do this?`}
+      />
       <CombatantFormDialog
         open={addIsOpen}
-        closeHandler={handleCloseAdd}
+        closeHandler={handleCloseAddCharacter}
         openSetter={setAddIsOpen}
       />
       <Snackbar
@@ -111,8 +118,10 @@ const SideBar = () => {
         </Alert>
       </Snackbar>
       <FloatingActionsButton
-        toggleAddHandler={handleCloseAdd}
+        toggleAddHandler={handleCloseAddCharacter}
         toggleDrawerHandler={toggleDrawer}
+        removeCharactersHandler={handleCloseRemoveActors}
+        removeStatusesHandler={handleCloseRemoveStatuses}
       />
     </>
   );

@@ -1,16 +1,27 @@
 import React, { useState } from "react";
 import { ClickAwayListener, Tooltip, Fab, Zoom } from "@mui/material";
-import { Clear, MoreVert, Add, SportsKabaddi } from "@mui/icons-material";
+import {
+  Clear,
+  MoreVert,
+  Add,
+  SportsKabaddi,
+  GroupRemove,
+  DeleteSweep,
+} from "@mui/icons-material";
 import { green } from "@mui/material/colors";
 
 const FloatingActionsButton = ({
   toggleAddHandler,
   toggleDrawerHandler,
+  removeCharactersHandler,
+  removeStatusesHandler,
 }: {
   toggleAddHandler: () => void;
   toggleDrawerHandler: () => (
     event: React.KeyboardEvent | React.MouseEvent
   ) => void;
+  removeCharactersHandler: () => void;
+  removeStatusesHandler: () => void;
 }) => {
   const [isFabExpanded, setIsFabExpanded] = useState(false);
 
@@ -68,6 +79,50 @@ const FloatingActionsButton = ({
             onClick={toggleDrawerHandler()}
           >
             <SportsKabaddi />
+          </Fab>
+        </Tooltip>
+      </Zoom>
+      <Zoom
+        in={isFabExpanded}
+        style={{ transitionDelay: isFabExpanded ? "150ms" : "0ms" }}
+      >
+        <Tooltip title="Remove all characters" placement="right">
+          <Fab
+            sx={{
+              color: "common.white",
+              bgcolor: "error.main",
+              "&:hover": {
+                bgcolor: "error.dark",
+              },
+              position: "fixed",
+              bottom: 240,
+              right: 30,
+            }}
+            onClick={removeCharactersHandler}
+          >
+            <GroupRemove />
+          </Fab>
+        </Tooltip>
+      </Zoom>
+      <Zoom
+        in={isFabExpanded}
+        style={{ transitionDelay: isFabExpanded ? "200ms" : "0ms" }}
+      >
+        <Tooltip title="Remove all statuses" placement="right">
+          <Fab
+            sx={{
+              color: "common.white",
+              bgcolor: "warning.main",
+              "&:hover": {
+                bgcolor: "warning.dark",
+              },
+              position: "fixed",
+              bottom: 310,
+              right: 30,
+            }}
+            onClick={removeStatusesHandler}
+          >
+            <DeleteSweep />
           </Fab>
         </Tooltip>
       </Zoom>
