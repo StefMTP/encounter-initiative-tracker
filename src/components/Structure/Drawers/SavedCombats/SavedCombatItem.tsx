@@ -46,9 +46,9 @@ const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
               <ListItemButton
                 onClick={() => {
                   setCombatActors(combat.savedActors);
-                  setPlayerStatuses(combat.savedPlayerStatuses);
                   setRound(combat.savedRound);
                   setTurn(combat.savedTurn);
+                  setPlayerStatuses(combat.savedPlayerStatuses);
                 }}
               >
                 <Restore />

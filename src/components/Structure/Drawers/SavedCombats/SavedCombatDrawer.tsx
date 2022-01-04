@@ -48,7 +48,7 @@ const SavedCombatDrawer = ({
           </Button>
         </Grid>
         <List>
-          {savedCombats.map((combat, index) => (
+          {savedCombats.map((combat) => (
             <SavedCombatItem key={combat.id} combat={combat} />
           ))}
         </List>
