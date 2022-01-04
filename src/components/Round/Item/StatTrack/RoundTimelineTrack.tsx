@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Typography, TextField, Tooltip } from "@mui/material";
+import { Typography, TextField, Tooltip, Grid } from "@mui/material";
 import { CombatActorsContext } from "../../../../contexts/CombatActorsContext";
 import { color, sortPlayerActors } from "../../../../helpers";
 import { combatant } from "../../../../types";
@@ -56,7 +56,7 @@ const RoundTimelineTrack = ({
   };
   return (
     <>
-      <Typography
+      <Grid
         color={color(index, turnNumber, combatActor, "text.secondary", true)}
       >
         <Tooltip title="Edit" placement="top">
@@ -96,9 +96,9 @@ const RoundTimelineTrack = ({
         ) : (
           combatActor.initiative
         )}
-      </Typography>
+      </Grid>
       {combatActor.currentHp && combatActor.maxHp && (
-        <Typography
+        <Grid
           color={color(index, turnNumber, combatActor, "text.secondary", true)}
         >
           <Tooltip placement="bottom" title="Edit">
@@ -139,7 +139,7 @@ const RoundTimelineTrack = ({
             combatActor.currentHp
           )}
           /{combatActor.maxHp}
-        </Typography>
+        </Grid>
       )}
     </>
   );
