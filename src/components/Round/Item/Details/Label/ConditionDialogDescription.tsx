@@ -70,7 +70,7 @@ const ConditionDialogDescription = ({
         in={infoOpen}
         timeout="auto"
         unmountOnExit
-        sx={{ padding: "5px" }}
+        sx={{ padding: "25px" }}
       >
         <List component="div">
           <ListItemText>
