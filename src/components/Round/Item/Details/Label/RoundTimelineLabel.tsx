@@ -37,56 +37,75 @@ const RoundTimelineLabel = ({
           horizontal: combatActor.alignment === "PARTY" ? "left" : "right",
         }}
       >
-        <Grid
-          item
-          sx={{
-            border:
-              !combatActor.conditions || combatActor.conditions.length <= 0
-                ? 0
-                : 2,
-            borderStyle: "double",
-            borderColor: color(index, turnNumber, combatActor, "#c4c4c4", true),
-            borderRadius: 4,
-            padding: "3px 15px",
+        <Badge
+          invisible={
+            !combatActor.concentration ||
+            combatActor.concentration.trim().length <= 0
+          }
+          badgeContent={combatActor.concentration}
+          color="secondary"
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: combatActor.alignment === "PARTY" ? "left" : "right",
           }}
         >
-          <Tooltip
-            arrow
-            title="Conditions"
-            placement={combatActor.alignment === "PARTY" ? "left" : "right"}
+          <Grid
+            item
+            sx={{
+              border:
+                !combatActor.conditions || combatActor.conditions.length <= 0
+                  ? 0
+                  : 2,
+              borderStyle: "double",
+              borderColor: color(
+                index,
+                turnNumber,
+                combatActor,
+                "#c4c4c4",
+                true
+              ),
+              borderRadius: 4,
+              padding: "3px 15px",
+            }}
           >
+            <Tooltip
+              arrow
+              title="Conditions & Concentration"
+              placement={combatActor.alignment === "PARTY" ? "left" : "right"}
+            >
+              <Typography
+                variant="h6"
+                color={color(
+                  index,
+                  turnNumber,
+                  combatActor,
+                  "text.primary",
+                  true
+                )}
+                sx={{
+                  "&:hover": {
+                    filter: "brightness(75%)",
+                    cursor: "pointer",
+                  },
+                }}
+                onClick={handleConditionDialogClose}
+              >
+                {combatActor.name}
+              </Typography>
+            </Tooltip>
             <Typography
-              variant="h6"
               color={color(
                 index,
                 turnNumber,
                 combatActor,
-                "text.primary",
+                "text.secondary",
                 true
               )}
-              sx={{
-                "&:hover": {
-                  filter: "brightness(75%)",
-                  cursor: "pointer",
-                },
-              }}
-              onClick={handleConditionDialogClose}
             >
-              {combatActor.name}
+              {combatActor.class}
             </Typography>
-          </Tooltip>
-          <Typography
-            color={color(
-              index,
-              turnNumber,
-              combatActor,
-              "text.secondary",
-              true
-            )}
-          >
-            {combatActor.class}
-          </Typography>
-        </Grid>
+          </Grid>
+        </Badge>
       </Badge>
       <ConditionDialog
         open={isDialogOpen}
@@ -94,6 +113,7 @@ const RoundTimelineLabel = ({
         combatActorName={combatActor.name}
         closeHandler={handleConditionDialogClose}
         conditions={combatActor.conditions}
+        concentration={combatActor.concentration}
       />
     </>
   );
