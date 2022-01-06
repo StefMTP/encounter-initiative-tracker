@@ -127,7 +127,7 @@ const SavedCombatItem = ({ combat }: { combat: savedCombat }) => {
       <Collapse in={infoOpen} timeout="auto" unmountOnExit>
         <List component="div">
           {combat.savedActors.map((actor) => (
-            <ListItem alignItems="center">
+            <ListItem alignItems="center" key={actor.id}>
               <ListItemIcon>
                 {actor.type === "PC" ? (
                   <Person
