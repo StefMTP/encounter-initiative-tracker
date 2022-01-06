@@ -32,7 +32,15 @@ const PlayerStatusRow = ({
         return true;
       }
       setStatusRemoveAlertMessage(
-        `${tmpPlayerStatus.status} was removed from ${tmpPlayerStatus.name}`
+        `${
+          tmpPlayerStatus.status.trim().length === 0
+            ? "Status"
+            : tmpPlayerStatus.status
+        } was removed from ${
+          tmpPlayerStatus.name.trim().length === 0
+            ? "character"
+            : tmpPlayerStatus.name
+        }`
       );
       setStatusRemoveAlertOpen(true);
       return false;
