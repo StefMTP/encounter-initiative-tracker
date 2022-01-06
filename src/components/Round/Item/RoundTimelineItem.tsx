@@ -78,8 +78,8 @@ const RoundTimelineItem = ({
             sx={{
               height:
                 turn.number === index + 1 || turn.number === index
-                  ? "1.5em"
-                  : "1em",
+                  ? "2.2em"
+                  : "1.7em",
             }}
           />
         ) : null}
