@@ -1,17 +1,22 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import {
   Box,
+  Button,
   Dialog,
   DialogTitle,
+  Divider,
   FormControl,
+  Grid,
   IconButton,
   InputLabel,
   List,
+  ListSubheader,
   MenuItem,
   Select,
+  TextField,
   Typography,
 } from "@mui/material";
-import { Close } from "@mui/icons-material";
+import { Add, Close, Delete, Edit } from "@mui/icons-material";
 import ConditionDialogDescription from "./ConditionDialogDescription";
 import { CombatActorsContext } from "../../../../../contexts/CombatActorsContext";
 import { conditionsTable } from "../../../../../data/conditions";
@@ -23,14 +28,50 @@ const ConditionDialog = ({
   combatActorName,
   closeHandler,
   conditions,
+  concentration,
 }: {
   open: boolean;
   combatActorId: string;
   combatActorName: string;
   closeHandler: () => void;
   conditions: string[] | undefined;
+  concentration: string | undefined;
 }) => {
   const { combatActors, setCombatActors } = useContext(CombatActorsContext);
+
+  const [concentrationFill, setConcentrationFill] = useState(false);
+  const [concentrationInput, setConcentrationInput] = useState("");
+
+  const addConcentrationToCombatActor = (
+    combatActorId: string,
+    concentrationInput: string
+  ) => {
+    const combatActorToEdit = combatActors.find(
+      (combatActor) => combatActorId === combatActor.id
+    );
+    if (combatActorToEdit) {
+      combatActorToEdit.concentration = concentrationInput;
+      const tmpActors = combatActors.filter(
+        (combatActor) => combatActor.id !== combatActorId
+      );
+      tmpActors.push(combatActorToEdit);
+      setCombatActors(sortPlayerActors(tmpActors));
+    }
+  };
+
+  const removeConcentrationFromCombatActor = (combatActorId: string) => {
+    const combatActorToEdit = combatActors.find(
+      (combatActor) => combatActorId === combatActor.id
+    );
+    if (combatActorToEdit) {
+      combatActorToEdit.concentration = undefined;
+      const tmpActors = combatActors.filter(
+        (combatActor) => combatActor.id !== combatActorId
+      );
+      tmpActors.push(combatActorToEdit);
+      setCombatActors(sortPlayerActors(tmpActors));
+    }
+  };
 
   const addConditionToCombatActor = (
     combatActorId: string,
@@ -87,26 +128,103 @@ const ConditionDialog = ({
       <Box
         sx={{
           width: "100%",
-          minWidth: 400,
+          minWidth: 450,
           padding: "10px 0",
           bgcolor: "background.paper",
         }}
       >
-        {!!conditions && conditions.length > 0 ? (
-          <List>
-            {conditions.map((condition) => (
+        <List>
+          <ListSubheader component="div">Conditions</ListSubheader>
+          {!!conditions && conditions.length > 0 ? (
+            conditions.map((condition) => (
               <ConditionDialogDescription
                 key={condition}
                 condition={condition}
                 combatActorId={combatActorId}
               />
-            ))}
-          </List>
-        ) : (
-          <Typography variant="h6" textAlign="center">
-            Character has no conditions...
-          </Typography>
-        )}
+            ))
+          ) : (
+            <Typography variant="h6" textAlign="center">
+              No conditions.
+            </Typography>
+          )}
+          <Divider light />
+          <ListSubheader component="div">Concentration</ListSubheader>
+          {concentrationFill ? (
+            <form
+              onSubmit={() => {
+                addConcentrationToCombatActor(
+                  combatActorId,
+                  concentrationInput
+                );
+                setConcentrationFill(false);
+                setConcentrationInput("");
+              }}
+            >
+              <Grid container justifyContent="space-evenly" alignItems="center">
+                <Grid item>
+                  <TextField
+                    label="Concentrating on..."
+                    value={concentrationInput}
+                    onChange={(e) => setConcentrationInput(e.target.value)}
+                  />
+                </Grid>
+                <Grid item>
+                  <Button variant="contained" color="success" type="submit">
+                    Submit
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          ) : !!concentration && concentration.trim().length !== 0 ? (
+            <Grid container alignItems="center">
+              <Grid item xs={8}>
+                <Typography variant="h5" textAlign="center">
+                  {concentration}
+                </Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <IconButton
+                  color="info"
+                  onClick={() => {
+                    setConcentrationInput(concentration);
+                    setConcentrationFill(true);
+                  }}
+                >
+                  <Edit />
+                </IconButton>
+              </Grid>
+              <Grid item xs={2}>
+                <IconButton
+                  color="error"
+                  onClick={() => {
+                    removeConcentrationFromCombatActor(combatActorId);
+                  }}
+                >
+                  <Delete />
+                </IconButton>
+              </Grid>
+            </Grid>
+          ) : (
+            <Grid container alignItems="center">
+              <Grid item xs={8}>
+                <Typography variant="h6" textAlign="center">
+                  No concentration.
+                </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  color="success"
+                  endIcon={<Add />}
+                  onClick={() => setConcentrationFill(true)}
+                >
+                  Add
+                </Button>
+              </Grid>
+            </Grid>
+          )}
+        </List>
       </Box>
     </Dialog>
   );
