@@ -20,11 +20,13 @@ import { sortPlayerActors } from "../../../../../helpers";
 const ConditionDialog = ({
   open,
   combatActorId,
+  combatActorName,
   closeHandler,
   conditions,
 }: {
   open: boolean;
   combatActorId: string;
+  combatActorName: string;
   closeHandler: () => void;
   conditions: string[] | undefined;
 }) => {
@@ -54,8 +56,15 @@ const ConditionDialog = ({
 
   return (
     <Dialog open={open} onClose={closeHandler}>
-      <DialogTitle sx={{ display: "flex", gap: "10px", alignItems: "center" }}>
-        Character conditions
+      <DialogTitle
+        sx={{
+          display: "flex",
+          gap: "20px",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <Typography variant="h5">{combatActorName}</Typography>
         <FormControl sx={{ width: "80px" }}>
           <InputLabel>Add</InputLabel>
           <Select>
@@ -78,7 +87,7 @@ const ConditionDialog = ({
       <Box
         sx={{
           width: "100%",
-          maxWidth: 400,
+          minWidth: 400,
           padding: "10px 0",
           bgcolor: "background.paper",
         }}

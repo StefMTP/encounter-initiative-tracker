@@ -91,6 +91,7 @@ const RoundTimelineLabel = ({
       <ConditionDialog
         open={isDialogOpen}
         combatActorId={combatActor.id}
+        combatActorName={combatActor.name}
         closeHandler={handleConditionDialogClose}
         conditions={combatActor.conditions}
       />
