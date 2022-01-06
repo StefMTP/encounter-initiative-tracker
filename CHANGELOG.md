@@ -52,3 +52,8 @@ version 1.0.10
 
 - feature: add character and saved combat buttons can be accessed through a floating action button on the bottom right
 - various style and design changes/tweaks
+
+version 1.0.11
+
+- placed remove all characters and statuses buttons in the floating action menu
+- small tweaks and fixes with the general interface
