@@ -57,3 +57,7 @@ version 1.0.11
 
 - placed remove all characters and statuses buttons in the floating action menu
 - small tweaks and fixes with the general interface
+
+version 1.0.12
+
+- now you can add concentration spells and powers on characters under conditions
