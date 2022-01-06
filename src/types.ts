@@ -12,14 +12,15 @@ export type colors = {
 export type combatant = {
   id: string;
   name: string;
+  initiative: number;
+  alignment: combatantAlignment;
+  type: combatantType;
+  class?: string;
+  color?: color;
   currentHp?: number;
   maxHp?: number;
-  class?: string;
-  alignment: combatantAlignment;
-  color?: color;
-  type: combatantType;
-  initiative: number;
   conditions?: string[];
+  concentration?: string;
 };
 
 export type turn = {
