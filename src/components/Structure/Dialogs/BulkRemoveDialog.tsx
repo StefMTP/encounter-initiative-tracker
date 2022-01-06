@@ -48,8 +48,8 @@ const BulkRemoveDialog = ({
           </Grid>
           <Grid item>
             <Button
-              variant="outlined"
-              color="warning"
+              variant="contained"
+              color="info"
               onClick={() => openSetter(false)}
             >
               No
