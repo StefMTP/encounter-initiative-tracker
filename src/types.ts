@@ -15,10 +15,12 @@ export type combatant = {
   initiative: number;
   alignment: combatantAlignment;
   type: combatantType;
+  race?: string;
   class?: string;
   color?: color;
   currentHp?: number;
   maxHp?: number;
+  movementSpd?: number;
   conditions?: string[];
   concentration?: string;
 };

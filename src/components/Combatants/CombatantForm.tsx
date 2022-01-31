@@ -7,8 +7,15 @@ import {
   Select,
   MenuItem,
   Button,
+  IconButton,
 } from "@mui/material";
-import { AddReaction } from "@mui/icons-material";
+import {
+  AddReaction,
+  ArrowDownwardOutlined,
+  ArrowUpwardOutlined,
+  KeyboardArrowDown,
+  KeyboardArrowUp,
+} from "@mui/icons-material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { v4 as uuid } from "uuid";
 import { TurnContext } from "../../contexts/TurnContext";
@@ -28,9 +35,11 @@ const CombatantForm = ({
   const [inputAlignment, setInputAlignment] =
     useState<combatantAlignment>("PARTY");
   const [inputType, setInputType] = useState<combatantType>("PC");
+  const [inputRace, setInputRace] = useState<string>("");
   const [inputClass, setInputClass] = useState<string>("");
   const [inputHp, setInputHp] = useState<string>("");
   const [inputColor, setInputColor] = useState<string>("Default");
+  const [inputMovementSpd, setInputMovementSpd] = useState<string>("");
 
   const { setActorSubmitAlertOpen, setActorSubmitAlertMessage } =
     useContext(AlertContext);
@@ -112,8 +121,10 @@ const CombatantForm = ({
               required
               value={inputInitiative}
               onChange={(e) => {
+                if (!isNaN(+e.target.value.substr(-1))) {
+                  setInputInitiative(e.target.value);
+                }
                 e.target.setCustomValidity("");
-                setInputInitiative(e.target.value);
               }}
             />
           </Grid>
@@ -160,20 +171,12 @@ const CombatantForm = ({
           </Grid>
           <Grid item>
             <TextField
-              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-              onInvalid={(e: any) => {
-                if (e.target.validity.patternMismatch) {
-                  e.target.setCustomValidity("Type a number!");
-                }
-              }}
+              type="text"
               variant="standard"
-              label="Health Points"
+              label="Race"
               color="secondary"
-              value={inputHp}
-              onChange={(e) => {
-                e.target.setCustomValidity("");
-                setInputHp(e.target.value);
-              }}
+              value={inputRace}
+              onChange={(e) => setInputRace(e.target.value)}
             />
           </Grid>
           <Grid item>
@@ -197,6 +200,54 @@ const CombatantForm = ({
                 ))}
               </Select>
             </FormControl>
+          </Grid>
+        </Grid>
+        <Grid container my={4} justifyContent="space-evenly">
+          <Grid item>
+            <TextField
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+              onInvalid={(e: any) => {
+                if (e.target.validity.patternMismatch) {
+                  e.target.setCustomValidity("Type a number!");
+                }
+              }}
+              variant="standard"
+              label="Health Points"
+              color="secondary"
+              value={inputHp}
+              onChange={(e) => {
+                if (!isNaN(+e.target.value.substr(-1))) {
+                  setInputHp(e.target.value);
+                }
+                e.target.setCustomValidity("");
+              }}
+            />
+          </Grid>
+          <Grid item display="flex">
+            <TextField
+              label="Movement Speed"
+              value={inputMovementSpd}
+              variant="standard"
+            />
+            <Grid display="grid">
+              <IconButton
+                size="small"
+                onClick={() => setInputMovementSpd(`${+inputMovementSpd + 5}`)}
+              >
+                <KeyboardArrowUp />
+              </IconButton>
+              <IconButton
+                disabled={+inputMovementSpd === 0}
+                size="small"
+                onClick={() => {
+                  if (+inputMovementSpd !== 0) {
+                    setInputMovementSpd(`${+inputMovementSpd - 5}`);
+                  }
+                }}
+              >
+                <KeyboardArrowDown />
+              </IconButton>
+            </Grid>
           </Grid>
         </Grid>
         <Grid m={2} display="grid">
