@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ClickAwayListener, Tooltip, Fab, Zoom } from "@mui/material";
+import { ClickAwayListener, Tooltip, Fab } from "@mui/material";
 import {
   Clear,
   MoreVert,
@@ -7,14 +7,17 @@ import {
   SportsKabaddi,
   GroupRemove,
   DeleteSweep,
+  DeleteForever,
 } from "@mui/icons-material";
-import { green } from "@mui/material/colors";
+import { green, pink, red, orange, deepOrange } from "@mui/material/colors";
+import FloatingAction from "./FloatingAction";
 
 const FloatingActionsButton = ({
   toggleAddHandler,
   toggleDrawerHandler,
   removeCharactersHandler,
   removeStatusesHandler,
+  removeAllDataHandler,
 }: {
   toggleAddHandler: () => void;
   toggleDrawerHandler: () => (
@@ -22,8 +25,42 @@ const FloatingActionsButton = ({
   ) => void;
   removeCharactersHandler: () => void;
   removeStatusesHandler: () => void;
+  removeAllDataHandler: () => void;
 }) => {
   const [isFabExpanded, setIsFabExpanded] = useState(false);
+
+  const floatingActions = [
+    {
+      bgColor: green,
+      tooltip: "Insert Character",
+      actionHandler: toggleAddHandler,
+      icon: <Add />,
+    },
+    {
+      bgColor: pink,
+      tooltip: "Saved Combats",
+      actionHandler: toggleDrawerHandler(),
+      icon: <SportsKabaddi />,
+    },
+    {
+      bgColor: deepOrange,
+      tooltip: "Remove all Characters",
+      actionHandler: removeCharactersHandler,
+      icon: <GroupRemove />,
+    },
+    {
+      bgColor: orange,
+      tooltip: "Remove all Statuses",
+      actionHandler: removeStatusesHandler,
+      icon: <DeleteSweep />,
+    },
+    {
+      bgColor: red,
+      tooltip: "Clear all Data",
+      actionHandler: removeAllDataHandler,
+      icon: <DeleteForever />,
+    },
+  ];
 
   return (
     <>
@@ -38,94 +75,19 @@ const FloatingActionsButton = ({
           </Fab>
         </Tooltip>
       </ClickAwayListener>
-      <Zoom
-        in={isFabExpanded}
-        style={{ transitionDelay: isFabExpanded ? "50ms" : "0ms" }}
-      >
-        <Tooltip title="Insert Character" placement="right">
-          <Fab
-            sx={{
-              color: "common.white",
-              bgcolor: green[500],
-              "&:hover": {
-                bgcolor: green[600],
-              },
-              position: "fixed",
-              bottom: 100,
-              right: 30,
-            }}
-            onClick={toggleAddHandler}
-          >
-            <Add />
-          </Fab>
-        </Tooltip>
-      </Zoom>
-      <Zoom
-        in={isFabExpanded}
-        style={{ transitionDelay: isFabExpanded ? "100ms" : "0ms" }}
-      >
-        <Tooltip title="Saved Combats" placement="right">
-          <Fab
-            sx={{
-              color: "common.white",
-              bgcolor: "secondary.main",
-              "&:hover": {
-                bgcolor: "secondary.dark",
-              },
-              position: "fixed",
-              bottom: 170,
-              right: 30,
-            }}
-            onClick={toggleDrawerHandler()}
-          >
-            <SportsKabaddi />
-          </Fab>
-        </Tooltip>
-      </Zoom>
-      <Zoom
-        in={isFabExpanded}
-        style={{ transitionDelay: isFabExpanded ? "150ms" : "0ms" }}
-      >
-        <Tooltip title="Remove all characters" placement="right">
-          <Fab
-            sx={{
-              color: "common.white",
-              bgcolor: "error.main",
-              "&:hover": {
-                bgcolor: "error.dark",
-              },
-              position: "fixed",
-              bottom: 240,
-              right: 30,
-            }}
-            onClick={removeCharactersHandler}
-          >
-            <GroupRemove />
-          </Fab>
-        </Tooltip>
-      </Zoom>
-      <Zoom
-        in={isFabExpanded}
-        style={{ transitionDelay: isFabExpanded ? "200ms" : "0ms" }}
-      >
-        <Tooltip title="Remove all statuses" placement="right">
-          <Fab
-            sx={{
-              color: "common.white",
-              bgcolor: "warning.main",
-              "&:hover": {
-                bgcolor: "warning.dark",
-              },
-              position: "fixed",
-              bottom: 310,
-              right: 30,
-            }}
-            onClick={removeStatusesHandler}
-          >
-            <DeleteSweep />
-          </Fab>
-        </Tooltip>
-      </Zoom>
+      {floatingActions.map((action, index) => (
+        <FloatingAction
+          key={index}
+          isFabExpanded={isFabExpanded}
+          bgColor={action.bgColor}
+          tooltip={action.tooltip}
+          bottom={index * 70 + 100}
+          transitionDelay={50 * index}
+          actionHandler={action.actionHandler}
+        >
+          {action.icon}
+        </FloatingAction>
+      ))}
     </>
   );
 };
