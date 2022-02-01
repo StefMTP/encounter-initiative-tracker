@@ -9,15 +9,18 @@ import FloatingActionsButton from "./Buttons/FloatingActionsButton";
 import { AlertContext } from "../../contexts/AlertContext";
 import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
+import { TurnContext } from "../../contexts/TurnContext";
 
 const SideBar = () => {
   const [isActorsDialogOpen, setIsActorsDialogOpen] = useState(false);
   const [isStatusDialogOpen, setIsStatusDialogOpen] = useState(false);
+  const [isDataDialogOpen, setIsDataDialogOpen] = useState(false);
   const [addIsOpen, setAddIsOpen] = useState(false);
   const [drawer, setDrawer] = useState(false);
 
   const { setPlayerStatuses } = useContext(PlayerStatusesContext);
-  const { setCombatActors } = useContext(CombatActorsContext);
+  const { setCombatActors, combatActors } = useContext(CombatActorsContext);
+  const { setRound, setTurn } = useContext(TurnContext);
   const {
     statusRemoveAlertOpen,
     setStatusRemoveAlertOpen,
@@ -42,6 +45,22 @@ const SideBar = () => {
   const clearActors = () => {
     setCombatActors([]);
     setIsActorsDialogOpen(false);
+  };
+
+  const handleCloseRemoveData = () => {
+    setIsDataDialogOpen(!isDataDialogOpen);
+  };
+
+  const resetRounds = () => {
+    setRound(1);
+    setTurn({ number: 0, actorPlaying: combatActors[0] });
+  };
+
+  const clearAllData = () => {
+    setCombatActors([]);
+    setPlayerStatuses([]);
+    resetRounds();
+    setIsDataDialogOpen(false);
   };
 
   const handleRemoveAlertClose = (
@@ -88,7 +107,7 @@ const SideBar = () => {
         closeHandler={handleCloseRemoveStatuses}
         openSetter={setIsStatusDialogOpen}
         contextClearer={clearStatuses}
-        dialogMessage={`By pressing "Yes" all current statuses will be lost. Are you sure
+        dialogMessage={`By pressing "Yes", all current statuses will be lost. Are you sure
         you want to go on?`}
       />
       <BulkRemoveDialog
@@ -96,7 +115,15 @@ const SideBar = () => {
         closeHandler={handleCloseRemoveActors}
         openSetter={setIsActorsDialogOpen}
         contextClearer={clearActors}
-        dialogMessage={`By pressing "Yes" all current characters will be lost. Are you sure
+        dialogMessage={`By pressing "Yes", all current characters will be lost. Are you sure
+        you want to do this?`}
+      />
+      <BulkRemoveDialog
+        open={isDataDialogOpen}
+        closeHandler={handleCloseRemoveData}
+        openSetter={setIsDataDialogOpen}
+        contextClearer={clearAllData}
+        dialogMessage={`By pressing "Yes", all current data (characters and statuses) will be lost. Are you sure
         you want to do this?`}
       />
       <CombatantFormDialog
@@ -122,6 +149,7 @@ const SideBar = () => {
         toggleDrawerHandler={toggleDrawer}
         removeCharactersHandler={handleCloseRemoveActors}
         removeStatusesHandler={handleCloseRemoveStatuses}
+        removeAllDataHandler={handleCloseRemoveData}
       />
     </>
   );

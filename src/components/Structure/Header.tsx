@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Typography, Grid, Button } from "@mui/material";
 import TurnButton from "./Buttons/TurnButton";
-import BulkRemoveDialog from "./Dialogs/BulkRemoveDialog";
 import { TurnContext } from "../../contexts/TurnContext";
 import { AlertContext } from "../../contexts/AlertContext";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
@@ -9,29 +8,16 @@ import { PlayerStatusesContext } from "../../contexts/PlayerStatusesContext";
 
 const Header = () => {
   const { turn, setTurn, round, setRound } = useContext(TurnContext);
-  const { combatActors, setCombatActors } = useContext(CombatActorsContext);
+  const { combatActors } = useContext(CombatActorsContext);
   const { playerStatuses, setPlayerStatuses } = useContext(
     PlayerStatusesContext
   );
   const { setStatusRemoveAlertOpen, setStatusRemoveAlertMessage } =
     useContext(AlertContext);
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleClose = () => {
-    setIsOpen(!isOpen);
-  };
-
   const resetRounds = () => {
     setRound(1);
     setTurn({ number: 0, actorPlaying: combatActors[0] });
-  };
-
-  const clearAll = () => {
-    setCombatActors([]);
-    setPlayerStatuses([]);
-    resetRounds();
-    setIsOpen(false);
   };
 
   const changeTurn = (turnButtonType: "next" | "previous") => {
@@ -127,14 +113,14 @@ const Header = () => {
           >
             Reset Rounds
           </Button>
-          <Button
+          {/* <Button
             size="small"
             variant="outlined"
             color="error"
             onClick={() => setIsOpen(true)}
           >
             Clear all
-          </Button>
+          </Button> */}
         </Grid>
         <Grid item>
           <TurnButton
@@ -145,14 +131,14 @@ const Header = () => {
           />
         </Grid>
       </Grid>
-      <BulkRemoveDialog
+      {/* <BulkRemoveDialog
         open={isOpen}
         closeHandler={handleClose}
         openSetter={setIsOpen}
         contextClearer={clearAll}
         dialogMessage={`By pressing "Yes" all current data (characters and statuses) will be lost. Are you sure
         you want to do this?`}
-      />
+      /> */}
     </>
   );
 };
