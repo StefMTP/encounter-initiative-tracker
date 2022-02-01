@@ -108,19 +108,11 @@ const Header = () => {
           <Button
             size="small"
             variant="outlined"
-            color="warning"
+            color="error"
             onClick={() => resetRounds()}
           >
             Reset Rounds
           </Button>
-          {/* <Button
-            size="small"
-            variant="outlined"
-            color="error"
-            onClick={() => setIsOpen(true)}
-          >
-            Clear all
-          </Button> */}
         </Grid>
         <Grid item>
           <TurnButton
