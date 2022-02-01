@@ -11,8 +11,6 @@ import {
 } from "@mui/material";
 import {
   AddReaction,
-  ArrowDownwardOutlined,
-  ArrowUpwardOutlined,
   KeyboardArrowDown,
   KeyboardArrowUp,
 } from "@mui/icons-material";
@@ -68,9 +66,12 @@ const CombatantForm = ({
   const clearInputs = () => {
     setInputName("");
     setInputInitiative("");
+    setInputMovementSpd("");
     setInputAlignment("PARTY");
     setInputType("PC");
     setInputHp("");
+    setInputClass("");
+    setInputRace("");
     setInputColor("Default");
   };
 
@@ -192,7 +193,9 @@ const CombatantForm = ({
                     <Grid container alignContent="center">
                       <span>{color} </span>
                       <FiberManualRecordIcon
-                        sx={{ color: colorTable[color]["primary"] }}
+                        sx={{
+                          color: colorTable[color]["primary"],
+                        }}
                         fontSize="small"
                       />
                     </Grid>
