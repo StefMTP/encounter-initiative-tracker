@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import {
   TableCell,
   TextField,
@@ -9,6 +9,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import { CombatActorsContext } from "../../contexts/CombatActorsContext";
+import { KeyboardArrowUp, KeyboardArrowDown } from "@mui/icons-material";
 
 const PlayerStatusCell = ({
   fieldFill,
@@ -35,6 +36,14 @@ const PlayerStatusCell = ({
   type: "autocomplete" | "text" | "number" | undefined;
 }) => {
   const { combatActors } = useContext(CombatActorsContext);
+
+  useEffect(() => {
+    if (type === "number") {
+      setFieldInputHandler(playerStatusField);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playerStatusField]);
+
   return (
     <TableCell>
       <Grid container alignItems="center">
@@ -68,20 +77,34 @@ const PlayerStatusCell = ({
                 }}
               />
             ) : (
-              <TextField
-                inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                onInvalid={(e: any) => {
-                  if (e.target.validity.patternMismatch) {
-                    e.target.setCustomValidity("Type a number!");
-                  }
-                }}
-                variant="standard"
-                size="small"
-                onChange={(e) => {
-                  e.target.setCustomValidity("");
-                  setFieldInputHandler(e.target.value);
-                }}
-              />
+              <Grid alignItems="center" display="flex">
+                <TextField
+                  disabled
+                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                  value={fieldInput}
+                  variant="standard"
+                  size="small"
+                />
+                <Grid display="grid">
+                  <IconButton
+                    size="small"
+                    onClick={() => setFieldInputHandler(`${+fieldInput + 1}`)}
+                  >
+                    <KeyboardArrowUp />
+                  </IconButton>
+                  <IconButton
+                    disabled={+fieldInput === 0}
+                    size="small"
+                    onClick={() => {
+                      if (+fieldInput !== 0) {
+                        setFieldInputHandler(`${+fieldInput - 1}`);
+                      }
+                    }}
+                  >
+                    <KeyboardArrowDown />
+                  </IconButton>
+                </Grid>
+              </Grid>
             )}
           </form>
         ) : (
