@@ -42,7 +42,7 @@ const RoundTimelineLabel = ({
             !combatActor.concentration ||
             combatActor.concentration.trim().length <= 0
           }
-          badgeContent={combatActor.concentration}
+          badgeContent={`${combatActor.concentration?.substring(0, 15)}...`}
           color="secondary"
           anchorOrigin={{
             vertical: "top",
