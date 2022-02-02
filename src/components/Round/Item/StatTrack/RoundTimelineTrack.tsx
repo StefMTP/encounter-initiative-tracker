@@ -141,6 +141,13 @@ const RoundTimelineTrack = ({
           /{combatActor.maxHp}
         </Grid>
       )}
+      {combatActor.movementSpd && (
+        <Grid
+          color={color(index, turnNumber, combatActor, "text.secondary", true)}
+        >
+          Speed: {combatActor.movementSpd}
+        </Grid>
+      )}
     </>
   );
 };

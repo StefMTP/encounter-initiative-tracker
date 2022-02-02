@@ -42,7 +42,11 @@ const RoundTimelineLabel = ({
             !combatActor.concentration ||
             combatActor.concentration.trim().length <= 0
           }
-          badgeContent={`${combatActor.concentration?.substring(0, 15)}...`}
+          badgeContent={
+            combatActor.concentration && combatActor.concentration.length >= 15
+              ? combatActor.concentration.substring(0, 15) + "..."
+              : combatActor.concentration
+          }
           color="secondary"
           anchorOrigin={{
             vertical: "top",
@@ -93,17 +97,33 @@ const RoundTimelineLabel = ({
                 {combatActor.name}
               </Typography>
             </Tooltip>
-            <Typography
-              color={color(
-                index,
-                turnNumber,
-                combatActor,
-                "text.secondary",
-                true
-              )}
-            >
-              {combatActor.class}
-            </Typography>
+            {combatActor.race && (
+              <Typography
+                color={color(
+                  index,
+                  turnNumber,
+                  combatActor,
+                  "text.secondary",
+                  true
+                )}
+              >
+                {combatActor.alignment === "PARTY" ? "Race" : "Creature Type"}:{" "}
+                {combatActor.race}
+              </Typography>
+            )}
+            {combatActor.class && (
+              <Typography
+                color={color(
+                  index,
+                  turnNumber,
+                  combatActor,
+                  "text.secondary",
+                  true
+                )}
+              >
+                Class: {combatActor.class}
+              </Typography>
+            )}
           </Grid>
         </Badge>
       </Badge>
