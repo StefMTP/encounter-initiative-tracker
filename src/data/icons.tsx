@@ -1,0 +1,33 @@
+import {
+  Shield,
+  Casino,
+  Colorize,
+  Diamond,
+  Favorite,
+  LightMode,
+  LocalFireDepartment,
+  SelfImprovement,
+  SportsMartialArts,
+  Star,
+  Visibility,
+  Bedtime,
+  Bolt,
+  AcUnit,
+} from "@mui/icons-material";
+
+export const iconsTable = [
+  { name: "Dice", icon: <Casino /> },
+  { name: "Shield", icon: <Shield /> },
+  { name: "Sword", icon: <Colorize /> },
+  { name: "Sun", icon: <LightMode /> },
+  { name: "Moon", icon: <Bedtime /> },
+  { name: "Star", icon: <Star /> },
+  { name: "Fire", icon: <LocalFireDepartment /> },
+  { name: "Thunder", icon: <Bolt /> },
+  { name: "Ice", icon: <AcUnit /> },
+  { name: "Heart", icon: <Favorite /> },
+  { name: "Diamond", icon: <Diamond /> },
+  { name: "Eye", icon: <Visibility /> },
+  { name: "Meditation", icon: <SelfImprovement /> },
+  { name: "Martial", icon: <SportsMartialArts /> },
+];

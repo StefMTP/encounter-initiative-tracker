@@ -70,6 +70,7 @@ const RoundTimelineItem = ({
             <CombatantIcon
               size={index === turn.number ? "large" : "medium"}
               combatActorType={combatActor.type}
+              icon={combatActor.icon}
             />
           </TimelineDot>
         </Tooltip>

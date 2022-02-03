@@ -1,20 +1,25 @@
 import { AccessibilityNew } from "@mui/icons-material";
 import DefaultEnemy from "../Structure/Icons/CombatantIcons/DefaultEnemy";
 import DefaultParty from "../Structure/Icons/CombatantIcons/DefaultParty";
+import SelectedIcon from "../Structure/Icons/CombatantIcons/SelectedIcon";
 
 const CombatantIcon = ({
-  size,
   combatActorType,
+  size,
+  icon,
 }: {
-  size: "small" | "inherit" | "large" | "medium" | undefined;
   combatActorType: string;
+  size: "small" | "inherit" | "large" | "medium" | undefined;
+  icon?: string;
 }) => {
-  return combatActorType === "PC" ? (
-    <DefaultParty size={size} />
+  return icon ? (
+    <SelectedIcon combatantIconName={icon} color="action" size={size} />
+  ) : combatActorType === "PC" ? (
+    <DefaultParty color="action" size={size} />
   ) : combatActorType === "NPC" ? (
     <AccessibilityNew color="action" fontSize={size} />
   ) : (
-    <DefaultEnemy size={size} />
+    <DefaultEnemy color="action" size={size} />
   );
 };
 

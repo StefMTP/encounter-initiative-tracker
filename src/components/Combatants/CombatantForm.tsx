@@ -25,6 +25,7 @@ import { CombatActorsContext } from "../../contexts/CombatActorsContext";
 import { combatant, combatantType } from "../../types";
 import { sortPlayerActors } from "../../helpers";
 import { colorTable } from "../../data/colors";
+import { iconsTable } from "../../data/icons";
 import CustomSvgIcon from "../Structure/Icons/CustomSvgIcon";
 
 const CombatantForm = ({
@@ -40,6 +41,7 @@ const CombatantForm = ({
   const [inputClass, setInputClass] = useState<string>("");
   const [inputHp, setInputHp] = useState<string>("");
   const [inputColor, setInputColor] = useState<string>("Default");
+  const [inputIcon, setInputIcon] = useState<string>("");
   const [inputMovementSpd, setInputMovementSpd] = useState<string>("");
 
   const { setActorSubmitAlertOpen, setActorSubmitAlertMessage } =
@@ -76,6 +78,7 @@ const CombatantForm = ({
     setInputClass("");
     setInputRace("");
     setInputColor("Default");
+    setInputIcon("");
   };
 
   return (
@@ -96,6 +99,7 @@ const CombatantForm = ({
             currentHp: +inputHp || 0,
             maxHp: +inputHp || 0,
             movementSpd: +inputMovementSpd || 0,
+            icon: inputIcon,
           };
           submitCombatActor(combatActorSubmit);
           clearInputs();
@@ -172,6 +176,29 @@ const CombatantForm = ({
                 <MenuItem value="PC">PC</MenuItem>
                 <MenuItem value="NPC">NPC</MenuItem>
                 <MenuItem value="Enemy">Enemy</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item>
+            <FormControl sx={{ minWidth: "80px" }}>
+              <InputLabel>Icon</InputLabel>
+              <Select
+                value={inputIcon}
+                onChange={(e) => setInputIcon(e.target.value)}
+                variant="standard"
+              >
+                {iconsTable.map((icon) => (
+                  <MenuItem key={icon.name} value={icon.name}>
+                    <Grid
+                      container
+                      alignContent="center"
+                      justifyContent="space-between"
+                    >
+                      <span>{icon.name}</span>
+                      {icon.icon}
+                    </Grid>
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>

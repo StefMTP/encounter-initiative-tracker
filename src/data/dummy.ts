@@ -1,6 +1,5 @@
 import { combatant, playerStatus } from "../types";
 import { colorTable } from "./colors";
-import { iconsTable } from "./icons";
 
 export const dummyCombatants: combatant[] = [
   {
@@ -16,7 +15,7 @@ export const dummyCombatants: combatant[] = [
     initiative: 15,
     movementSpd: 30,
     conditions: ["Poisoned"],
-    icon: iconsTable.find((icon) => icon.name === "Sword")?.icon,
+    icon: "Sword",
   },
   {
     id: "def",
@@ -30,7 +29,7 @@ export const dummyCombatants: combatant[] = [
     type: "PC",
     initiative: 12,
     movementSpd: 30,
-    icon: iconsTable.find((icon) => icon.name === "Eye")?.icon,
+    icon: "Eye",
   },
   {
     id: "ghi",
@@ -43,7 +42,7 @@ export const dummyCombatants: combatant[] = [
     initiative: 22,
     movementSpd: 40,
     conditions: ["Exhaustion", "Prone"],
-    icon: iconsTable.find((icon) => icon.name === "Fire")?.icon,
+    icon: "Fire",
   },
   {
     id: "jkl",
@@ -55,7 +54,7 @@ export const dummyCombatants: combatant[] = [
     type: "PC",
     initiative: 2,
     movementSpd: 25,
-    icon: iconsTable.find((icon) => icon.name === "Sun")?.icon,
+    icon: "Sun",
   },
   {
     id: "mno",

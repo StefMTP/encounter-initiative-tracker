@@ -1,6 +1,3 @@
-import { SvgIconTypeMap } from "@mui/material";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
-
 export type combatantAlignment = "PARTY" | "FOE";
 export type combatantType = "PC" | "NPC" | "ENEMY";
 
@@ -26,9 +23,7 @@ export type combatant = {
   movementSpd?: number;
   conditions?: string[];
   concentration?: string;
-  icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
-    muiName: string;
-  };
+  icon?: string;
 };
 
 export type turn = {
