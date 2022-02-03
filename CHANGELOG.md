@@ -61,3 +61,14 @@ version 1.0.11
 version 1.0.12
 
 - now you can add concentration spells and powers on characters under conditions
+
+
+version 1.1.0
+
+Breakthrough Updates, Welcome to version 1.1!!!
+
+- feature: added race/creature type and movement speed on characters
+- feature: added icon selection on characters
+- tweaked the appearance of some of the form's fields
+- passed almost all actions in the floating action button
+- fixes: numeric fields on the form and player status table, UI tweaks
