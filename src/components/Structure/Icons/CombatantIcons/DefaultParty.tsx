@@ -3,8 +3,10 @@ import CustomSvgIcon from "../CustomSvgIcon";
 
 const DefaultParty = ({
   size,
+  color,
 }: {
   size: "small" | "inherit" | "large" | "medium" | undefined;
+  color: "action" | undefined;
 }) => {
   return (
     <CustomSvgIcon
