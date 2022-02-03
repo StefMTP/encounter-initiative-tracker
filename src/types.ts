@@ -1,5 +1,5 @@
 export type combatantAlignment = "PARTY" | "FOE";
-export type combatantType = "PC" | "NPC" | "ENEMY";
+export type combatantType = "PC" | "NPC" | "ENEMY" | "INITIATIVE_MARK";
 
 export type color = {
   primary: string;

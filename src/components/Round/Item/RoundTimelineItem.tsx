@@ -34,6 +34,8 @@ const RoundTimelineItem = ({
       <TimelineOppositeContent
         sx={{ m: "auto 0" }}
         align="center"
+        justifyContent="center"
+        justifyItems="center"
         variant="body2"
       >
         <RoundTimelineTrack
@@ -67,11 +69,13 @@ const RoundTimelineItem = ({
               setOpen(false);
             }}
           >
-            <CombatantIcon
-              size={index === turn.number ? "large" : "medium"}
-              combatActorType={combatActor.type}
-              icon={combatActor.icon}
-            />
+            {combatActor.type !== "INITIATIVE_MARK" && (
+              <CombatantIcon
+                size={index === turn.number ? "large" : "medium"}
+                combatActorType={combatActor.type}
+                icon={combatActor.icon}
+              />
+            )}
           </TimelineDot>
         </Tooltip>
         {index < array.length - 1 ? (

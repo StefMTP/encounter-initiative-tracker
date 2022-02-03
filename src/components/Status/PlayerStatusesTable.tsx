@@ -9,6 +9,7 @@ import {
   TableBody,
   Button,
   Typography,
+  Slide,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { v4 as uuid } from "uuid";
@@ -28,56 +29,58 @@ const PlayerStatusesTable = () => {
   };
 
   return (
-    <TableContainer component={Paper} sx={{ maxWidth: 500 }}>
-      <Table sx={{ tableLayout: "fixed" }} size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Character</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Duration (rounds)</TableCell>
-            <TableCell align="right">
-              <Button
-                variant="outlined"
-                endIcon={<AddIcon />}
-                onClick={() =>
-                  submitPlayerStatus({
-                    id: uuid(),
-                    name: "",
-                    status: "",
-                    duration: 0,
-                  })
-                }
-              >
-                Add
-              </Button>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {playerStatuses.length <= 0 ? (
-            <TableRow
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell colSpan={4}>
-                <Typography textAlign="center">
-                  No status effects added.
-                </Typography>
+    <Slide in direction="left" timeout={1000}>
+      <TableContainer component={Paper} sx={{ maxWidth: 500 }}>
+        <Table sx={{ tableLayout: "fixed" }} size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>Character</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Duration (rounds)</TableCell>
+              <TableCell align="right">
+                <Button
+                  variant="outlined"
+                  endIcon={<AddIcon />}
+                  onClick={() =>
+                    submitPlayerStatus({
+                      id: uuid(),
+                      name: "",
+                      status: "",
+                      duration: 0,
+                    })
+                  }
+                >
+                  Add
+                </Button>
               </TableCell>
             </TableRow>
-          ) : (
-            playerStatuses.map((playerStatus) => (
-              <PlayerStatusRow
-                key={playerStatus.id}
-                combatActor={combatActors.find(
-                  (actor) => actor.name === playerStatus.name
-                )}
-                playerStatus={playerStatus}
-              />
-            ))
-          )}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {playerStatuses.length <= 0 ? (
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell colSpan={4}>
+                  <Typography textAlign="center">
+                    No status effects added.
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            ) : (
+              playerStatuses.map((playerStatus) => (
+                <PlayerStatusRow
+                  key={playerStatus.id}
+                  combatActor={combatActors.find(
+                    (actor) => actor.name === playerStatus.name
+                  )}
+                  playerStatus={playerStatus}
+                />
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Slide>
   );
 };
 
