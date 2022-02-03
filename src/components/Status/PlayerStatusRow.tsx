@@ -16,9 +16,11 @@ const PlayerStatusRow = ({
   const [nameFill, setNameFill] = useState<boolean>(false);
   const [statusFill, setStatusFill] = useState<boolean>(false);
   const [durationFill, setDurationFill] = useState<boolean>(false);
-  const [nameInput, setNameInput] = useState<string>("");
-  const [statusInput, setStatusInput] = useState<string>("");
-  const [durationInput, setDurationInput] = useState<string>("");
+  const [nameInput, setNameInput] = useState<string>(playerStatus.name);
+  const [statusInput, setStatusInput] = useState<string>(playerStatus.status);
+  const [durationInput, setDurationInput] = useState<string>(
+    playerStatus.duration.toString()
+  );
 
   const { playerStatuses, setPlayerStatuses } = useContext(
     PlayerStatusesContext
