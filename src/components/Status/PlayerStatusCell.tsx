@@ -72,6 +72,7 @@ const PlayerStatusCell = ({
                 type="text"
                 variant="standard"
                 size="small"
+                value={fieldInput}
                 onChange={(e) => {
                   setFieldInputHandler(e.target.value);
                 }}
